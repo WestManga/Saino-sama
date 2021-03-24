@@ -23,6 +23,7 @@ client.ticketTranscript = mongoose.model('transcripts',
 // -------------------------------------------------
 
 const blacklist = require('./models/blacklist')
+const prefixSchema = require('./models/prefix')
 
 const config = require('./config.json')
 const prefix = config.prefix
@@ -34,20 +35,43 @@ client.categories = fs.readdirSync("./commands/");
 ["command"].forEach(handler => {
     require(`./handlers/${handler}`)(client);
 }); 
+
+/**
+ * @param {Client} client
+ */
+    client.prefix = async function(message) {
+        let custom;
+
+        const data = await prefixSchema.findOne({ Guild : message.guild.id })
+        .catch(err => console.log(err))
+
+        if(data) {
+            custom = data.Prefix;
+        } else {
+            custom = prefix;
+        }
+        return custom;
+    }
+
 client.on('ready', () => {
     client.user.setActivity(`${prefix}help`)
     console.log(`${client.user.username} ✅`)
 })
+
 client.on('message', async message =>{
+    const p = await client.prefix(message)
+    if(message.mentions.users.first()) {
+        if(message.mentions.users.first().id === '436447151451668490' return message.channel.send(`Prefix in ${message.guild.name} is ${p}`)
+    }
     if(message.author.bot) return;
-    if(!message.content.startsWith(prefix)) return;
+    if(!message.content.startsWith(p)) return;
     blacklist.findOne({ id : message.author.id }, async(err, data) => {
         if(err) throw err;
         if(!data) {
             if (!message.guild) return;
             if(!message.guild) return;
             if(!message.member) message.member = await message.guild.fetchMember(message);
-            const args = message.content.slice(prefix.length).trim().split(/ +/g);
+            const args = message.content.slice(p.length).trim().split(/ +/g);
             const cmd = args.shift().toLowerCase();
             if(cmd.length == 0 ) return;
             let command = client.commands.get(cmd)
