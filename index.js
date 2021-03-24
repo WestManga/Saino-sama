@@ -61,7 +61,7 @@ client.on('ready', () => {
 client.on('message', async message =>{
     const p = await client.prefix(message)
     if(message.mentions.users.first()) {
-        if(message.mentions.users.first().id === '436447151451668490' return message.channel.send(`Prefix in ${message.guild.name} is ${p}`)
+        if(message.mentions.users.first().id === '436447151451668490') return message.channel.send(`Prefix in ${message.guild.name} is ${p}`)
     }
     if(message.author.bot) return;
     if(!message.content.startsWith(p)) return;
@@ -99,6 +99,15 @@ client.on('message', async(message) => {
         console.log('data is saved ')
     })
 
+})
+
+client.on('guildDelete', async (guild) => {
+    prefixSchema.findOne({ Guild : guild.id }, async (err, data) => {
+        if (err) throw err;
+        if (data) {
+            prefixSchema.findOneAndDelete({ Guild : guild.id }).then(console.log('Deleted data.'))
+        }
+    })
 })
 
 client.login(token)
