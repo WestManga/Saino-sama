@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@reconlx/discord.js": "^1.1.101",
     "ascii-table": "0.0.9",
     "axios": "^0.21.1",
     "discord-logs": "^1.9.0",
