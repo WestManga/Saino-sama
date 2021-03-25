@@ -29,7 +29,7 @@ const schema = mongoose.Schema({
     },
     bio: {
         type: String,
-        default: "Jonesmania"
+        default: `<prefix> bio [text]`
     },
     _time: {
         type: Number,
