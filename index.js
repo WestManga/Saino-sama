@@ -7,7 +7,6 @@ require('dotenv').config();
 
 // mongose env
 global.mongosee = require('mongoose');
-mongoose.set('useCreateIndex', true);
 const { debugPort } = require('process');
 mongosee.connect(process.env.MONGODB, {
 	useNewUrlParser: true,
