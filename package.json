@@ -1,14 +1,14 @@
 {
-  "name": "commandhandler",
+  "name": "Saino-sama",
   "version": "1.0.0",
-  "description": "",
+  "description": "Discord bot build Discord.JS and mongoose with commandhandler",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Watambeee",
+  "license": "MIT",
   "dependencies": {
     "@reconlx/discord.js": "^1.1.101",
     "ascii-table": "0.0.9",
@@ -20,6 +20,7 @@
     "images-scraper": "^6.2.0",
     "mangadex-full-api": "^4.4.0",
     "mathjs": "^9.3.0",
+    "moment": "^2.29.1",
     "mongoose": "^5.12.2",
     "nekos.life": "^2.0.7",
     "node-superfetch": "^0.1.11",
@@ -29,5 +30,10 @@
     "saucenao": "0.0.2",
     "scathach-api": "0.0.7",
     "translate-google": "^1.4.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhazm/Saino-sama.git"
+  },
+  "homepage": "https://discord.gg/xShMxD7tUy"
 }
