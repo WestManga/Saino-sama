@@ -15,6 +15,7 @@
     "axios": "^0.21.1",
     "discord-logs": "^1.9.0",
     "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
     "file-type": "^16.3.0",
     "images-scraper": "^6.2.0",
     "mangadex-full-api": "^4.4.0",
