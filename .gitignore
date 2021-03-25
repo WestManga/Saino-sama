@@ -4,4 +4,4 @@ config.json
 cache.txt
 json.sqlite
 .vscode
-index.js
+.env
