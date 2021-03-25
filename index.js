@@ -3,29 +3,24 @@ const Kosuke = require("./handlers/ClientBuilder.js");
 const fs = require('fs')
 const client = new Kosuke({ disableMentions: 'everyone', fetchAllMembers: true, partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 
-//mongoose config
-const mongoose = require('mongoose');
+require('dotenv').config();
+
+// mongose env
+global.mongosee = require('mongoose');
 const { debugPort } = require('process');
-
-mongoose.connect('mongodb://127.0.0.1:27017/kosuke', {
-    useUnifiedTopology : true,
-    useNewUrlParser : true,
-}).then(console.log('✅ Connected to MongoDB - Kosuke'))
-
-//schema  -----------------------------------------
- 
-client.ticketTranscript = mongoose.model('transcripts', 
-    new mongoose.Schema({
-        Channel : String,
-        Content : Array
-    })
-)
-// -------------------------------------------------
+mongosee.connect(process.env.MONGODB, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
+mongosee.connection.on('connected', () => {
+	console.log('[Database] Connected');
+});
 
 const blacklist = require('./models/blacklist')
 const prefixSchema = require('./models/prefix')
+const ticketTranscript = require('./models/ticket')
 
-const config = require('./config.json')
+const config = require('./config.json');
 const prefix = config.prefix
 const token = config.token
 const db = require('quick.db');
@@ -85,14 +80,14 @@ client.on('message', async message =>{
 
 client.on('message', async(message) => {
     if(message.channel.parentID !== '824261268851916821') return;
-    client.ticketTranscript.findOne({ Channel : message.channel.id }, async(err, data) => {
+    ticketTranscript.findOne({ Channel : message.channel.id }, async(err, data) => {
         if(err) throw err;
         if(data) {
            console.log('there is data')
            data.Content.push(`${message.author.tag} : ${message.content}`) 
         } else {
             console.log('there is no data')
-            data = new client.ticketTranscript({ Channel : message.channel.id, Content: `${message.author.tag} : ${message.content}`})
+            data = new ticketTranscript({ Channel : message.channel.id, Content: `${message.author.tag} : ${message.content}`})
         }
         await data.save()
             .catch(err =>  console.log(err))
