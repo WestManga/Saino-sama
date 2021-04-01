@@ -8,8 +8,7 @@ module.exports = {
     aliases: ["setmoderationlog","smodl"],
     description: "Setting tempat log moderator",
     usage: "<channel>",
-    category: "guild",
-    timeout: 100,
+    category: "settings",
     run: async(bot, message, args) => {
         let data = await Guild.findOne({
             guildID: message.guild.id
