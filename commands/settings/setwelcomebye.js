@@ -9,7 +9,6 @@ module.exports = {
     description: "Setting tempat bot menyapa member baru",
     usage: "<channel>",
     category: "settings",
-    timeout: 100,
     run: async(client, message, args) => {
         let data = await Guild.findOne({
             guildID: message.guild.id
