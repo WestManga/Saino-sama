@@ -1,5 +1,6 @@
 const db = require('../../models/warns')
 const { Message, MessageEmbed } = require('discord.js')
+const mongoose = require('mongoose');
 
 module.exports = {
     name :'warn',
@@ -35,6 +36,8 @@ module.exports = {
             }
             data.save()
         });
+
+        
         user.send(new MessageEmbed()
             .setDescription(`Kamu mendapatkan warning dengan alasan :\n${reason}`)
             .setColor("RED")
@@ -42,6 +45,14 @@ module.exports = {
         message.channel.send(new MessageEmbed()
             .setDescription(`Warned ${user} for ${reason}`).setColor('BLUE')
         )
+
+        //MODLOG DATA CHANNEL
+        let data =  await Guild.findOne({
+            guildID: message.guild.id
+        });
+
+        let channel = message.guild.channels.cache.find(ch => ch.name == data.modlogChannel);
+
         let embed = new MessageEmbed()
         .setAuthor(`NEW WARN | ${user.user.tag}`)
         .setColor("BLUE")
@@ -51,6 +62,8 @@ module.exports = {
         .setTimestamp()
         .setFooter(`${message.member.id}`, message.guild.iconURL);
 
-        client.channels.cache.get("821657287340720128").send(embed);
+        if(channel) {
+            channel.send(embed);
+        }
     }
 }
