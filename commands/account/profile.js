@@ -47,6 +47,10 @@ module.exports = {
 		let guildData = await Guild.findOne({ guildID: message.guild.id });
 		if (!data) return client.nodb(member.user);
 
+        if (data.point >= "1") data.point = "Bronze Status";
+
+        let premium = data.point;
+
 		let inline = true;
 		let e = new MessageEmbed()
             .setAuthor(user.tag, avatar)
@@ -54,11 +58,12 @@ module.exports = {
 			.setDescription(`**Title : ** ${data.bio}`)
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(COLOR)
-            .addField("Status", status, true)
-            .addField('Point', `$$ ${data.point || 0}`, true)
+            .addField("Status", status)
+            .addField("🎀 Premium", premium, true)
+            .addField('🔰 Point', `${data.point || 0}`, true)
             .addField("Tanggal Pembuatan Akun", `${createdate} \nSejak **${created}** hari lalu`)
             .addField("Tanggal Bergabung", `${joindate} \nSejak **${joined}** hari lalu`)
-			.addField('💰 Money', `$ ${data.money || 0}`, inline)
+			.addField('💰 Money', `Rp. ${data.money || 0}`, inline)
 			.addField('🛡️ Level', `${data.level || 1}`, inline)
 			.addField('🏃‍♂️ XP', `${data.xp || 0}/${process.env.UPXP}`, inline)
 			.addField('📧 Messages', `${data.messages || 0}`, inline)
@@ -66,7 +71,7 @@ module.exports = {
 			.addField('💤 AFK', `${data.afk || false}`, inline)
             .setImage(`${data.banner}`)
 			.addField(
-				'Status',
+				'📃 Custom Status',
 				`${data.status || guildData.prefix + `setstatus [text]`}`,
 			);
 		message.channel.send({ embed: e });
