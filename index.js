@@ -25,7 +25,6 @@ const blacklist = require('./models/blacklist')
 const prefixSchema = require('./models/prefix')
 const ticketTranscript = require('./models/ticket')
 
-// const config = require('./config.json');
 const prefix = (process.env.PREFIX);
 client.commands = new Collection();
 client.aliases = new Collection();
@@ -41,15 +40,7 @@ client.on('ready', () => {
 
 client.on('message', async message =>{
     if (message.author.bot) return;
-	if (!message.guild) {
-		const t = new MessageEmbed();
-		t.setTitle('STOP WHERE YOU ARE! ✋');
-		t.setColor(0xf94343);
-		t.setDescription("🤷‍♀️ | You can't use commands inside DMs");
-		t.setTimestamp(new Date());
-		t.setFooter('You may stop using commands in DMs');
-		return message.channel.send(t);
-	}
+	if (!message.guild) return;
 	let user = await User.findOne({
 		guildID: message.guild.id,
 		userID: message.author.id,
