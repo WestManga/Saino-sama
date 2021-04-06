@@ -18,16 +18,17 @@ module.exports = {
             message.mentions.members.first() ||
             message.guild.members.cache.get(args[0]);
         if (!Member) return message.channel.send("Member is not found.");
+        if (Member.hasPermission("BAN_MEMBERS")) return message.channel.send("I do not have permission to muted Administrator");
         const role = message.guild.roles.cache.find(
-            (role) => role.name.toLowerCase() === 'Budak'
+            (role) => role.name.toLowerCase() === 'muted'
         );
         if (!role) {
             try {
-                message.channel.send("Role Budak is not found. Attemping to create another one")
+                message.channel.send("Role muted is not found. Attemping to create another one")
 
                 let muterole = await message.guild.roles.create({
                     data : {
-                        name : 'Budak',
+                        name : 'muted',
                         permissions: []
                     }
                 });
@@ -42,7 +43,7 @@ module.exports = {
                 console.log(error)
             }
         };
-        let role2 = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'Budak');
+        let role2 = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
         if(Member.roles.cache.has(role2.id)) return message.channel.send(`${Member.displayName} has already been muted.`);
         await Member.roles.add(role2);
         Schema.findOne({ Guild: message.guild.id }, async (err, data) => {

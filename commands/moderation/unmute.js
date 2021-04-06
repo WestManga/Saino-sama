@@ -11,7 +11,7 @@ module.exports=  {
 
         if(!Member) return message.channel.send('Member not found')
 
-        const role = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'Budak');
+        const role = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
 
         Schema.findOne(
             {
