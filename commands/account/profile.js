@@ -51,7 +51,7 @@ module.exports = {
 		let e = new MessageEmbed()
             .setAuthor(user.tag, avatar)
 			.setTitle(`${user.username} Profile`)
-			.setDescription(`**Title : **`, `${data.status || guildData.prefix + `set-bio [text]`}`)
+			.setDescription(`**Title : ** ${data.bio}`)
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(COLOR)
             .addField("Status", status, true)
