@@ -1,4 +1,8 @@
 const {MessageEmbed} = require("discord.js");
+const Guild = require('../../models/Guild');
+const {
+    COLOR
+} = process.env;
 
 module.exports = {
     name: "setprefix",
@@ -6,7 +10,7 @@ module.exports = {
     description: "Set Your Own Custom Prefix.",
     usage: "<prefix>",
     category: "settings",
-    run: async(bot, message, args) => {
+    run: async(client, message, args) => {
         if(!args[0]) return message.channel.send("Please Specify The Prefix");
         if(args[0].length > 5) return message.channel.send("Max Characters is 5");
         let data = await Guild.findOne({
@@ -14,9 +18,10 @@ module.exports = {
 		});
 
         let e = new MessageEmbed()
-        .setColor(process.env.COLOR)
+        .setColor(COLOR)
+        .setTitle(`Change Prefix`)
         .setDescription(`Succefully Change The Prefix To ${args[0]}`);
-        message.channel.send({e});
+        message.channel.send({embed: e});
         data.prefix = args[0]; data.save();
     },
 };
