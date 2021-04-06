@@ -9,14 +9,14 @@ module.exports = {
     description: "Setting tempat log moderator",
     usage: "<channel>",
     category: "settings",
-    run: async(bot, message, args) => {
+    run: async(client, message, args) => {
         let data = await Guild.findOne({
             guildID: message.guild.id
         });
         let channel =  message.mentions.channels.first();
         if(!channel) return message.channel.send("Please Provide a channel");
         let e = new MessageEmbed()
-        .setDescription(`Successfully set welcome channel at ${channel}`)
+        .setDescription(`Successfully set modlog channel at ${channel}`)
         .setTimestamp(new Date())
         .setColor(COLOR)
         message.channel.send({embed: e});
