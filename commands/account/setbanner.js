@@ -1,10 +1,10 @@
 const {MessageEmbed} = require("discord.js");
 
 module.exports = {
-    name: "settitle",
-    usage: "<1/100>",
-    aliases: ["st"],
-    description: "Set Your Own Title",
+    name: "setbanner",
+    usage: "<url image>",
+    aliases: ["sb"],
+    description: "Set Your Own Banner",
     category: "account",
     run: async(client, message, args) => {
         let reason = args.join(" ").slice(0);
@@ -19,8 +19,8 @@ module.exports = {
 
         let e = new MessageEmbed()
         .setColor(process.env.COLOR)
-        .setDescription(`Set Your Status To ${reason}`)
-        data.bio = reason; data.save();
+        .setDescription(`Set Your Banner To ${reason}`)
+        data.banner = reason; data.save();
         message.channel.send({embed: e});
     },
 };

@@ -1,10 +1,10 @@
 const {MessageEmbed} = require("discord.js");
 
 module.exports = {
-    name: "settitle",
+    name: "setstatus",
     usage: "<1/100>",
-    aliases: ["st"],
-    description: "Set Your Own Title",
+    aliases: ["ss"],
+    description: "Set Your Own Status",
     category: "account",
     run: async(client, message, args) => {
         let reason = args.join(" ").slice(0);
@@ -20,7 +20,7 @@ module.exports = {
         let e = new MessageEmbed()
         .setColor(process.env.COLOR)
         .setDescription(`Set Your Status To ${reason}`)
-        data.bio = reason; data.save();
+        data.status = reason; data.afk = true; data.save();
         message.channel.send({embed: e});
     },
 };
