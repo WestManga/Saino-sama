@@ -1,5 +1,6 @@
-const db = require('../../models/warns')
-const { Message, MessageEmbed } = require('discord.js')
+const db = require('../../models/warns');
+const db2 = require('../../models/Guild');
+const { Message, MessageEmbed, Guild } = require('discord.js');
 const mongoose = require('mongoose');
 
 module.exports = {
@@ -47,13 +48,12 @@ module.exports = {
         )
 
         //MODLOG DATA CHANNEL
-        let data =  await Guild.findOne({
+        let data2 =  await db2.findOne({
             guildID: message.guild.id
         });
 
-        let channel = message.guild.channels.cache.find(ch => ch.name == data.modlogChannel);
-
-        let embed = new MessageEmbed()
+        let channel = message.guild.channels.cache.find(ch => ch.name == data2.modlogChannel);
+        let e = new MessageEmbed()
         .setAuthor(`NEW WARN | ${user.user.tag}`)
         .setColor("BLUE")
         .addField("User", user, true)
@@ -62,8 +62,7 @@ module.exports = {
         .setTimestamp()
         .setFooter(`${message.member.id}`, message.guild.iconURL);
 
-        if(channel) {
-            channel.send(embed);
-        }
+        if(channel) return;
+        channel.send({embed: e});
     }
 }
