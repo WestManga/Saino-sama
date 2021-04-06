@@ -8,7 +8,6 @@ module.exports = {
     description: "Return bot stats.",
     usage: "",
     category: "info",
-    timeout: 3,
     run: async(bot, message, args) => {
         var milliseconds = parseInt((bot.uptime % 1000) / 100),
         seconds = parseInt((bot.uptime / 1000) % 60),
