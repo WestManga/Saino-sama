@@ -8,8 +8,6 @@ module.exports = {
   aliases:['ava'],
   cooldown:10,
   run: async(client, message, args) => {
-    if (client.config.discord.channels.includes(message.channel.id)) return;
-    //option
     let mention = message.mentions.users.first();
     let userID = message.guild.members.cache.get(args[0]);
     let self = !args[0];
@@ -54,4 +52,5 @@ module.exports = {
       embed.setImage(find.user.displayAvatarURL({ size: 4096, dynamic: true }).replace('.webp', '.png'))
       return message.channel.send(embed);
     } else return; //Fikri : Gw mending di ignore aja daripada makan processing power lagi
-};
+}
+}
