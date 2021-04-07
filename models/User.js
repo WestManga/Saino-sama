@@ -31,6 +31,10 @@ const schema = mongoose.Schema({
         type: String,
         default: `<prefix> bio [text]`
     },
+    waifu: {
+        type: String,
+        default: `Mama Altina`
+    },
     _time: {
         type: Number,
         default: 0

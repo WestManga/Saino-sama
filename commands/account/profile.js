@@ -34,8 +34,8 @@ module.exports = {
         
           const member = message.guild.member(user);
           let nickname = member.nickname !== undefined && member.nickname !== null ? member.nickname : "None";
-          let createdate = moment.utc(user.createdAt).format("dddd, MMMM Do YYYY, HH:mm:ss");
-          let joindate = moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY, HH:mm:ss");
+          let createdate = moment.utc(user.createdAt).format("dddd, MMMM Do YYYY");
+          let joindate = moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY");
           let status = user.presence.status;
           let avatar = user.avatarURL({ size: 4096 });
          
@@ -70,7 +70,7 @@ module.exports = {
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(COLOR)
             .addField("Status", status)
-            .addField("Guild Member", `#${await position}`)
+            .addField("💕 Beloved Waifu", `${data.waifu}`)
             .addField("🎀 Premium", premium, true)
             .addField('🔰 Point', `${data.point || 0}`, true)
             .addField("Tanggal Pembuatan Akun", `${createdate} \nSejak **${created}** hari lalu`)
