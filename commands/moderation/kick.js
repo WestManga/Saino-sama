@@ -25,7 +25,7 @@ module.exports = {
 
         // Ketika usernamenya sama ama yang di mention
         if (member.user.id === message.author.id)
-            return message.reply('Anda tidak bisa membanned diri anda sendiri.');
+            return message.reply('Anda tidak bisa kick diri anda sendiri.');
 
         // Ketika yang membanned adalah member
         if (!author.hasPermission("KICK_MEMBERS"))

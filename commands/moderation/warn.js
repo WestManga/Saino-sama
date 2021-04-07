@@ -1,6 +1,7 @@
 const db = require('../../models/warns');
 const db2 = require('../../models/Guild');
-const { Message, MessageEmbed, Guild } = require('discord.js');
+const User = require('../../models/User');
+const { Client, Message, MessageEmbed, Guild } = require('discord.js');
 const mongoose = require('mongoose');
 
 module.exports = {
@@ -38,13 +39,29 @@ module.exports = {
             data.save()
         });
 
-        
+        let target = await User.findOne({
+			guildID: message.guild.id,
+			userID: user.user.id,
+		});
+
+        if (!target) return bot.nodb(member.user);
+
+        let rand = Math.floor(Math.random() * 100 + 50);
+        target.money -= rand;
+        target.warn++;
+		target.save();
+
         user.send(new MessageEmbed()
-            .setDescription(`Kamu mendapatkan warning dengan alasan :\n${reason}`)
+            .setTitle("Kamu mendapatkan Warning!")
+            .setDescription(`**Alasan :**\n${reason}`)
+            .addField("Denda", `Rp. ${rand}`)
             .setColor("RED")
+            .setTimestamp()
         )
         message.channel.send(new MessageEmbed()
             .setDescription(`Warned ${user} for ${reason}`).setColor('BLUE')
+            .addField("Denda", `Rp. ${rand}`)
+            .setTimestamp()
         )
 
         //MODLOG DATA CHANNEL
@@ -58,11 +75,9 @@ module.exports = {
         .setColor("BLUE")
         .addField("User", user, true)
         .addField("Moderator", message.author, true)
-        .addField("Alasan", reason, true)
+        .addField("Alasan", `\`\`\`${reason}\`\`\``)
         .setTimestamp()
         .setFooter(`${message.member.id}`, message.guild.iconURL);
-
-        if(channel) return;
-        channel.send({embed: e});
+        client.channels.cache.get("821657287340720128").send(e);
     }
 }

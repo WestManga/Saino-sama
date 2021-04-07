@@ -7,6 +7,8 @@ module.exports=  {
      * @param {Message} message
      */
     run : async(client, message, args) => {
+        if (!message.member.hasPermission("MANAGE_MESSAGES"))
+            return message.channel.send("You do not have permission to use this command");
         const Member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
         if(!Member) return message.channel.send('Member not found')
