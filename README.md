@@ -18,6 +18,12 @@ Saino-sama adalah kelanjutan series dari Kosuke..
 - NodeJs
 - MongoDB
 
+## How to Install
+- rename .env.example to .env
+- edit .env with your discord bot details
+- run node install
+- run node .
+
 # Feature
 | Command  | Progress | Deskripsi |
 | --------  | ------- | --------------------- |
