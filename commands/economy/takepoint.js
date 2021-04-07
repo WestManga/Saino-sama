@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { Client, MessageEmbed } = require('discord.js');
 const User = require('../../models/User');
 
 module.exports = {
@@ -7,11 +7,11 @@ module.exports = {
 	category: 'economy',
 	usage: '<mention> <amount of point>',
 	description: 'Removes Someone Point',
-	run: async (bot, message, args) => {
+	run: async (client, message, args) => {
 		let member = message.guild.member(message.mentions.users.first());
         let author = message.guild.members.cache.get(message.author.id);
 		if (!member) return message.channel.send('Please Mention A User');
-        if (!author.hasPermission("BAN_MEMBERS")) return;        
+        if (!author.hasPermission("ADMINISTRATOR")) return;        
 		if (!args[1]) return message.channel.send('Please Enter Valid Number');
 		if (args[1] < 1)
 			return message.channel.send('You Need To Transfer More Than 1');
@@ -36,5 +36,14 @@ module.exports = {
 		target.point -= Math.floor(parseInt(args[1]));
 		target.save();
 		message.channel.send({ embed: e });
+
+		let notifembed = new MessageEmbed()
+			.setColor("RED")
+			.setAuthor(`NEW REMOVE POINT`)
+			.setDescription(`Telah diambil sejumlah Point dengan laporan :`)
+			.addField("Pengambil", `**${message.author.username}**`)
+			.addField("Yang Diambil", `**${member.user.username}**`)
+			.addField("Jumlah Point", `\`\`\`${args[1]} Points\`\`\``)
+		client.channels.cache.get("829294897366433822").send({embed : notifembed});
 	},
 };
