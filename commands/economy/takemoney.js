@@ -10,8 +10,8 @@ module.exports = {
 	run: async (client, message, args) => {
 		let member = message.guild.member(message.mentions.users.first());
         let author = message.guild.members.cache.get(message.author.id);
+		if	(message.author.id !== '338418945620967434') return message.channel.send("This is owner only command.")
 		if (!member) return message.channel.send('Please Mention A User');
-        if (!author.hasPermission("ADMINISTRATOR")) return;        
 		if (!args[1]) return message.channel.send('Please Enter Valid Number');
 		if (args[1] < 1)
 			return message.channel.send('You Need To Transfer More Than 1');
