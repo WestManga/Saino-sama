@@ -29,7 +29,7 @@ const schema = mongoose.Schema({
     },
     bio: {
         type: String,
-        default: `<prefix> bio [text]`
+        default: `Jonesmania`
     },
     waifu: {
         type: String,
