@@ -33,7 +33,7 @@ module.exports = {
 					}
 				} else {
 					for (i = 0; i < 10; i++) {
-						let name = bot.users.cache.get(res[i].userID).tag || 'Unknown';
+						let name = client.users.cache.get(res[i].userID).tag || 'Unknown';
 						if (name == 'Empty') {
 							embed.addField(
 								`${i + 1}. ${name}`,
