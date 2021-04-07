@@ -9,7 +9,7 @@ module.exports = {
     run: async(client, message, args) => {
         let reason = args.join(" ").slice(0);
         if(!reason) return message.channel.send("Please Specify The Text");
-        if(reason.length >= 100) return message.channel.send(`Unfortunately, I cannot give you such a description. It is ${reason.length} long`);
+        if(reason.length >= 300) return message.channel.send(`Unfortunately, I cannot give you such a description. It is ${reason.length} long`);
         let data = await User.findOne({
             userID: message.author.id,
             guildID: message.guild.id
