@@ -32,8 +32,8 @@ module.exports = {
 			.setTitle(`${user.username} Balance`)
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(COLOR)
-            .addField('Point', `$$ ${data.point || 0}`, true)
-			.addField('💰 Money', `$ ${data.money || 0}`, inline)
+            .addField('🔰 Point', `${data.point || 0} Points`, true)
+			.addField('💰 Money', `Rp. ${data.money || 0}`, inline)
 		message.channel.send({ embed: e });
 	},
 };
