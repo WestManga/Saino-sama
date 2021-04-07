@@ -37,7 +37,7 @@ module.exports = {
           let joindate = moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY, HH:mm:ss");
           let status = user.presence.status;
           let avatar = user.avatarURL({ size: 4096 });
-
+         
 		if (member.bot) return message.channel.send('Its A Bot -_-');
 
 		let data = await User.findOne({
