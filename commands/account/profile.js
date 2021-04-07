@@ -26,6 +26,7 @@ module.exports = {
             return game;
           }
         
+          
           let x = Date.now() - user.createdAt;
           let y = Date.now() - message.guild.members.cache.get(user.id).joinedAt;
           let created = Math.floor(x / 86400000);
@@ -39,6 +40,16 @@ module.exports = {
           let avatar = user.avatarURL({ size: 4096 });
          
 		if (member.bot) return message.channel.send('Its A Bot -_-');
+
+        const members = message.guild.members.cache
+        .sort((a, b) => a.joinedTimestamp - b.joinedTimestamp)
+        .array();
+
+        const position = new Promise((ful) => {
+        for (let i = 1; i < members.length + 1; i++) {
+            if(members[i - 1].id === member.id) ful(i)
+            }   
+        })
 
 		let data = await User.findOne({
 			guildID: message.guild.id,
@@ -59,6 +70,7 @@ module.exports = {
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(COLOR)
             .addField("Status", status)
+            .addField("Guild Member", `#${await position}`)
             .addField("🎀 Premium", premium, true)
             .addField('🔰 Point', `${data.point || 0}`, true)
             .addField("Tanggal Pembuatan Akun", `${createdate} \nSejak **${created}** hari lalu`)
@@ -70,6 +82,11 @@ module.exports = {
 			.addField('👮 Warn', `${data.warn || 0}/${process.env.WARN}`, inline)
 			.addField('💤 AFK', `${data.afk || false}`, inline)
             .setImage(`${data.banner}`)
+            .setFooter(
+                `${user.username} adalah Guild Member ke #${await position}`,
+                message.author.displayAvatarURL({ dynamic: true })
+              )
+              .setTimestamp()
 			.addField(
 				'📃 Custom Status',
 				`${data.status || guildData.prefix + `setstatus [text]`}`,
