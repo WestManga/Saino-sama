@@ -4,9 +4,9 @@ const {
 } = process.env;
 
 module.exports = {
-    name: "setmoneylog",
-    aliases: ["smonlog"],
-    description: "Setting tempat log keuangan",
+    name: "setlevelup",
+    aliases: ["sleup"],
+    description: "Setting tempat notifikasi levelup",
     usage: "<channel>",
     category: "settings",
     /**
@@ -23,10 +23,10 @@ module.exports = {
         });
         if(!channel) return message.channel.send("Please Provide a channel");
         let e = new MessageEmbed()
-        .setDescription(`Successfully set moneylog channel at ${channel}`)
+        .setDescription(`Successfully set levelup channel at ${channel}`)
         .setTimestamp(new Date())
         .setColor(COLOR)
         message.channel.send({embed: e});
-        data.moneylogChannel = channel.id; data.save();
+        data.levelUpChannel = channel.id; data.save();
     },
 };

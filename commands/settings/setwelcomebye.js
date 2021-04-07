@@ -20,6 +20,6 @@ module.exports = {
         .setTimestamp(new Date())
         .setColor(COLOR)
         message.channel.send({embed: e});
-        data.welcomeChannel = channel; data.save();
+        data.welcomeChannel = channel.id; data.save();
     },
 };
