@@ -1,4 +1,4 @@
-const { Message } = require('discord.js');
+const { Message, MessageEmbed } = require('discord.js');
 const Schema = require('../../models/mute');
 
 module.exports=  {

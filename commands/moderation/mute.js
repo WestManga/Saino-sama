@@ -20,7 +20,7 @@ module.exports = {
         if (!Member) return message.channel.send("Member is not found.");
         if (Member.hasPermission("BAN_MEMBERS")) return message.channel.send("I do not have permission to muted Administrator");
         const role = message.guild.roles.cache.find(
-            (role) => role.name.toLowerCase() === 'muted'
+            (role) => role.name.toLowerCase() === 'Muted'
         );
         if (!role) {
             try {
@@ -28,14 +28,15 @@ module.exports = {
 
                 let muterole = await message.guild.roles.create({
                     data : {
-                        name : 'muted',
+                        name : 'Muted',
                         permissions: []
                     }
                 });
                 message.guild.channels.cache.filter(c => c.type === 'text').forEach(async (channel, id) => {
                     await channel.createOverwrite(muterole, {
                         SEND_MESSAGES: false,
-                        ADD_REACTIONS: false
+                        ADD_REACTIONS: false,
+                        VIEW_CHANNEL: false
                     })
                 });
                 message.channel.send('Muted role has sucessfully been created.')
@@ -43,7 +44,7 @@ module.exports = {
                 console.log(error)
             }
         };
-        let role2 = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
+        let role2 = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'Muted');
         if(Member.roles.cache.has(role2.id)) return message.channel.send(`${Member.displayName} has already been muted.`);
         await Member.roles.add(role2);
         Schema.findOne({ Guild: message.guild.id }, async (err, data) => {
@@ -58,9 +59,10 @@ module.exports = {
             }
         });
         message.channel.send(`${Member.displayName} is now muted`);
+
         let embed = new MessageEmbed()
             .setAuthor(`MUTED | ${member.user.tag}`)
-            .setColor(roleColor)
+            .setColor("YELLOW")
             .addField("User", member, true)
             .addField("Moderator", message.author, true)
             .setTimestamp()
