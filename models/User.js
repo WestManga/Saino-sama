@@ -1,8 +1,19 @@
 const mongoose = require("mongoose");
 
 const schema = mongoose.Schema({
+    account: {
+		username: String,
+		userId: String,
+        servers: Array,
+		patreon: {
+			type: String,
+			enum: ["", "Bronze", "Silver", "Gold", "Platinum"],
+			default: "",
+		},
+	},
     userID: String,
     guildID: String,
+    username: String,
     money: {
         type: Number,
         default: 0

@@ -1,4 +1,6 @@
 const { MessageEmbed } = require('discord.js');
+const { generateTip, determineSupporterTitle } = require("../../handlers/profilehelper");
+const { getIcon } = require("../../config/icons");
 const moment = require('moment');
 const mongoose = require('mongoose');
 const {
@@ -58,7 +60,7 @@ module.exports = {
 		let guildData = await Guild.findOne({ guildID: message.guild.id });
 		if (!data) return client.nodb(member.user);
 
-        if (data.point >= "1") data.point = "Bronze Status";
+        const patreonSupporter = determineSupporterTitle(data.account.patreon);
 
         let premium = data.point;
 
@@ -71,7 +73,8 @@ module.exports = {
             .setColor(COLOR)
             .addField("Status", status)
             .addField("💕 Beloved Waifu", `${data.waifu}`)
-            .addField("🎀 Premium", premium, true)
+            .addField("🎀 Premium", patreonSupporter)
+            .addField("Guild Member", `#${await position}`, true)
             .addField('🔰 Point', `${data.point || 0}`, true)
             .addField("Tanggal Pembuatan Akun", `${createdate} \nSejak **${created}** hari lalu`)
             .addField("Tanggal Bergabung", `${joindate} \nSejak **${joined}** hari lalu`)
@@ -83,10 +86,9 @@ module.exports = {
 			.addField('💤 AFK', `${data.afk || false}`, inline)
             .setImage(`${data.banner}`)
             .setFooter(
-                `${user.username} adalah Guild Member ke #${await position}`,
+                generateTip(),
                 message.author.displayAvatarURL({ dynamic: true })
               )
-              .setTimestamp()
 			.addField(
 				'📃 Custom Status',
 				`${data.status || guildData.prefix + `setstatus [text]`}`,

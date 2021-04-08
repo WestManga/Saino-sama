@@ -1,6 +1,7 @@
 const {Collection, Client, Discord, MessageEmbed} = require('discord.js')
 const Kosuke = require("./handlers/ClientBuilder.js");
 const fs = require('fs')
+const user = require('./models/User')
 const client = new Kosuke({ disableMentions: 'everyone', fetchAllMembers: true, partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 
 require('dotenv').config();
@@ -39,6 +40,7 @@ client.on('ready', () => {
 })
 
 client.on('message', async message =>{
+	const { author } = message;
     if (message.author.bot) return;
 	if (!message.guild) return;
 	let user = await User.findOne({
@@ -52,12 +54,18 @@ client.on('message', async message =>{
 		return;
 	}
 	if (!user) {
+		const account = {
+			username: author.username,
+			userId: message.author.id,
+		};
 		User.create({
+			account,
 			guildID: message.guild.id,
 			userID: message.author.id,
 		});
 		return;
 	}
+
 	if (!message.content.toLowerCase().startsWith(guild.prefix)) return;
 	if (!message.member)
 		message.member = await message.guild.fetchMember(message);
