@@ -1,9 +1,9 @@
 const { Client, Message, MessageEmbed } = require("discord.js")
 
 module.exports = {
-  name:'apply',
+  name:'lapor',
   category:'extra',
-  description:'Membuat pendaftaran sebagai ...',
+  description:'Membuat laporan manga error atau sejenisnya tentang manga di WestManga',
   aliases:[''],
   cooldown:1000,
   /**
@@ -13,12 +13,9 @@ module.exports = {
    */
   run: async(client, message, args) => {
       const questions = [
-          "Siapa nama asli kamu?",
-          "Dimana tempat tinggal kamu saat ini?",
-          "Berapakah umur kamu saat ini?",
-          "Apa alasan kamu ingin bergabung menjadi Advisor?",
-          "Apakah sebelumnya kamu mempunyai pengalaman sebagai Advisor/Moderator/Sejenisnya di server lain?",
-          "Sebutkan salah satu keunggulan dari diri kamu",
+          "Manga apa yang error?",
+          "Berapa chapter yang error?",
+          "Linknya?"
       ];
     
     let collectCounter = 0;
