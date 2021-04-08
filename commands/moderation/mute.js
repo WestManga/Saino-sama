@@ -61,9 +61,9 @@ module.exports = {
         message.channel.send(`${Member.displayName} is now muted`);
 
         let embed = new MessageEmbed()
-            .setAuthor(`muted | ${member.user.tag}`)
+            .setAuthor(`NEW MUTED`)
             .setColor("YELLOW")
-            .addField("User", member, true)
+            .addField("User", Member, true)
             .addField("Moderator", message.author, true)
             .setTimestamp()
             .setFooter(`${message.member.id}`, message.guild.iconURL())
