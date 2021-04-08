@@ -8,7 +8,6 @@ module.exports = {
      */
     run : async(client, message) => {
         const ch = message.guild.channels.cache.find(ch => ch.name === message.author.id)
-        const everyone = member.roles.cache.first()
         if(ch) return message.channel.send('You already have a ticket open.')
         message.guild.channels.create(`${message.author.id}`, {
             type : 'text',
