@@ -8,18 +8,19 @@ module.exports = {
      */
     run : async(client, message) => {
         const ch = message.guild.channels.cache.find(ch => ch.name === message.author.id)
+        const everyone = member.roles.cache.first()
         if(ch) return message.channel.send('You already have a ticket open.')
         message.guild.channels.create(`${message.author.id}`, {
             type : 'text',
-            parent : '829567821003489320',
+            parent : '829582353872977940',
             permissionOverwrites : [
                 {
                     id : message.guild.id,
-                    deny : ('VIEW_CHANNEL')
+                    deny : ['VIEW_CHANNEL', 'SEND_MESSAGES']
                 },
                 {
                     id : message.author.id,
-                    allow : ("VIEW_CHANNEL", "ATTACH_FILES", "SEND_MESSAGES", "READ_MESSAGE_HISTORY")
+                    allow : ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ADD_REACTIONS', 'ATTACH_FILES']
                 }
             ]
         }).then(async channel=> {
