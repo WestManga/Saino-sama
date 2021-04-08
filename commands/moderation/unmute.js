@@ -28,6 +28,15 @@ module.exports=  {
                 data.Users.splice(user, 1);
                 await Member.roles.remove(role);
                 message.channel.send(`${Member.displayName} is now unmuted`);
+                let embed = new MessageEmbed()
+                .setAuthor(`UNMUTED | ${member.user.tag}`)
+                .setColor("GREEN")
+                .addField("User", member, true)
+                .addField("Moderator", message.author, true)
+                .setTimestamp()
+                .setFooter(`${message.member.id}`, message.guild.iconURL())
+
+                client.channels.cache.get("807108631761649675").send(embed);
             }
         );
     },

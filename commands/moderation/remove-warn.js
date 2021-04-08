@@ -34,7 +34,7 @@ module.exports = {
                 .setTimestamp()
                 .setFooter(`${message.member.id}`, message.guild.iconURL);
 
-                client.channels.cache.get("821657287340720128").send(embed);
+                client.channels.cache.get("807108631761649675").send(embed);
             } else {
                 message.channel.send('Member ini bersih dari warn..').then(m => m.delete({ timeout : 1000 }))
             }

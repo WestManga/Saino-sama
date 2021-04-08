@@ -58,5 +58,14 @@ module.exports = {
             }
         });
         message.channel.send(`${Member.displayName} is now muted`);
+        let embed = new MessageEmbed()
+            .setAuthor(`MUTED | ${member.user.tag}`)
+            .setColor(roleColor)
+            .addField("User", member, true)
+            .addField("Moderator", message.author, true)
+            .setTimestamp()
+            .setFooter(`${message.member.id}`, message.guild.iconURL())
+
+        client.channels.cache.get("807108631761649675").send(embed);
     }
 }

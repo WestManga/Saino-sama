@@ -76,8 +76,9 @@ module.exports = {
         .addField("User", user, true)
         .addField("Moderator", message.author, true)
         .addField("Alasan", `\`\`\`${reason}\`\`\``)
+        .addField("Denda yang diterima", `Rp. ${rand}`)
         .setTimestamp()
         .setFooter(`${message.member.id}`, message.guild.iconURL);
-        client.channels.cache.get("821657287340720128").send(e);
+        client.channels.cache.get("807108631761649675").send(e);
     }
 }

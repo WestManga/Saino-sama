@@ -132,7 +132,7 @@ client.on('message', async message =>{
 });
 
 client.on('message', async(message) => {
-    if(message.channel.parentID !== '824261268851916821') return;
+    if(message.channel.parentID !== '829567821003489320') return;
     ticketTranscript.findOne({ Channel : message.channel.id }, async(err, data) => {
         if(err) throw err;
         if(data) {
