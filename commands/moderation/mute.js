@@ -20,7 +20,7 @@ module.exports = {
         if (!Member) return message.channel.send("Member is not found.");
         if (Member.hasPermission("BAN_MEMBERS")) return message.channel.send("I do not have permission to muted Administrator");
         const role = message.guild.roles.cache.find(
-            (role) => role.name.toLowerCase() === 'Muted'
+            (role) => role.name.toLowerCase() === 'muted'
         );
         if (!role) {
             try {
@@ -28,7 +28,7 @@ module.exports = {
 
                 let muterole = await message.guild.roles.create({
                     data : {
-                        name : 'Muted',
+                        name : 'muted',
                         permissions: []
                     }
                 });
@@ -39,12 +39,12 @@ module.exports = {
                         VIEW_CHANNEL: false
                     })
                 });
-                message.channel.send('Muted role has sucessfully been created.')
+                message.channel.send('muted role has sucessfully been created.')
             } catch (error) {
                 console.log(error)
             }
         };
-        let role2 = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'Muted');
+        let role2 = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
         if(Member.roles.cache.has(role2.id)) return message.channel.send(`${Member.displayName} has already been muted.`);
         await Member.roles.add(role2);
         Schema.findOne({ Guild: message.guild.id }, async (err, data) => {
@@ -61,7 +61,7 @@ module.exports = {
         message.channel.send(`${Member.displayName} is now muted`);
 
         let embed = new MessageEmbed()
-            .setAuthor(`MUTED | ${member.user.tag}`)
+            .setAuthor(`muted | ${member.user.tag}`)
             .setColor("YELLOW")
             .addField("User", member, true)
             .addField("Moderator", message.author, true)
