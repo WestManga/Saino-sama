@@ -32,7 +32,7 @@ module.exports = {
         if (collectCounter < questions.length) {
             channel.send(questions[collectCounter++]);
         } else {
-            channel.send("Form pendaftaran yang kamu isi sudah dikirimkan kepada Admin");
+            channel.send("Laporan sudah dibuat, tunggu sampai Admin merespon laporan kamu.");
             collector.stop("fulfilled");
         }
     });

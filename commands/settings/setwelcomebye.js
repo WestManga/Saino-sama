@@ -4,7 +4,7 @@ const {
 } = process.env;
 
 module.exports = {
-    name: "setwelcomebye",
+    name: "setwelcome",
     aliases: ["setwelcomechannel","setchwel"],
     description: "Setting tempat bot menyapa member baru",
     usage: "<channel>",
