@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const mongoose = require('mongoose');
+const { generateTip, determineSupporterTitle } = require("../../handlers/profilehelper");
 const {
     COLOR
 } = process.env;
@@ -26,14 +27,20 @@ module.exports = {
 		let guildData = await Guild.findOne({ guildID: message.guild.id });
 		if (!data) return client.nodb(member.user);
 
+		const patreonSupporter = determineSupporterTitle(data.account.patreon);
+
 		let inline = true;
 		let e = new MessageEmbed()
             .setAuthor(user.tag, avatar)
-			.setTitle(`${user.username} Balance`)
+			.setTitle(`${patreonSupporter}`)
             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(COLOR)
             .addField('🔰 Point', `${data.point || 0} Points`, true)
 			.addField('💰 Money', `Rp. ${data.money || 0}`, inline)
+			.setFooter(
+                generateTip(),
+                message.author.displayAvatarURL({ dynamic: true })
+              )
 		message.channel.send({ embed: e });
 	},
 };
