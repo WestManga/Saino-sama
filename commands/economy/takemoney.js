@@ -1,5 +1,6 @@
 const { Client, MessageEmbed } = require('discord.js');
 const User = require('../../models/User');
+const Guild = require('../../models/Guild');
 
 module.exports = {
 	name: 'takemoney',
@@ -37,13 +38,20 @@ module.exports = {
 		target.save();
 		message.channel.send({ embed: e });
 
-		let notifembed = new MessageEmbed()
+		Guild.findOne({ guildID: message.guild.id }, async (err, data) => {
+			if(!data) return message.reply('this guild not have any data');
+
+        	const moneylog = client.channels.cache.get(data.moneylogChannel);
+
+			let notifembed = new MessageEmbed()
 			.setColor("RED")
 			.setAuthor(`NEW REMOVE MONEY`)
 			.setDescription(`Telah diambil sejumlah Uang dengan laporan :`)
-			.addField("Pengambil", `**${message.author.username}**`)
-			.addField("Yang Diambil", `**${member.user.username}**`)
+			.addField("Pengambil", `**${message.author}**\n**${message.author.id}**\n **${message.author.username}**`)
+			.addField("Target", `**${member.user}**\n**${member.user.id}**\n**${member.user.username}**`)
 			.addField("Jumlah Uang", `\`\`\`Rp. ${args[1]}\`\`\``)
-		client.channels.cache.get("829294897366433822").send({embed : notifembed});
+			moneylog.send({embed : notifembed});
+
+		})
 	},
 };

@@ -11,7 +11,7 @@ module.exports = {
 	run: async (client, message, args) => {
 		let member = message.guild.member(message.mentions.users.first());
 		let author = message.guild.members.cache.get(message.author.id);
-		if	(message.author.id !== '338418945620967434') return message.channel.send("This is owner only command.")  
+		if	(message.author.id !== process.env.OWNER) return message.channel.send("This is owner only command.")  
 		if (!member) return message.channel.send('Please Mention A User');
 		if (!args[1]) return message.channel.send('Please Enter Valid Number');
 		if (args[1] < 1)
@@ -29,6 +29,8 @@ module.exports = {
 			return message.channel.send('How Is That Possible');
 		if (member.user.bot) return message.channel.send('Its A Bot -_-');
 
+		
+
 		let e = new MessageEmbed()
 			.setColor(process.env.COLOR)
 			.setDescription(
@@ -38,13 +40,20 @@ module.exports = {
 		target.save();
 		message.channel.send({ embed: e });
 		
-		let notifembed = new MessageEmbed()
+		Guild.findOne({ guildID: message.guild.id }, async (err, data) => {
+			if(!data) return message.reply('this guild not have any data');
+
+        	const moneylog = client.channels.cache.get(data.moneylogChannel);
+
+			let notifembed = new MessageEmbed()
 			.setColor("YELLOW")
 			.setAuthor(`NEW ADD MONEY`)
 			.setDescription(`Telah diberikan sejumlah uang dengan laporan :`)
-			.addField("Pemberi", `**${message.author.username}**`)
-			.addField("Penerima", `**${member.user.username}**`)
+			.addField("Pemberi", `**${message.author}**\n**${message.author.id}**\n **${message.author.username}**`)
+			.addField("Penerima", `**${member.user}**\n**${member.user.id}**\n**${member.user.username}**`)
 			.addField("Nominal Uang", `\`\`\`Rp. ${args[1]}\`\`\``)
-		client.channels.cache.get("829294897366433822").send({embed : notifembed});
+			moneylog.send({embed : notifembed});
+
+		})
 	},
 };
