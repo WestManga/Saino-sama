@@ -21,6 +21,18 @@ const schema = mongoose.Schema({
     moneylogChannel: {
         type: String,
         default: ''
+    },
+    moneyincomelogChannel: {
+        type: String,
+        default: ''
+    },
+    byeChannel: {
+        type: String,
+        default: ''
+    },
+    chatmoneyChannel: {
+        type: String,
+        default: ''
     }
 });
 

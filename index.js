@@ -111,24 +111,6 @@ client.on('message', async message =>{
 				.setColor('RED')
 				.setDescription(`${user.tag} Is Not On The Database`),
 		);
-
-	let rand = Math.floor(Math.random() * 5);
-	user.money += rand;
-	user.xp++;
-	user.messages++;
-
-	if (user.xp >= process.env.UPXP) {
-		let e = new MessageEmbed()
-			.setColor(process.env.COLOR)
-			.setDescription(
-				`[:tada:] Congrats ${message.author.username} You Level Up`,
-			);
-		message.channel.send(e);
-		user.xp -= process.env.UPXP;
-		user.level += 1;
-	}
-	user.afk = false;
-	user.save();
 });
 
 client.on('message', async(message) => {
@@ -159,6 +141,10 @@ client.on("guildMemberAdd", async(member) => {
 
 client.on("guildMemberRemove", async(member) => {
 	require("./events/guildMemberRemover")(member);
+});
+
+client.on("message" ,async(message) =>{
+	require("./events/guildaddMoney");
 })
 
 client.login(process.env.TOKEN)
