@@ -13,7 +13,7 @@ module.exports = {
   cooldown:10,
   run: async(client, message, args) => {
         let pat = await sfw.pat();
-        const target = message.mentions.users.first() || messsage.guild.members.cache.get(args[0])
+        const target = message.mentions.users.first()
         if (!target) {
           message.reply('Please mention someone to thank')
           return
