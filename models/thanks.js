@@ -15,8 +15,4 @@ const thanksSchema = mongoose.Schema({
     lastGave: Date,
 })
 
-module.exports = mongoose.model(
-    'thanks',
-    thanksSchema,
-    'thanks'
-)
+module.exports = mongoose.model("thank", thanksSchema);
