@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js")
+const { MessageEmbed, Message, Client } = require("discord.js")
 const thanksSchema = require('../../models/thanks')
 const { COLOR } = process.env;
 const client = require("nekos.life");
@@ -11,6 +11,12 @@ module.exports = {
   usage:'<username target>',
   aliases:['thx'],
   cooldown:10,
+  /**
+   * 
+   * @param {Client} client 
+   * @param {Message} message 
+   * @returns 
+   */
   run: async(client, message, args) => {
         let pat = await sfw.pat();
         const target = message.mentions.users.first()
