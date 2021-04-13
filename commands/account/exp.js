@@ -35,7 +35,10 @@ module.exports = {
     .setStatus(user.presence.status)
     .setProgressBar("#FFFFFF", "COLOR")
     .setUsername(user.username)
+    .setRank(1, "RANK", false)
+    .registerFonts()
     .setDiscriminator(user.discriminator);
+    
 
     rank.build()
     .then(data => {
