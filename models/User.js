@@ -11,6 +11,21 @@ const schema = mongoose.Schema({
 			default: "",
 		},
 	},
+    donate: {
+		rupiah: {
+            type: Number,
+            default: 0
+        },
+		owocash: {
+            type: Number,
+            default: 0
+        },
+        anigold: {
+            type: Number,
+            default: 0
+        },
+        lastdonate: Date,
+	},
     userID: String,
     guildID: String,
     username: String,
@@ -27,6 +42,10 @@ const schema = mongoose.Schema({
         default: 0
     },
     xp: {
+        type: Number,
+        default: 0
+    },
+    xprequired: {
         type: Number,
         default: 0
     },

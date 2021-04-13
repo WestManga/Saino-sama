@@ -13,6 +13,7 @@ mongosee.connect(process.env.MONGODB, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
     useCreateIndex: true,
+	useFindAndModify: false,
 });
 mongosee.connection.on('connected', () => {
 	console.log('[Database] Connected');

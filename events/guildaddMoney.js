@@ -9,7 +9,7 @@ function addToCooldown(ID) {
     cooldown.add(ID);
     setTimeout(() => {
         cooldown.delete(ID);
-    }, 20000 /* 20 seconds */);
+    }, 60000 /* 20 seconds */);
 }
 
 client.on('message', async(message) => {
@@ -30,21 +30,25 @@ client.on('message', async(message) => {
             const levelup = client.channels.cache.get(guild.levelUpChannel);
         
             // DUIT + EXP
-            let rand = Math.floor(Math.random() * 5) + 5;
-            let randexp = Math.floor(Math.random() * 4) + 3;
+            let rand = Math.floor(Math.random() * 5) + 2;
+            let randexp = Math.floor(Math.random() * 10 - 2) + 10;
         
             user.money += rand;
             user.xp += randexp;
             user.messages++;
+
+            const level = user.level
+            const exp = process.env.UPXP
+            const exprequired = Math.round(level * exp)
             
-            if (user.xp >= process.env.UPXP) {
+            if (user.xp >= exprequired) {
                 let e = new MessageEmbed()
                     .setColor(process.env.COLOR)
                     .setDescription(
-                        `[:tada:] Congrats ${message.author.username} You Level Up`,
+                        `:tada: Congrats ${message.author.username} You Level Up\nYou are now level ${user.level}`,
                     );
                 levelup.send(e);
-                user.xp -= process.env.UPXP;
+                user.xp -= exprequired;
                 user.level += 1;
             }
         

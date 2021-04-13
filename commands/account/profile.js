@@ -36,7 +36,6 @@ module.exports = {
         
           const member = message.guild.member(user);
           let nickname = member.nickname !== undefined && member.nickname !== null ? member.nickname : "None";
-          let createdate = moment.utc(user.createdAt).format("dddd, MMMM Do YYYY");
           let joindate = moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY");
           let status = user.presence.status;
           let avatar = user.avatarURL({ size: 4096 });
@@ -64,6 +63,10 @@ module.exports = {
 
         let premium = data.point;
 
+        const level = data.level
+        const exp = process.env.UPXP
+        exprequired = Math.round(level  *exp)
+
 		let inline = true;
 		let e = new MessageEmbed()
             .setAuthor(user.tag, avatar)
@@ -76,11 +79,10 @@ module.exports = {
             .addField("🎀 Premium", patreonSupporter)
             .addField("Guild Member", `#${await position}`, true)
             .addField('🔰 Point', `${data.point || 0}`, true)
-            .addField("Tanggal Pembuatan Akun", `${createdate} \nSejak **${created}** hari lalu`)
             .addField("Tanggal Bergabung", `${joindate} \nSejak **${joined}** hari lalu`)
 			.addField('💰 Money', `Rp. ${data.money || 0}`, inline)
 			.addField('🛡️ Level', `${data.level || 1}`, inline)
-			.addField('🏃‍♂️ XP', `${data.xp || 0}/${process.env.UPXP}`, inline)
+			.addField('🏃‍♂️ XP', `${data.xp || 0}/${exprequired}`, inline)
 			.addField('📧 Messages', `${data.messages || 0}`, inline)
 			.addField('👮 Warn', `${data.warn || 0}/${process.env.WARN}`, inline)
 			.addField('💤 AFK', `${data.afk || false}`, inline)

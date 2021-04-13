@@ -1,7 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const mongoose = require('mongoose');
-const { generateTip, determineSupporterTitle } = require("../../handlers/profilehelper");
+const thanksSchema = require('../../models/thanks')
+const { determineSupporterTitle } = require("../../handlers/profilehelper");
 const {
     COLOR
 } = process.env;
@@ -16,13 +17,19 @@ module.exports = {
         let user = message.mentions.users.first() || message.author || messsage.guild.members.cache.get(args[0])
         
           const member = message.guild.member(user);
-          let avatar = user.avatarURL({ size: 4096 });
+          let avatar = user.displayAvatarURL({ dynamic: true })
+		  const nickname = member.nickname
 
 		if (member.bot) return message.channel.send('Its A Bot -_-');
 
 		let data = await User.findOne({
 			guildID: message.guild.id,
 			userID: member.id,
+		});
+
+		let datat = await thanksSchema.findOne({
+			userId: member.id,
+			guildId: message.guild.id,
 		});
 		let guildData = await Guild.findOne({ guildID: message.guild.id });
 		if (!data) return client.nodb(member.user);
@@ -33,14 +40,11 @@ module.exports = {
 		let e = new MessageEmbed()
             .setAuthor(user.tag, avatar)
 			.setTitle(`${patreonSupporter}`)
-            .setThumbnail(user.displayAvatarURL({ dynamic: true }))
             .setColor(COLOR)
-            .addField('🔰 Point', `${data.point || 0} Points`, true)
+            .addField('🔰 Point', `${data.point || 0} Points`, inline)
 			.addField('💰 Money', `Rp. ${data.money || 0}`, inline)
-			.setFooter(
-                generateTip(),
-                message.author.displayAvatarURL({ dynamic: true })
-              )
+			.addField('👍 Thank', `${datat.received || 0} Thanks`, inline)
+			.setTimestamp()
 		message.channel.send({ embed: e });
 	},
 };
