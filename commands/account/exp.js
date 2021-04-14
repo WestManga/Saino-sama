@@ -29,15 +29,17 @@ module.exports = {
 
     const rank = new canvacord.Rank()
     .setAvatar(avatar)
-    .setCurrentXP(data.xp)
-    .setRequiredXP(expre)
+    .setCurrentXP(data.xp, `#${data.rankcard.color || FFFFFF}`)
+    .setRequiredXP(expre, `#${data.rankcard.color || FFFFFF}`)
     .setLevel(level)
     .setStatus(user.presence.status)
-    .setProgressBar("#FFFFFF", "COLOR")
-    .setUsername(user.username)
+    .setProgressBar(`#${data.rankcard.color || FFFFFF}`)
+    .setLevelColor("TEXT", `#${data.rankcard.color || FFFFFF}`)
+    .setBackground("IMAGE", `${data.rankcard.background}`)
+    .setUsername(user.username, `#${data.rankcard.color || FFFFFF}`)
     .setRank(1, "RANK", false)
     .registerFonts()
-    .setDiscriminator(user.discriminator);
+    .setDiscriminator(user.discriminator, `#${data.rankcard.color || FFFFFF}`);
     
 
     rank.build()
