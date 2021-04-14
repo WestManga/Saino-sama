@@ -26,6 +26,16 @@ const schema = mongoose.Schema({
         },
         lastdonate: Date,
 	},
+    rankcard: {
+		background: {
+            type: String,
+            default: ""
+        },
+		color: {
+            type: String,
+            default: "FFFFFF"
+        },
+	},
     userID: String,
     guildID: String,
     username: String,
