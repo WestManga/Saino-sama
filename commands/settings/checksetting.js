@@ -21,19 +21,24 @@ module.exports = {
     Schema.findOne({ guildID: message.guild.id }, async (err, data) => {
         if(!data) return message.reply('this guild not have any data');
 
+        const guildname = message.member.guild.name
         const welcomeChannel = client.channels.cache.get(data.welcomeChannel);
         const levelup = client.channels.cache.get(data.levelUpChannel);
         const modlog = client.channels.cache.get(data.modlogChannel);
         const moneylog = client.channels.cache.get(data.moneylogChannel);
+        const moneyincomelog = client.channels.cache.get(data.moneyincomelogChannel);
 
         let e = new MessageEmbed()
-        .setTitle('There is channel setting on this Guild')
+        .setTitle(`There is channel setting on this server ${guildname}`)
         .setDescription('If you want setting channel, you can use command `setlevelup`, `setmodlog`, `setmoneylog` and `setwelcome`\nIf you need more help for setting channel, you can use `help setwelcome` or other command.')
         .setColor(COLOR)
+        .addField("Fined Min", data.fined.min, true)
+        .addField("Fined Max", data.fined.max, true)
         .addField("Welcome Channel", welcomeChannel)
         .addField("Levelup Channel", levelup)
         .addField("ModLog Channel", modlog)
         .addField("MoneyLog Channel", moneylog)
+        .addField("Money Income Log", moneyincomelog)
         message.channel.send({embed: e});
     })
   }
