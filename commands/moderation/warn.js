@@ -46,15 +46,28 @@ module.exports = {
 
         if (!target) return bot.nodb(member.user);
 
-        let rand = Math.floor(Math.random() * 100 + 50);
+        //MODLOG DATA CHANNEL
+        let data2 =  await db2.findOne({
+            guildID: message.guild.id
+        });
+
+        // HITUNGAN DENDA/FINED
+        const fmin = data2.fined.min
+        const fmax = data2.fined.max
+        let rand = Math.floor(Math.random() * (fmax - fmin + 1) + fmin);
         target.money -= rand;
         target.warn++;
 		target.save();
 
+        const modnickname = message.author.username
+        const guildname = message.member.guild.name
+
         user.send(new MessageEmbed()
-            .setTitle("Kamu mendapatkan Warning!")
-            .setDescription(`**Alasan :**\n${reason}`)
+            .setTitle(`Kamu mendapatkan Warning di server ${guildname}`)
+            .setDescription(`Tolong untuk mengikuti peraturan server yang berlaku agar terhindar dari kesalahan dan dapat menyebabkan kamu dikeluarkan dari server ${guildname}`)
+            .addField("Moderator", modnickname)
             .addField("Denda", `Rp. ${rand}`)
+            .addField("Alasan", `\`\`\`${reason}\`\`\``)
             .setColor("RED")
             .setTimestamp()
         )
@@ -62,14 +75,9 @@ module.exports = {
             .setDescription(`Warned ${user} for ${reason}`).setColor('BLUE')
             .addField("Denda", `Rp. ${rand}`)
             .setTimestamp()
-        )
+        ).then(d => d.delete({ timeout : 20000 }))
 
-        //MODLOG DATA CHANNEL
-        let data2 =  await db2.findOne({
-            guildID: message.guild.id
-        });
-
-        let channel = message.guild.channels.cache.find(ch => ch.name == data2.modlogChannel);
+        const modlog = client.channels.cache.get(data2.modlogChannel);
         let e = new MessageEmbed()
         .setAuthor(`NEW WARN | ${user.user.tag}`)
         .setColor("BLUE")
@@ -79,6 +87,6 @@ module.exports = {
         .addField("Denda yang diterima", `Rp. ${rand}`)
         .setTimestamp()
         .setFooter(`${message.member.id}`, message.guild.iconURL);
-        client.channels.cache.get("807108631761649675").send(e);
+        modlog.send(e);
     }
 }
