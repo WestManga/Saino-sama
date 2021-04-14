@@ -15,6 +15,12 @@ module.exports=  {
 
         const role = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
 
+        let data = await Guild.findOne({
+            guildID: message.guild.id
+        });
+    
+        const modlog = client.channels.cache.get(data.modlogChannel);
+
         Schema.findOne(
             {
                 Guild: message.guild.id,
@@ -36,7 +42,7 @@ module.exports=  {
                 .setTimestamp()
                 .setFooter(`${message.member.id}`, message.guild.iconURL())
 
-                client.channels.cache.get("807108631761649675").send(embed);
+                modlog.send(embed);
             }
         );
     },

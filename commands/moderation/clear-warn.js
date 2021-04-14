@@ -11,6 +11,11 @@ module.exports = {
         if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission to use this command.')
         const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
         if(!user) return message.channel.send('User not found.').then(m => m.delete({ timeout : 5000 }))
+        let data2 = await Guild.findOne({
+            guildID: message.guild.id
+        });
+    
+        const modlog = client.channels.cache.get(data2.modlogChannel);
         db.findOne({ guildid : message.guild.id, user: user.user.id}, async(err,data) => {
             if(err) throw err;
             if(data) {
@@ -25,7 +30,7 @@ module.exports = {
                 .setTimestamp()
                 .setFooter(`${message.member.id}`, message.guild.iconURL);
 
-                client.channels.cache.get("807108631761649675").send(embed);
+                modlog.send(embed);
             } else {
                 message.channel.send(`${user.user.tag} tidak mempunyai warn satupun..`).then(m => m.delete({ timeout : 5000 }))
             }

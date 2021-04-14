@@ -42,6 +42,13 @@ module.exports = {
             .catch(err => {
                 message.reply(`Sepertinya ada masalah!\n\`\`\`${err.message}\`\`\``);
             });
+
+        let data = await Guild.findOne({
+                guildID: message.guild.id
+            });
+        
+        const modlog = client.channels.cache.get(data.modlogChannel);
+
         let embed = new MessageEmbed()
             .setAuthor(`BANNED | ${member.user.tag}`)
             .setColor(roleColor)
@@ -50,7 +57,6 @@ module.exports = {
             .addField("Alasan", reason, true)
             .setTimestamp()
             .setFooter(`${message.member.id}`, message.guild.iconURL())
-
-        client.channels.cache.get("807108631761649675").send(embed);
+        modlog.send(embed);
     }
 }

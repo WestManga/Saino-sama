@@ -17,6 +17,12 @@ module.exports = {
 			userID: user.user.id,
 		});
 
+        let data = await Guild.findOne({
+            guildID: message.guild.id
+        });
+    
+        const modlog = client.channels.cache.get(data.modlogChannel);
+
         if (!target) return bot.nodb(member.user);
         db.findOne({ guildid : message.guild.id, user: user.user.id}, async(err,data) => {
             if(err) throw err;
@@ -34,7 +40,7 @@ module.exports = {
                 .setTimestamp()
                 .setFooter(`${message.member.id}`, message.guild.iconURL);
 
-                client.channels.cache.get("807108631761649675").send(embed);
+                modlog.send(embed);
             } else {
                 message.channel.send('Member ini bersih dari warn..').then(m => m.delete({ timeout : 1000 }))
             }
