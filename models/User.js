@@ -29,7 +29,7 @@ const schema = mongoose.Schema({
     rankcard: {
 		background: {
             type: String,
-            default: ""
+            default: "https://i.ibb.co/12VWkmG/RankCard.png"
         },
 		color: {
             type: String,
