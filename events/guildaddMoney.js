@@ -31,7 +31,7 @@ client.on('message', async(message) => {
         
             // DUIT + EXP
             let rand = Math.floor(Math.random() * 5) + 2;
-            let randexp = Math.floor(Math.random() * 10 - 2) + 10;
+            let randexp = Math.floor(Math.random() * 10) + 10;
         
             user.money += rand;
             user.xp += randexp;
