@@ -19,7 +19,7 @@ module.exports = {
    */
   run: async(client, message, args) => {
         let pat = await sfw.pat();
-        const target = message.mentions.users.first()
+        const target = message.guild.member(message.mentions.users.first());
         if (!target) {
           message.reply('Please mention someone to thank')
           return
@@ -31,10 +31,9 @@ module.exports = {
       const authorId = message.author.id
       const now = new Date()
 
-      if (targetId === authorId) {
-          message.reply('You cannot thank yourself')
-          return
-      }
+        if (targetId === authorId) 
+            return message.reply('You cannot thank yourself');
+        if (target.user.bot) return message.channel.send('Its A Bot -_-');
 
       const authorData = await thanksSchema.findOne({
           userId: authorId,
