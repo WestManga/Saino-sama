@@ -9,7 +9,7 @@ function addToCooldown(ID) {
     cooldown.add(ID);
     setTimeout(() => {
         cooldown.delete(ID);
-    }, 60000 /* 20 seconds */);
+    }, 30000 /* 30 seconds */);
 }
 
 client.on('message', async(message) => {
@@ -30,7 +30,7 @@ client.on('message', async(message) => {
             const levelup = client.channels.cache.get(guild.levelUpChannel);
         
             // DUIT + EXP
-            let rand = Math.floor(Math.random() * 5) + 2;
+            let rand = Math.floor(Math.random() * 5) + 3;
             let randexp = Math.floor(Math.random() * 10) + 10;
         
             user.money += rand;
