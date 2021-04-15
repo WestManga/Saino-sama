@@ -12,15 +12,17 @@ module.exports = {
         ? "#ffffff"
         : message.guild.me.displayHexColor;
     let ava = client.user.displayAvatarURL();
+    let nama = client.user.username
     let botembed = new Discord.MessageEmbed()
       .setColor(roleColor)
       .setThumbnail(ava)
-      .addField("Nama", "Kosuke")
+      .addField("Nama", nama)
       .addField("Gender", "Male")
-      .addField("Pemilik", "Asura")
+      .addField("Pemilik", "Watambeee")
       .addField("Bahasa", "Discord.JS dengan NodeJS")
       .addField("Motto", "Eue everytime")
       .addField("Dikembangkan oleh", "Watambeee for WestManga Discord")
+      .addField("Source", "[Github](https://github.com/mhazm/Saino-sama)")
       .setFooter("2021 © WestManga.Info")
       .setAuthor(message.guild.name, message.guild.iconURL())
     return message.channel.send(botembed);
