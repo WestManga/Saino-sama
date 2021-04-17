@@ -141,7 +141,7 @@ client.on("guildMemberAdd", async(member) => {
 });
 
 client.on("guildMemberRemove", async(member) => {
-	require("./events/guildMemberRemover")(member);
+	require("./events/guildMemberRemove")(member);
 });
 
 client.on("message" ,async(message) =>{

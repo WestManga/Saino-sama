@@ -12,7 +12,7 @@ module.exports = {
      * @param {Message} message
      */
     run : async(client, message, args) => {
-        if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permissions to use this command.').then(m => m.delete({ timeout : 5000 }))
+        if(!message.member.hasPermission('KICK_MEMBERS')) return message.channel.send('You do not have permissions to use this command.').then(m => m.delete({ timeout : 5000 }))
         const user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         if(!user) return message.channel.send('User not found.').then(m => m.delete({ timeout : 5000 }))
         const reason = args.slice(1).join(" ")
