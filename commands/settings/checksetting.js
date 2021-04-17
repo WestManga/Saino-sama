@@ -34,6 +34,8 @@ module.exports = {
         .setColor(COLOR)
         .addField("Fined Min", data.fined.min, true)
         .addField("Fined Max", data.fined.max, true)
+        .addField("Money Income Min", data.money.min, true)
+        .addField("Money Income Max", data.money.max, true)
         .addField("Welcome Channel", welcomeChannel)
         .addField("Levelup Channel", levelup)
         .addField("ModLog Channel", modlog)

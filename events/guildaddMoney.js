@@ -28,9 +28,11 @@ client.on('message', async(message) => {
                         
             const moneylog = client.channels.cache.get(guild.moneyincomelogChannel);
             const levelup = client.channels.cache.get(guild.levelUpChannel);
+            const moneymin = guild.money.min
+            const moneymax = guild.money.max
         
             // DUIT + EXP
-            let rand = Math.floor(Math.random() * 5) + 3;
+            let rand = Math.floor(Math.random() * moneymin) + moneymax;
             let randexp = Math.floor(Math.random() * 10) + 10;
         
             user.money += rand;
