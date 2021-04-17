@@ -16,6 +16,16 @@ const schema = mongoose.Schema({
             default: "100"
         },
 	},
+    money: {
+		min: {
+            type: Number,
+            default: "6"
+        },
+		max: {
+            type: Number,
+            default: "3"
+        },
+	},
     welcomeChannel: {
         type: String,
         default: ''
