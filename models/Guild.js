@@ -30,6 +30,10 @@ const schema = mongoose.Schema({
         type: String,
         default: ''
     },
+    suggestionChannel: {
+        type: String,
+        default: ''
+    },
     levelUpChannel: {
         type: String,
         default: ''

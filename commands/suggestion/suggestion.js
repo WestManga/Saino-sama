@@ -1,4 +1,5 @@
-const { Client, Message, MessageEmbed } = require("discord.js")
+const { Client, Message, MessageEmbed } = require("discord.js");
+const Guild = require("../../models/Guild");
 
 module.exports = {
   name:'suggestion',
@@ -16,12 +17,14 @@ module.exports = {
       const suggestionQuery = args.join(" ");
       if(!suggestionQuery) return message.reply('Please specify a suggestion!');
 
-      let Channel = message.guild.channels.cache.find(
-        (ch) => ch.id === "823494509610270753"
-      );
+      let data =  await Guild.findOne({
+        guildID: message.guild.id
+      });
+
+      const suglog = client.channels.cache.get(data.suggestionChannel);
       // kalau channel ngga ada
-      if (!Channel)
-      return message.channel.send(`There is no channel in this guild which is called \`suggestion\``);
+      if (!suglog)
+      return message.channel.send(`There is no channel in this guild which is called \`suggestion\`\nPlease setting first with command `setsugch``);
       message.delete();
 
       const embed = new MessageEmbed()
@@ -30,11 +33,10 @@ module.exports = {
       .setColor(0x2f3136)
       .setDescription(`**Isi dari Suggestion :** \n${suggestionQuery}`)
       .addField("Status", 'PENDING')
-      .setFooter("Tips : dapatkan 5 vote dan admin akan merespon")
+      .setFooter("Tips : Kumpulkan 5 suara dan nanti admin akan merespon")
       .setTimestamp()
 
       message.channel.send('Submitted Suggestion!').then(m => m.delete({ timeout : 1000 }))
-      let laporan = await Channel.send(embed);
-      await laporan.react('👍').then(() => laporan.react('👎'));
+      suglog.send(embed);
     }
 };
