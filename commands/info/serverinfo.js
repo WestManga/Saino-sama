@@ -6,14 +6,13 @@ module.exports = {
     aliases: ["server"],
     description: "Return server information",
     usage: "",
-    category: "guild",
-    timeout: 3,
-    run: async(bot, message, args) => {
+    category: "info",
+    run: async(client, message, args) => {
         let roleList = message.guild.roles.cache
         .sort((a, b) => b.position - a.position)
         .map(r => r)
         .join(",");
-      if (roleList.length > 1024) roleList = "To many roles to display";
+      if (roleList.length > 50) roleList = "To many roles to display";
       if (!roleList) roleList = "No roles";
         function checkDays(date) {
           let now = new Date();
