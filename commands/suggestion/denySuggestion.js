@@ -21,6 +21,14 @@ module.exports = {
       if (!messageID) return message.reply("Please specify a messageID");
       if (!denyQuery) return message.reply("Please specify a reason for deny!");
       try {
+            let ch =  await Guild.findOne({
+            guildID: message.guild.id
+            });
+    
+            const suglog = client.channels.cache.get(ch.suggestionChannel)
+            // kalau channel ngga ada
+            if (!suglog) return message.channel.send(`There is no channel in this guild which is called \`suggestion\`\nPlease setting first with command \`setsugch\``).then(m => m.delete({ timeout : 5000 }))
+
           const suggestedEmbed = await suglog.messages.fetch(messageID);
           console.log(suggestedEmbed);
           const data = suggestedEmbed.embeds[0];
