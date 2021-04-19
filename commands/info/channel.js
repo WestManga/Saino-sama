@@ -3,10 +3,9 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: "channel",
     aliases: ["channelinfo"],
-    description: "Return channel info",
+    description: "Menunjukan informasi channel",
     usage: "<channel>",
-    category: "guild",
-    timeout: 3,
+    category: "info",
     run: async(bot, message, args) => {
         function checkDays(date) {
             let now = new Date();
