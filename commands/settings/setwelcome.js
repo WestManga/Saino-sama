@@ -5,7 +5,7 @@ const {
 
 module.exports = {
     name: "setwelcome",
-    aliases: ["setwelcomechannel","setchwel"],
+    aliases: ["setwelcomechannel","setwelch"],
     description: "Setting tempat bot menyapa member baru",
     usage: "<channel>",
     category: "settings",

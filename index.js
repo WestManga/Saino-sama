@@ -1,7 +1,6 @@
 const {Collection, Client, Discord, MessageEmbed} = require('discord.js')
 const Kosuke = require("./handlers/ClientBuilder.js");
 const fs = require('fs')
-const user = require('./models/User')
 const client = new Kosuke({ disableMentions: 'everyone', fetchAllMembers: true, partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 
 require('dotenv').config();
@@ -24,7 +23,6 @@ global.Guild = require('./models/Guild');
 global.Premium = require('./models/Premium');
 
 const blacklist = require('./models/blacklist')
-const prefixSchema = require('./models/prefix')
 const ticketTranscript = require('./models/ticket')
 
 const prefix = (process.env.PREFIX);
@@ -141,7 +139,7 @@ client.on("guildMemberAdd", async(member) => {
 });
 
 client.on("guildMemberRemove", async(member) => {
-	require("./events/guildMemberRemove")(member);
+	require('./events/guildMemberRemove')(member);
 });
 
 client.on("message" ,async(message) =>{
