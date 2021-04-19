@@ -21,11 +21,9 @@ module.exports = {
         guildID: message.guild.id
       });
 
-      const suglog = client.channels.cache.get(data.suggestionChannel);
+      const suglog = client.channels.cache.get(data.suggestionChannel)
       // kalau channel ngga ada
-      if (!suglog)
-      return message.channel.send(`There is no channel in this guild which is called \`suggestion\`\nPlease setting first with command `setsugch``);
-      message.delete();
+      if (!suglog) return message.channel.send(`There is no channel in this guild which is called \`suggestion\`\nPlease setting first with command \`setsugch\``).then(m => m.delete({ timeout : 5000 }))
 
       const embed = new MessageEmbed()
       .setAuthor(`${message.author.username} Suggestion`, message.author.displayAvatarURL({ dynamic : true }))
