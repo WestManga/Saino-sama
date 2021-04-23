@@ -57,6 +57,14 @@ const schema = mongoose.Schema({
     chatmoneyChannel: {
         type: String,
         default: ''
+    },
+    musicChannel: {
+        type: String,
+        default: ''
+    },
+    storyChannel: {
+        type: String,
+        default: ''
     }
 });
 
