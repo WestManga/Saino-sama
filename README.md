@@ -21,8 +21,8 @@ Saino-sama adalah kelanjutan series dari Kosuke..
 ## How to Install
 - rename .env.example to .env
 - edit .env with your discord bot details
-- run node install
-- run node .
+- npm i
+- node .
 
 # Feature
 | Command  | Progress | Deskripsi |
