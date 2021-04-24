@@ -65,6 +65,10 @@ const schema = mongoose.Schema({
     storyChannel: {
         type: String,
         default: ''
+    },
+    categorychatMoney: {
+        type: String,
+        default: ''
     }
 });
 

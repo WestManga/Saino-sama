@@ -116,5 +116,18 @@ module.exports = {
             message.channel.send({embed: e}).then(d => d.delete({ timeout : 10000 }));
             data.byeChannel = channel.id; data.save();
         }
+        else
+        if (args[0].toLowerCase() === 'parentmoney') {
+            if (!args[1]) return message.channel.send('Please Enter Valid Number');
+		    if (args[1] < 1)
+			return message.channel.send('Copy ID Kategori yang ingin kamu jadikan tempat chatmoney\nLalu masukan disini');
+		    if (isNaN(args[1])) return message.channel.send('Thats Not A Number -_-');
+            let e = new MessageEmbed()
+            .setDescription(`Berhasil mengubah kategori penghasil uang dari chat di <#${args[1]}>`)
+            .setTimestamp(new Date())
+            .setColor(COLOR)
+            message.channel.send({embed: e}).then(d => d.delete({ timeout : 10000 }));
+            data.categorychatMoney = args[1]; data.save();
+        }
     },
 };

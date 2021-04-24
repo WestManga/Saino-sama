@@ -13,19 +13,19 @@ function addToCooldown(ID) {
 }
 
 client.on('message', async(message) => {
-        if (message.channel.parentID !== '781212267236163596') return;
+    let guild = await Guild.findOne({ 
+        guildID: message.guild.id,
+    });
+
+    let user = await User.findOne({
+        guildID: message.guild.id,
+        userID: message.author.id,
+    });
+
+        if (message.channel.parentID !== guild.categorychatMoney) return;
         if(!cooldown.has(message.author.id)) {
             addToCooldown(message.author.id);
-            let user = await User.findOne({
-                guildID: message.guild.id,
-                userID: message.author.id,
-            });
-        
-            let guild = await Guild.findOne({ 
-                guildID: message.guild.id,
-            });
-        
-                        
+                    
             const moneylog = client.channels.cache.get(guild.moneyincomelogChannel);
             const levelup = client.channels.cache.get(guild.levelUpChannel);
             const moneymin = guild.money.min
