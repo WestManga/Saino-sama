@@ -32,7 +32,7 @@ client.on('message', async(message) => {
             const moneymax = guild.money.max
         
             // DUIT + EXP
-            let rand = Math.floor(Math.random() * moneymin) + moneymax;
+            let rand = Math.floor(Math.random() * (moneymax - moneymin) + moneymin);
             let randexp = Math.floor(Math.random() * 10) + 10;
         
             user.money += rand;
