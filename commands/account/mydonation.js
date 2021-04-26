@@ -26,12 +26,12 @@ module.exports = {
     let inline = true;
 		let e = new Discord.MessageEmbed()
             .setAuthor(user.tag, avatar)
-			.setTitle(`${patreonSupporter}`)
+			      .setTitle(`${patreonSupporter}`)
             .setDescription('Berikut dibawah ini adalah seberapa banyak kamu telah memberikan donasi kepada WestManga')
             .setColor(COLOR)
             .addField('🔰 Total Point', `${data.point || 0} Points`)
-			.addField('Rupiah', `Rp. ${data.donate.rupiah || 0}`, inline)
-			.addField('Anigold', `${data.donate.anigold || 0} Gold`, inline)
+			      .addField('Rupiah', `Rp. ${data.donate.rupiah || 0}`, inline)
+			      .addField('Anigold', `${data.donate.anigold || 0} Gold`, inline)
             .addField('OwoCash', `${data.donate.owocash || 0} Wcash`, inline)
 		message.channel.send({ embed: e });
 
