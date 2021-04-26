@@ -13,6 +13,18 @@ const determineSupporterTitle = (subscription) => {
 	return title;
 };
 
+const simpleSupporterTitle = (subscription) => {
+
+	const pangkats = {
+		Bronze: `Bronze Supporter`,
+		Silver: `Silver Supporter`,
+		Gold: `Gold Supporter`,
+		Platinum: `Platinum Supporter`,
+	};
+	const pangkat = pangkats[subscription] ? pangkats[subscription] : "Normal Member";
+	return pangkat;
+}
+
 const generateTip = ()=> {
 	let string = "Tip: ";
 	const strings = [
@@ -27,4 +39,4 @@ const generateTip = ()=> {
 	return string;
 };
 
-module.exports = { determineSupporterTitle, generateTip };
+module.exports = { determineSupporterTitle, generateTip, simpleSupporterTitle };
