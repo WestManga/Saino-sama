@@ -61,7 +61,7 @@ module.exports = {
 
     const gaji1 = new MessageEmbed()
     .setColor(COLOR)
-    .setDescription(`Selamat kamu mendapatkan point dari gaji harian staff sebanyak **${gaji} Point**\nSaat ini jumlah point yang kamu punya adalah **${user.point} Point!**`)
+    .setDescription(`Selamat ${message.author.username} mendapatkan point dari gaji harian staff sebanyak **${gaji} Point**\nSaat ini jumlah point yang kamu punya adalah **${user.point} Point!**`)
     .setFooter(`Kamu dapat claim lagi dalam waktu 24 Jam`)
     .setTimestamp()
     message.channel.send(gaji1);
