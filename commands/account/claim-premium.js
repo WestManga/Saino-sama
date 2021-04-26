@@ -29,7 +29,7 @@ module.exports = {
     
     if (point === 0) return message.channel.send(`Kamu tidak punya point yang cukup untuk claim Supporter!\nDibutuhkan minimum **5 Point** untuk claim Bronze Supporter.`).then(d => d.delete({ timeout : 10000 }))
 
-    if (point > 5 && point < 15) {
+    if (point > 4 && point < 15) {
         if (data.account.patreon === "Bronze") return message.channel.send(`You already Bronze Supporter!`).then(d => d.delete({ timeout : 20000 }));
 
         let e = new MessageEmbed()
@@ -41,7 +41,7 @@ module.exports = {
 		    data.save();
 		    message.channel.send({ embed: e });
     } else
-    if (point > 25 && point < 49) {
+    if (point > 24 && point < 49) {
       if (data.account.patreon === "Silver") return message.channel.send(`You already Silver Supporter!`).then(d => d.delete({ timeout : 20000 }));
 
         let e = new MessageEmbed()
@@ -53,7 +53,7 @@ module.exports = {
 		    data.save();
 		    message.channel.send({ embed: e });
     } else
-    if (point > 50 && point < 99) {
+    if (point > 49 && point < 99) {
       if (data.account.patreon === "Gold") return message.channel.send(`You already Gold Supporter!`).then(d => d.delete({ timeout : 20000 }));
 
         let e = new MessageEmbed()
