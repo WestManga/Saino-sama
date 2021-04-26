@@ -36,9 +36,11 @@ const schema = mongoose.Schema({
             default: "FFFFFF"
         },
 	},
+    
     userID: String,
     guildID: String,
     username: String,
+    lastpayday: Date,
     money: {
         type: Number,
         default: 0
