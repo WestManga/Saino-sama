@@ -27,10 +27,10 @@ module.exports = {
 
     let point = data.point;
     
-    if (point === 0) return message.channel.send(`Kamu tidak punya point yang cukup untuk claim Supporter!`)
+    if (point === 0) return message.channel.send(`Kamu tidak punya point yang cukup untuk claim Supporter!\nDibutuhkan minimum **5 Point** untuk claim Bronze Supporter.`).then(d => d.delete({ timeout : 10000 }))
 
-    if (point > 1 && point < 15) {
-        if (data.account.patreon === "Bronze") return message.channel.send(`You already Bronze Supporter!`);
+    if (point > 5 && point < 15) {
+        if (data.account.patreon === "Bronze") return message.channel.send(`You already Bronze Supporter!`).then(d => d.delete({ timeout : 20000 }));
 
         let e = new MessageEmbed()
 			    .setColor(process.env.COLOR)
@@ -42,7 +42,7 @@ module.exports = {
 		    message.channel.send({ embed: e });
     } else
     if (point > 25 && point < 49) {
-      if (data.account.patreon === "Silver") return message.channel.send(`You already Silver Supporter!`);
+      if (data.account.patreon === "Silver") return message.channel.send(`You already Silver Supporter!`).then(d => d.delete({ timeout : 20000 }));
 
         let e = new MessageEmbed()
 			    .setColor(process.env.COLOR)
@@ -54,7 +54,7 @@ module.exports = {
 		    message.channel.send({ embed: e });
     } else
     if (point > 50 && point < 99) {
-      if (data.account.patreon === "Gold") return message.channel.send(`You already Gold Supporter!`);
+      if (data.account.patreon === "Gold") return message.channel.send(`You already Gold Supporter!`).then(d => d.delete({ timeout : 20000 }));
 
         let e = new MessageEmbed()
 			    .setColor(process.env.COLOR)
@@ -66,7 +66,7 @@ module.exports = {
 		    message.channel.send({ embed: e });
     } else
     if (point > 100) {
-      if (data.account.patreon === "Platinum") return message.channel.send(`You already Platinum Supporter!`);
+      if (data.account.patreon === "Platinum") return message.channel.send(`You already Platinum Supporter!`).then(d => d.delete({ timeout : 20000 }));
 
         let e = new MessageEmbed()
 			    .setColor(process.env.COLOR)
