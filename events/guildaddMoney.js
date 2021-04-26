@@ -2,14 +2,16 @@ const { MessageEmbed, TeamMember } = require('discord.js');
 const client = require('../index');
 const User = require('../models/User');
 const Guild = require('../models/Guild');
+const { simpleSupporterTitle } = require('../handlers/profilehelper');
 
 const cooldown = new Set();
 
 function addToCooldown(ID) {
+    let cd = Math.floor(Math.random() * (60000 - 30000) + 30000);
     cooldown.add(ID);
     setTimeout(() => {
         cooldown.delete(ID);
-    }, 30000 /* 30 seconds */);
+    }, cd /* 30 seconds */);
 }
 
 client.on('message', async(message) => {
@@ -25,6 +27,8 @@ client.on('message', async(message) => {
         if (message.channel.parentID !== guild.categorychatMoney) return;
         if(!cooldown.has(message.author.id)) {
             addToCooldown(message.author.id);
+
+            const Pangkat = simpleSupporterTitle(user.account.patreon);
                     
             const moneylog = client.channels.cache.get(guild.moneyincomelogChannel);
             const levelup = client.channels.cache.get(guild.levelUpChannel);
@@ -34,10 +38,38 @@ client.on('message', async(message) => {
             // DUIT + EXP
             let rand = Math.floor(Math.random() * (moneymax - moneymin) + moneymin);
             let randexp = Math.floor(Math.random() * 10) + 10;
-        
-            user.money += rand;
-            user.xp += randexp;
-            user.messages++;
+
+            // Patreon Bonus
+            if (user.account.patreon === "Silver") {
+                rand *= 2;
+                randexp *= 2;
+
+                user.money += rand;
+                user.xp += randexp;
+                user.messages++;
+            } else
+            if (user.account.patreon === "Gold") {
+                rand *= 4;
+                randexp *= 4;
+
+                user.money += rand;
+                user.xp += randexp;
+                user.messages++;
+            } else 
+            if (user.account.patreon === "Platinum") {
+                rand *= 4;
+                randexp *= 4;
+
+                user.money += rand;
+                user.xp += randexp;
+                user.messages++;
+            } else
+            if (user.account.patreon === "Bronze" , "") {
+                user.money += rand;
+                user.xp += randexp;
+                user.messages++;
+            }
+               
 
             const level = user.level
             const exp = process.env.UPXP
@@ -55,8 +87,10 @@ client.on('message', async(message) => {
             }
         
             let e = new MessageEmbed()
-            .setColor(process.env.COLOR)
-            .setDescription(`${message.author.username} recieve chat money + Rp. ${rand}\nGet exp: ${randexp}`)
+            .setColor("#99d42c")
+            .setTitle('<:update:836111138576007228>︱Balance Update')
+            .setDescription(`User: **${message.author.username}**\nStatus: ${Pangkat}\nReceived:  \`Rp.${rand}\`\nGet EXP: \`${randexp}\``)
+            .setTimestamp()
             moneylog.send({embed : e});
             user.afk = false;
             user.save();
