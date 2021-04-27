@@ -2,7 +2,6 @@ const { MessageEmbed, TeamMember } = require('discord.js');
 const client = require('../index');
 const User = require('../models/User');
 const Guild = require('../models/Guild');
-const { determineSupporterTitle } = require('../handlers/profilehelper');
 
 const cooldown = new Set();
 
@@ -23,8 +22,6 @@ client.on('message', async(message) => {
         guildID: message.guild.id,
         userID: message.author.id,
     });
-
-    const patreonSupporter = determineSupporterTitle(user.account.patreon);
 
         if (message.channel.parentID !== guild.categorychatMoney) return;
         if(!cooldown.has(message.author.id)) {
