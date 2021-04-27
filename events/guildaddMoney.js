@@ -18,7 +18,7 @@ client.on('message', async(message) => {
         guildID: message.guild.id,
     });
 
-    let data = await User.findOne({
+    let data = User.findOne({
         guildID: message.guild.id,
         userID: message.author.id,
     });
