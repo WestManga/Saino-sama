@@ -31,13 +31,14 @@ client.on('message', async(message) => {
             const levelup = client.channels.cache.get(guild.levelUpChannel);
             const moneymin = guild.money.min
             const moneymax = guild.money.max
+            const patreonStatus = data.account.patreon;
         
             // DUIT + EXP
             let rand = Math.floor(Math.random() * (moneymax - moneymin) + moneymin);
             let randexp = Math.floor(Math.random() * 10) + 10;
 
             // Patreon Bonus
-            if (data.account.patreon == "Silver") {
+            if (patreonStatus === "Silver") {
                 rand *= 2;
                 randexp *= 2;
 
@@ -45,7 +46,7 @@ client.on('message', async(message) => {
                 data.xp += randexp;
                 data.messages++;
             } else
-            if (data.account.patreon == "Gold") {
+            if (patreonStatus === "Gold") {
                 rand *= 4;
                 randexp *= 4;
 
@@ -53,7 +54,7 @@ client.on('message', async(message) => {
                 data.xp += randexp;
                 data.messages++;
             } else 
-            if (data.account.patreon == "Platinum") {
+            if (patreonStatus === "Platinum") {
                 rand *= 4;
                 randexp *= 4;
 
@@ -61,12 +62,12 @@ client.on('message', async(message) => {
                 data.xp += randexp;
                 data.messages++;
             } else
-            if (data.account.patreon == "Bronze") {
+            if (patreonStatus === "Bronze") {
                 data.money += rand;
                 data.xp += randexp;
                 data.messages++;
             } else
-            if (data.account.patreon == "") {
+            if (patreonStatus === "") {
                 data.money += rand;
                 data.xp += randexp;
                 data.messages++;
