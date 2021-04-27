@@ -18,7 +18,7 @@ client.on('message', async(message) => {
         guildID: message.guild.id,
     });
 
-    let user = await User.findOne({
+    let data = await User.findOne({
         guildID: message.guild.id,
         userID: message.author.id,
     });
@@ -37,50 +37,50 @@ client.on('message', async(message) => {
             let randexp = Math.floor(Math.random() * 10) + 10;
 
             // Patreon Bonus
-            if (user.account.patreon === "Silver") {
+            if (data.account.patreon === "Silver") {
                 rand *= 2;
                 randexp *= 2;
 
-                user.money += rand;
-                user.xp += randexp;
-                user.messages++;
+                data.money += rand;
+                data.xp += randexp;
+                data.messages++;
             } else
-            if (user.account.patreon === "Gold") {
+            if (data.account.patreon === "Gold") {
                 rand *= 4;
                 randexp *= 4;
 
-                user.money += rand;
-                user.xp += randexp;
-                user.messages++;
+                data.money += rand;
+                data.xp += randexp;
+                data.messages++;
             } else 
-            if (user.account.patreon === "Platinum") {
+            if (data.account.patreon === "Platinum") {
                 rand *= 4;
                 randexp *= 4;
 
-                user.money += rand;
-                user.xp += randexp;
-                user.messages++;
+                data.money += rand;
+                data.xp += randexp;
+                data.messages++;
             } else
-            if (user.account.patreon === "Bronze" , "") {
-                user.money += rand;
-                user.xp += randexp;
-                user.messages++;
+            if (data.account.patreon === "Bronze" , "") {
+                data.money += rand;
+                data.xp += randexp;
+                data.messages++;
             }
                
 
-            const level = user.level
+            const level = data.level
             const exp = process.env.UPXP
             const exprequired = Math.round(level * exp)
             
-            if (user.xp >= exprequired) {
+            if (data.xp >= exprequired) {
                 let e = new MessageEmbed()
                     .setColor(process.env.COLOR)
                     .setDescription(
-                        `:tada: Congrats ${message.author.username} You Level Up\nYou are now level ${user.level}`,
+                        `:tada: Congrats ${message.author.username} You Level Up\nYou are now level ${data.level}`,
                     );
                 levelup.send(e);
-                user.xp -= exprequired;
-                user.level += 1;
+                data.xp -= exprequired;
+                data.level += 1;
             }
         
             let e = new MessageEmbed()
@@ -89,7 +89,7 @@ client.on('message', async(message) => {
             .setDescription(`User: **${message.author.username}**\nReceived:  \`Rp.${rand}\`\nGet EXP: \`${randexp}\``)
             .setTimestamp()
             moneylog.send({embed : e});
-            user.afk = false;
-            user.save();
+            data.afk = false;
+            data.save();
         }
 });
