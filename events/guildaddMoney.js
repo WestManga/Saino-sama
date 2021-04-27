@@ -1,4 +1,4 @@
-const { MessageEmbed, TeamMember } = require('discord.js');
+const { MessageEmbed, Message } = require('discord.js');
 const client = require('../index');
 const User = require('../models/User');
 const Guild = require('../models/Guild');
@@ -16,16 +16,16 @@ function addToCooldown(ID) {
 client.on('message', async(message) => {
     let guild = await Guild.findOne({ 
         guildID: message.guild.id,
-    });
-
-    let data = User.findOne({
-        guildID: message.guild.id,
-        userID: message.author.id,
-    });
+    }).catch(err => console.log(err))
 
         if (message.channel.parentID !== guild.categorychatMoney) return;
         if(!cooldown.has(message.author.id)) {
             addToCooldown(message.author.id);
+
+            let data = await User.findOne({
+                guildID: message.guild.id,
+                userID: message.author.id,
+            }).catch(err => console.log(err))
 
             const moneylog = client.channels.cache.get(guild.moneyincomelogChannel);
             const levelup = client.channels.cache.get(guild.levelUpChannel);
