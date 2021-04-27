@@ -1,21 +1,9 @@
 const {Collection, Client, Discord, MessageEmbed} = require('discord.js')
 const kosuke = require("./handlers/ClientBuilder.js");
-const fs = require('fs');
+const fs = require('fs')
 const client = new kosuke({ disableMentions: 'everyone', fetchAllMembers: true, partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 
 require('dotenv').config();
-
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 3002;
-const routes = require('./src/routes');
-
-app.listen(PORT, function(err){
-    if (err) console.log("Error in server setup")
-    console.log("Server listening on Port", PORT);
-})
-
-app.use('/api', routes );
 
 // mongose env
 global.mongosee = require('mongoose');
