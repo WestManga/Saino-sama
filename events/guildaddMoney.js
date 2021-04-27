@@ -24,12 +24,12 @@ client.on('message', async(message) => {
         userID: message.author.id,
     });
 
+    const patreonSupporter = determineSupporterTitle(user.account.patreon);
+
         if (message.channel.parentID !== guild.categorychatMoney) return;
         if(!cooldown.has(message.author.id)) {
             addToCooldown(message.author.id);
 
-            const Pangkat = simpleSupporterTitle(user.account.patreon);
-                    
             const moneylog = client.channels.cache.get(guild.moneyincomelogChannel);
             const levelup = client.channels.cache.get(guild.levelUpChannel);
             const moneymin = guild.money.min
@@ -89,7 +89,7 @@ client.on('message', async(message) => {
             let e = new MessageEmbed()
             .setColor("#99d42c")
             .setTitle('<:update:836111138576007228>︱Balance Update')
-            .setDescription(`User: **${message.author.username}**\nStatus: ${Pangkat}\nReceived:  \`Rp.${rand}\`\nGet EXP: \`${randexp}\``)
+            .setDescription(`User: **${message.author.username}**\nRank: ${patreonSupporter}\nReceived:  \`Rp.${rand}\`\nGet EXP: \`${randexp}\``)
             .setTimestamp()
             moneylog.send({embed : e});
             user.afk = false;
