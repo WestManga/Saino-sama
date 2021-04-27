@@ -86,7 +86,7 @@ client.on('message', async(message) => {
             let e = new MessageEmbed()
             .setColor("#99d42c")
             .setTitle('<:update:836111138576007228>︱Balance Update')
-            .setDescription(`User: **${message.author.username}**\nRank: ${patreonSupporter}\nReceived:  \`Rp.${rand}\`\nGet EXP: \`${randexp}\``)
+            .setDescription(`User: **${message.author.username}**\nReceived:  \`Rp.${rand}\`\nGet EXP: \`${randexp}\``)
             .setTimestamp()
             moneylog.send({embed : e});
             user.afk = false;
