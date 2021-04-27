@@ -2,7 +2,7 @@ const { MessageEmbed, TeamMember } = require('discord.js');
 const client = require('../index');
 const User = require('../models/User');
 const Guild = require('../models/Guild');
-const { simpleSupporterTitle } = require('../handlers/profilehelper');
+const { determineSupporterTitle } = require('../handlers/profilehelper');
 
 const cooldown = new Set();
 
