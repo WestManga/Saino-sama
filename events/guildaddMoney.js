@@ -37,7 +37,7 @@ client.on('message', async(message) => {
             let randexp = Math.floor(Math.random() * 10) + 10;
 
             // Patreon Bonus
-            if (data.account.patreon === "Silver") {
+            if (data.account.patreon == "Silver") {
                 rand *= 2;
                 randexp *= 2;
 
@@ -45,7 +45,7 @@ client.on('message', async(message) => {
                 data.xp += randexp;
                 data.messages++;
             } else
-            if (data.account.patreon === "Gold") {
+            if (data.account.patreon == "Gold") {
                 rand *= 4;
                 randexp *= 4;
 
@@ -53,7 +53,7 @@ client.on('message', async(message) => {
                 data.xp += randexp;
                 data.messages++;
             } else 
-            if (data.account.patreon === "Platinum") {
+            if (data.account.patreon == "Platinum") {
                 rand *= 4;
                 randexp *= 4;
 
@@ -61,7 +61,12 @@ client.on('message', async(message) => {
                 data.xp += randexp;
                 data.messages++;
             } else
-            if (data.account.patreon === "Bronze" , "") {
+            if (data.account.patreon == "Bronze") {
+                data.money += rand;
+                data.xp += randexp;
+                data.messages++;
+            } else
+            if (data.account.patreon == "") {
                 data.money += rand;
                 data.xp += randexp;
                 data.messages++;
