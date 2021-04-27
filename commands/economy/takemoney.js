@@ -45,11 +45,11 @@ module.exports = {
 
 			let notifembed = new MessageEmbed()
 			.setColor("RED")
-			.setAuthor(`NEW REMOVE MONEY`)
-			.setDescription(`Telah diambil sejumlah Uang dengan laporan :`)
-			.addField("Pengambil", `**${message.author}**\n**${message.author.id}**\n **${message.author.username}**`)
-			.addField("Target", `**${member.user}**\n**${member.user.id}**\n**${member.user.username}**`)
+			.setTitle(`<:bmoney:836506631063470090> NEW REMOVE MONEY`)
+			.addField("Data Pengambil", `User: ${message.author}\nUserID: ${message.author.id}\nUsername: ${message.author.username}`)
+			.addField("Data Target", `User: ${member.user}\nUserID: ${member.user.id}\nUsername: ${member.user.username}`)
 			.addField("Jumlah Uang", `\`\`\`Rp. ${args[1]}\`\`\``)
+			.setTimestamp()
 			moneylog.send({embed : notifembed});
 
 		})

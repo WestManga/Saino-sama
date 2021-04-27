@@ -44,64 +44,81 @@ module.exports = {
     const now = new Date()
 
     if (args[1].toLowerCase() === 'rupiah') {
+		const onepoint = 2000;
+		const donasinya = args[2];
+		const getpoin = ( donasinya / onepoint );
+		const poinresult = Math.floor(parseInt(getpoin));
+
         let e = new MessageEmbed()
 			.setColor(process.env.COLOR)
 			.setDescription(
-				`**${message.author.username}**  Add Donation Stats to ${member.user.username} because donate Rp. ${args[2]}`,
+				`Terimakasih **${member.user.username}** karena telah berdonasi sebanyak Rp. ${args[2]}\n**${message.author.username}** telah mendapatkan **${poinresult} Points**`,
 			);
 		target.donate.rupiah += Math.floor(parseInt(args[2]));
+		target.point += poinresult;
 		target.save();
         target.donate.lastdonate = now;
 		message.channel.send({ embed: e });
 
         let notifembed = new MessageEmbed()
 			.setColor("YELLOW")
-			.setAuthor(`Donasi Baru dengan Rupiah`)
-			.setDescription(`Telah masuk donasi baru dengan rupiah :`)
-			.addField("Saksi", `**${message.author}**\n**${message.author.id}**\n **${message.author.username}**`)
-			.addField("Pemberi Donasi", `**${member.user}**\n**${member.user.id}**\n**${member.user.username}**`)
+			.setDescription(`User ${message.author.username} telah memberikan donasi sebanyak Rp.${args[2]} dan mendapatkan **${poinresult} Point**`)
+			.setTitle(`<a:bot:824614191984934963> DONASI RUPIAH`)
+			.addField("Saksi", `User: ${message.author}\nUserID: ${message.author.id}\nUsername: ${message.author.username}`)
+			.addField("Pemberi Donasi", `User: ${member.user}\nUserID: ${member.user.id}\nUsername: ${member.user.username}`)
 			.addField("Nominal Donasi", `\`\`\`Rp. ${args[2]}\`\`\``)
 		moneylog.send({embed : notifembed});
     } else
     if (args[1].toLowerCase() === 'owocash') {
+		const onepoint = 50000;
+		const donasinya = args[2];
+		const getpoin = ( donasinya / onepoint );
+		const poinresult = Math.floor(parseInt(getpoin));
+
         let e = new MessageEmbed()
 			.setColor(process.env.COLOR)
 			.setDescription(
-				`**${message.author.username}**  Add Donation Stats to ${member.user.username} because donate ${args[2]} owocash`,
+				`Terimakasih **${member.user.username}** karena telah berdonasi sebanyak ${args[2]} wcash\n**${message.author.username}** telah mendapatkan **${poinresult} Points**`,
 			);
 		target.donate.owocash += Math.floor(parseInt(args[2]));
+		target.point += poinresult;
         target.donate.lastdonate = now;
 		target.save();
 		message.channel.send({ embed: e });
 
         let notifembed = new MessageEmbed()
-			.setColor("YELLOW")
-			.setAuthor(`Donasi Baru dengan Owocash`)
-			.setDescription(`Telah masuk donasi baru dengan owocash :`)
-			.addField("Saksi", `**${message.author}**\n**${message.author.id}**\n **${message.author.username}**`)
-			.addField("Pemberi Donasi", `**${member.user}**\n**${member.user.id}**\n**${member.user.username}**`)
-			.addField("Nominal Donasi", `\`\`\`${args[2]} Owocash\`\`\``)
+			.setColor("6a90cc")
+			.setDescription(`User ${message.author.username} telah memberikan donasi sebanyak ${args[2]} wcash dan mendapatkan **${poinresult} Point**`)
+			.setTitle(`<a:bot:824614191984934963> DONASI OWOCASH`)
+			.addField("Saksi", `User: ${message.author}\nUserID: ${message.author.id}\nUsername: ${message.author.username}`)
+			.addField("Pemberi Donasi", `User: ${member.user}\nUserID: ${member.user.id}\nUsername: ${member.user.username}`)
+			.addField("Nominal Donasi", `\`\`\`Rp. ${args[2]}\`\`\``)
 		moneylog.send({embed : notifembed});
     } else
     if (args[1].toLowerCase() === 'anigold') {
+		const onepoint = 25000;
+		const donasinya = args[2];
+		const getpoin = ( donasinya / onepoint );
+		const poinresult = Math.floor(parseInt(getpoin));
+
         let e = new MessageEmbed()
 			.setColor(process.env.COLOR)
 			.setDescription(
-				`**${message.author.username}**  Add Donation Stats to ${member.user.username} because donate ${args[2]} Anigold`,
+				`Terimakasih **${member.user.username}** karena telah berdonasi sebanyak ${args[2]} Gold\n**${message.author.username}** telah mendapatkan **${poinresult} Points**`,
 			);
-		target.donate.rupiah += Math.floor(parseInt(args[2]));
+		target.donate.anigold += Math.floor(parseInt(args[2]));
+		target.point += poinresult;
         target.donate.lastdonate = now;
 		target.save();
 		message.channel.send({ embed: e });
 
         let notifembed = new MessageEmbed()
-			.setColor("YELLOW")
-			.setAuthor(`Donasi Baru dengan Anigold`)
-			.setDescription(`Telah masuk donasi baru dengan anigold :`)
-			.addField("Saksi", `**${message.author}**\n**${message.author.id}**\n **${message.author.username}**`)
-			.addField("Pemberi Donasi", `**${member.user}**\n**${member.user.id}**\n**${member.user.username}**`)
-			.addField("Nominal Donasi", `\`\`\`${args[2]} Gold\`\`\``)
-		moneylog.send({embed : notifembed});
+			.setColor("6a90cc")
+			.setDescription(`User ${message.author.username} telah memberikan donasi sebanyak ${args[2]} Gold dan mendapatkan **${poinresult} Point**`)
+			.setTitle(`<a:bot:824614191984934963> DONASI ANIGOLD`)
+			.addField("Saksi", `User: ${message.author}\nUserID: ${message.author.id}\nUsername: ${message.author.username}`)
+			.addField("Pemberi Donasi", `User: ${member.user}\nUserID: ${member.user.id}\nUsername: ${member.user.username}`)
+			.addField("Nominal Donasi", `\`\`\`Rp. ${args[2]}\`\`\``)
     }
   }
 };

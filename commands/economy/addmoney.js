@@ -47,10 +47,9 @@ module.exports = {
 
 			let notifembed = new MessageEmbed()
 			.setColor("YELLOW")
-			.setAuthor(`NEW ADD MONEY`)
-			.setDescription(`Telah diberikan sejumlah uang dengan laporan :`)
-			.addField("Pemberi", `**${message.author}**\n**${message.author.id}**\n **${message.author.username}**`)
-			.addField("Penerima", `**${member.user}**\n**${member.user.id}**\n**${member.user.username}**`)
+			.setAuthor(`<:bmoney:836506631063470090> NEW ADD MONEY`)
+			.addField("Pemberi Uang", `User: ${message.author}\nUserID: ${message.author.id}\nUsername: ${message.author.username}`)
+			.addField("Penerima", `User: ${member.user}\nUserID: ${member.user.id}\nUsername: ${member.user.username}`)
 			.addField("Nominal Uang", `\`\`\`Rp. ${args[1]}\`\`\``)
 			moneylog.send({embed : notifembed});
 

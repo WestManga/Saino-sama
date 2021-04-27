@@ -48,10 +48,9 @@ module.exports = {
 
 			let notifembed = new MessageEmbed()
 			.setColor("BLUE")
-			.setAuthor(`NEW ADD POINT`)
-			.setDescription(`Telah diberikan sejumlah **Point** dengan laporan :`)
-			.addField("Pemberi", `**${message.author}**\n**${message.author.id}**\n **${message.author.username}**`)
-			.addField("Penerima", `**${member.user}**\n**${member.user.id}**\n**${member.user.username}**`)
+			.setAuthor(`<:bmoney:836506631063470090> NEW ADD POINT`)
+			.addField("Pemberi Point", `User: ${message.author}\nUserID: ${message.author.id}\nUsername: ${message.author.username}`)
+			.addField("Penerima", `User: ${member.user}\nUserID: ${member.user.id}\nUsername: ${member.user.username}`)
 			.addField("Alasan", `${reason}`)
 			.addField("Jumlah Point", `\`\`\`Rp. ${args[1]}\`\`\``)
 			moneylog.send({embed : notifembed});

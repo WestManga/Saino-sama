@@ -31,6 +31,7 @@ module.exports = {
 			userId: member.id,
 			guildId: message.guild.id,
 		});
+
 		let guildData = await Guild.findOne({ guildID: message.guild.id });
 		if (!data) return client.nodb(member.user);
 
@@ -41,9 +42,9 @@ module.exports = {
             .setAuthor(user.tag, avatar)
 			.setTitle(`${patreonSupporter}`)
             .setColor(COLOR)
-            .addField('🔰 Point', `${data.point || 0} Points`, inline)
-			.addField('💰 Money', `Rp. ${data.money || 0}`, inline)
-			.addField('👍 Thank', `${datat.received || 0} Thanks`, inline)
+            .addField('<:diamondegg:836507553378730035> Point', `${data.point || 0} Points`, inline)
+			.addField('<:wallet:836507553357496321> Money', `Rp. ${data.money || 0}`, inline)
+			.addField('<a:bintang:819855110754271252> Thanks', `${datat.received || 0} Thanks`, inline)
 			.setTimestamp()
 		message.channel.send({ embed: e });
 	},
