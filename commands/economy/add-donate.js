@@ -52,7 +52,7 @@ module.exports = {
         let e = new MessageEmbed()
 			.setColor(process.env.COLOR)
 			.setDescription(
-				`Terimakasih **${member.user.username}** karena telah berdonasi sebanyak Rp. ${args[2]}\n**${message.author.username}** telah mendapatkan **${poinresult} Points**`,
+				`Terimakasih **${member.user.username}** karena telah berdonasi sebanyak Rp. ${args[2]}\n**${member.user.username}** telah mendapatkan **${poinresult} Points**`,
 			);
 		target.donate.rupiah += Math.floor(parseInt(args[2]));
 		target.point += poinresult;
@@ -78,7 +78,7 @@ module.exports = {
         let e = new MessageEmbed()
 			.setColor(process.env.COLOR)
 			.setDescription(
-				`Terimakasih **${member.user.username}** karena telah berdonasi sebanyak ${args[2]} wcash\n**${message.author.username}** telah mendapatkan **${poinresult} Points**`,
+				`Terimakasih **${member.user.username}** karena telah berdonasi sebanyak ${args[2]} wcash\n**${member.user.username}** telah mendapatkan **${poinresult} Points**`,
 			);
 		target.donate.owocash += Math.floor(parseInt(args[2]));
 		target.point += poinresult;
@@ -92,7 +92,7 @@ module.exports = {
 			.setTitle(`<a:bot:824614191984934963> DONASI OWOCASH`)
 			.addField("Saksi", `User: ${message.author}\nUserID: ${message.author.id}\nUsername: ${message.author.username}`)
 			.addField("Pemberi Donasi", `User: ${member.user}\nUserID: ${member.user.id}\nUsername: ${member.user.username}`)
-			.addField("Nominal Donasi", `\`\`\`Rp. ${args[2]}\`\`\``)
+			.addField("Nominal Donasi", `\`\`\`${args[2]} wcash\`\`\``)
 		moneylog.send({embed : notifembed});
     } else
     if (args[1].toLowerCase() === 'anigold') {
@@ -104,7 +104,7 @@ module.exports = {
         let e = new MessageEmbed()
 			.setColor(process.env.COLOR)
 			.setDescription(
-				`Terimakasih **${member.user.username}** karena telah berdonasi sebanyak ${args[2]} Gold\n**${message.author.username}** telah mendapatkan **${poinresult} Points**`,
+				`Terimakasih **${member.user.username}** karena telah berdonasi sebanyak ${args[2]} Gold\n**${member.user.username}** telah mendapatkan **${poinresult} Points**`,
 			);
 		target.donate.anigold += Math.floor(parseInt(args[2]));
 		target.point += poinresult;
@@ -118,7 +118,7 @@ module.exports = {
 			.setTitle(`<a:bot:824614191984934963> DONASI ANIGOLD`)
 			.addField("Saksi", `User: ${message.author}\nUserID: ${message.author.id}\nUsername: ${message.author.username}`)
 			.addField("Pemberi Donasi", `User: ${member.user}\nUserID: ${member.user.id}\nUsername: ${member.user.username}`)
-			.addField("Nominal Donasi", `\`\`\`Rp. ${args[2]}\`\`\``)
+			.addField("Nominal Donasi", `\`\`\`${args[2]} Gold\`\`\``)
     }
   }
 };
