@@ -46,7 +46,6 @@ Saino-sama adalah kelanjutan series dari Kosuke..
 | remove-blacklist | ✅ | menghapus member dari daftar blacklist |
 | ticket-system | ✅ | member dapat membuat ticket dan close ticket |
 | nsfw-command | ✅ | you know lah~ |
-| sauce | ✅ | mencari saos dari image |
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
