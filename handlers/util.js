@@ -1,6 +1,6 @@
-const snek = require("node-superfetch");
-const request = require("node-superfetch");
-const discord = require('discord.js')
+const snek = require('node-superfetch');
+const request = require('node-superfetch');
+const discord = require('discord.js');
 
 class Util {
   constructor() {
@@ -10,42 +10,23 @@ class Util {
 
     this.resolveRoles = function resolveRoles(role, name) {
       let reg = new RegExp("^(?:<@​&?)?([0-9]+)>?$");
-      if (!name || name === undefined) return undefined;
+      if (!name || name === "Unknown") return undefined;
       if (reg.test(name)) name = name.replace(reg, "$1");
-      let roles = roles.filter(r =>
+      let isroles = roles.filter(r =>
         r.name.toLowerCase().includes(name && name.toLowerCase())
       );
-      if (roles) return roles.first();
+      if (isroles) return roles.first();
       else return undefined;
-    };
-
-    this.sendBass = async function sendBass(bot, guild, gain, band) {
-      if (!bot || !guild || !gain || !band) throw Error("Missing Parameter");
-      try {
-        let ws = await bot.player.nodes.first().send({
-          op: "equalizer",
-          guildId: guild,
-          bands: [
-            {
-              band: band,
-              gain: gain
-            }
-          ]
-        });
-        return true;
-      } catch (e) {
-        return true;
-      }
     };
 
     this.resolveMembers = function resolveMembers(member, name) {
       let reg = new RegExp("^(?:<@​&?)?([0-9]+)>?$");
-      if (!name || name === undefined) return undefined;
+      if (!name || name === "Unknown") return undefined;
       if (reg.test(name)) name = name.replace(reg, "$1");
-      let members = member.filter(r =>
+      let mem = member.filter(r =>
         r.user.username.toLowerCase().includes(name && name.toLowerCase())
       );
-      if (member) return members.first();
+      if (mem) return members.first();
       else return undefined;
     };
 
