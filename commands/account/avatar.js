@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: "avatar",
-  category: "account",
-  description: "Melihat avatar",
-  usage: "<user>",
+  name: 'avatar',
+  category: 'account',
+  description: 'Melihat avatar',
+  usage: '<user>',
   aliases: ["ava"],
   cooldown: 10,
   run: async (client, message, args) => {

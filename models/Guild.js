@@ -70,6 +70,10 @@ const schema = mongoose.Schema({
         type: String,
         default: ''
     }
+    welcomeSay: {
+        type: String,
+        default: ''
+    }
 });
 
 module.exports = mongoose.model("Guild", schema);
