@@ -21,7 +21,7 @@ mongosee.connection.on('connected', () => {
 
 global.User = require('./models/User');
 global.Guild = require('./models/Guild');
-global.Premium = require('./models/Premium');
+global.Thanks = require('./models/thanks');
 
 const blacklist = require('./models/blacklist')
 const ticketTranscript = require('./models/ticket')
@@ -48,6 +48,10 @@ client.on('message', async message =>{
 		userID: message.author.id,
 	});
 	let guild = await Guild.findOne({ guildID: message.guild.id });
+	let thank = await Thanks.findOne({
+		guildId: message.guild.id,
+		userId: message.author.id,
+	});
 	if (!guild) {
 		const newGuild = new Guild({ guildID: message.guild.id });
 		newGuild.save();
@@ -63,6 +67,13 @@ client.on('message', async message =>{
 			guildID: message.guild.id,
 			userID: message.author.id,
 		});
+	if (!thank) {
+		const newThank = new Thanks({
+			guildId: message.guild.id,
+			userId: message.author.id,
+		});
+		newThank.save();
+	}
 		return;
 	}
 
