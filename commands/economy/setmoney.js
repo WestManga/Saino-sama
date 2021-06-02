@@ -3,7 +3,7 @@ const { COLOR } = process.env;
 
 module.exports = {
   name:"setmoney",
-  category:'economy',
+  category:"economy",
   description:"Add or Remove user money",
   usage:"<add / remove> <user>",
   cooldown:1000,
