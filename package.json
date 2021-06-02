@@ -16,6 +16,8 @@
     "axios": "^0.21.1",
     "canvacord": "^5.1.0",
     "canvas": "^2.7.0",
+    "discord-button": "^1.0.3",
+    "discord-buttons": "^3.0.1",
     "discord-canvas": "^1.4.1",
     "discord-logs": "^1.9.0",
     "discord-player": "^3.4.0",
@@ -40,7 +42,8 @@
     "sagiri": "^3.1.1",
     "saucenao": "0.0.2",
     "scathach-api": "0.0.7",
-    "translate-google": "^1.4.3"
+    "translate-google": "^1.4.3",
+    "unb-api": "^1.2.3"
   },
   "repository": {
     "type": "git",
