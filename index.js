@@ -5,6 +5,7 @@ const client = new kosuke({ disableMentions: 'everyone', fetchAllMembers: true, 
 
 require('discord-buttons')(client);
 require('dotenv').config();
+require('discord-buttons')(client);
 
 // mongose env
 global.mongosee = require('mongoose');
