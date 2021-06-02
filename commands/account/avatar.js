@@ -41,7 +41,7 @@ module.exports = {
           .replace(".webp", ".png")
       ); //image of avatar
       return message.channel.send(embed); //send this message to user
-    } else;
+    } else
     if (userID) {
       embed.setAuthor(
         userID.user.tag,
@@ -59,7 +59,7 @@ module.exports = {
           .replace(".webp", ".png")
       );
       return message.channel.send(embed); //send this message to user
-    } else;
+    } else
     if (self) {
       embed.setAuthor(
         message.author.tag,
@@ -77,7 +77,7 @@ module.exports = {
           .replace(".webp", ".png")
       );
       return message.channel.send(embed); //send this message to user
-    } else;
+    } else
     if (server) {
       embed.setAuthor(message.guild.name, message.guild.iconURL());
       embed.setDescription(
@@ -92,7 +92,7 @@ module.exports = {
           .replace(".webp", ".png")
       );
       return message.channel.send(embed); //send this message to user
-    } else;
+    } else
     if (find) {
       embed.setAuthor(
         find.user.tag,
