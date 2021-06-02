@@ -12,12 +12,12 @@ module.exports = {
         var milliseconds = parseInt((bot.uptime % 1000) / 100),
         seconds = parseInt((bot.uptime / 1000) % 60),
         minutes = parseInt((bot.uptime / (1000 * 60)) % 60),
-        hours = parseInt((bot.uptime / (1000 * 60 * 60)) % 24);
+        hours = parseInt((bot.uptime / (1000 * 60 * 60)) % 24),
         days = parseInt((bot.uptime / (1000 * 60 * 60 * 24)) % 60);
 
-        days = (days < 10) ? "0" + days : days;
-        hours = (hours < 10) ? "0" + hours : hours;
-        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        days = (days < 10) ? "0" + days : days,
+        hours = (hours < 10) ? "0" + hours : hours,
+        minutes = (minutes < 10) ? "0" + minutes : minutes,
         seconds = (seconds < 10) ? "0" + seconds : seconds;
 
         osutils.cpuUsage(function(v) {
