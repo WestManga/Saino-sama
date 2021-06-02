@@ -3,6 +3,7 @@ const kosuke = require("./handlers/ClientBuilder.js");
 const fs = require('fs')
 const client = new kosuke({ disableMentions: 'everyone', fetchAllMembers: true, partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 
+require('discord-buttons')(client);
 require('dotenv').config();
 
 // mongose env
