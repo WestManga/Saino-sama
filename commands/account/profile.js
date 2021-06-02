@@ -1,100 +1,110 @@
-const { MessageEmbed } = require('discord.js');
-const { generateTip, determineSupporterTitle } = require("../../handlers/profilehelper");
-const { getIcon } = require("../../config/icons");
-const moment = require('moment');
-const mongoose = require('mongoose');
+const { MessageEmbed } = require("discord.js");
 const {
-    COLOR
-} = process.env;
+  generateTip,
+  determineSupporterTitle,
+} = require("../../handlers/profilehelper");
+const { getIcon } = require("../../config/icons");
+const moment = require("moment");
+const mongoose = require("mongoose");
+const { COLOR } = process.env;
 
 module.exports = {
-	name: 'profile',
-	aliases: ['pf', 'p'],
-	category: 'account',
-	description: 'Show The User Bio',
-	usage: '[mention]',
-	run: async (client, message, args) => {
-        let user = message.mentions.users.first() || message.author || messsage.guild.members.cache.get(args[0])
+  name: "profile",
+  aliases: ["pf", "p"],
+  category: "account",
+  description: "Show The User Bio",
+  usage: "[mention]",
+  run: async (client, message, args) => {
+    let user =
+      message.mentions.users.first() ||
+      message.author ||
+      messsage.guild.members.cache.get(args[0]);
 
-        if (user.presence.status === "dnd") user.presence.status = "Do Not Disturb";
-        if (user.presence.status === "idle") user.presence.status = "Idle";
-        if (user.presence.status === "offline") user.presence.status = "Offline";
-        if (user.presence.status === "online") user.presence.status = "Online";
+    if (user.presence.status === "dnd") user.presence.status = "Do Not Disturb";
+    if (user.presence.status === "idle") user.presence.status = "Idle";
+    if (user.presence.status === "offline") user.presence.status = "Offline";
+    if (user.presence.status === "online") user.presence.status = "Online";
 
-        function game() {
-            let game;
-            if (user.presence.activities.length >= 1) game = `${user.presence.activities[0].type} ${user.presence.activities[0].name}`;
-            else if (user.presence.activities.length < 1) game = "None"
-            return game;
-          }
-        
-          
-          let x = Date.now() - user.createdAt;
-          let y = Date.now() - message.guild.members.cache.get(user.id).joinedAt;
-          let created = Math.floor(x / 86400000);
-          let joined = Math.floor(y / 86400000);
-        
-          const member = message.guild.member(user);
-          let nickname = member.nickname !== undefined && member.nickname !== null ? member.nickname : "None";
-          let joindate = moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY");
-          let status = user.presence.status;
-          let avatar = user.avatarURL({ size: 4096 });
-         
-		if (member.bot) return message.channel.send('Its A Bot -_-');
+    function game() {
+      let game;
+      if (user.presence.activities.length >= 1)
+        game = `${user.presence.activities[0].type} ${user.presence.activities[0].name}`;
+      else if (user.presence.activities.length < 1) game = "None";
+      return game;
+    }
 
-        const members = message.guild.members.cache
-        .sort((a, b) => a.joinedTimestamp - b.joinedTimestamp)
-        .array();
+    let x = Date.now() - user.createdAt;
+    let y = Date.now() - message.guild.members.cache.get(user.id).joinedAt;
+    let created = Math.floor(x / 86400000);
+    let joined = Math.floor(y / 86400000);
 
-        const position = new Promise((ful) => {
-        for (let i = 1; i < members.length + 1; i++) {
-            if(members[i - 1].id === member.id) ful(i)
-            }   
-        })
+    const member = message.guild.member(user);
+    let nickname =
+      member.nickname !== undefined && member.nickname !== null
+        ? member.nickname
+        : "None";
+    let joindate = moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY");
+    let status = user.presence.status;
+    let avatar = user.avatarURL({ size: 4096 });
 
-		let data = await User.findOne({
-			guildID: message.guild.id,
-			userID: member.id,
-		});
-		let guildData = await Guild.findOne({ guildID: message.guild.id });
-		if (!data) return client.nodb(member.user);
+    if (member.bot) return message.channel.send("Its A Bot -_-");
 
-        const patreonSupporter = determineSupporterTitle(data.account.patreon);
+    const members = message.guild.members.cache
+      .sort((a, b) => a.joinedTimestamp - b.joinedTimestamp)
+      .array();
 
-        let premium = data.point;
+    const position = new Promise((ful) => {
+      for (let i = 1; i < members.length + 1; i++) {
+        if (members[i - 1].id === member.id) ful(i);
+      }
+    });
 
-        const level = data.level
-        const exp = process.env.UPXP
-        exprequired = Math.round(level  *exp)
+    let data = await User.findOne({
+      guildID: message.guild.id,
+      userID: member.id,
+    });
+    let guildData = await Guild.findOne({ guildID: message.guild.id });
+    if (!data) return client.nodb(member.user);
 
-		let inline = true;
-		let e = new MessageEmbed()
-            .setAuthor(user.tag, avatar)
-			.setTitle(`${user.username} Profile`)
-			.setDescription(`**Title : ** ${data.bio}`)
-            .setThumbnail(user.displayAvatarURL({ dynamic: true }))
-            .setColor(COLOR)
-            .addField("Status", status)
-            .addField("💕 Beloved Waifu", `${data.waifu}`)
-            .addField("🎀 Premium", patreonSupporter)
-            .addField("Guild Member", `#${await position}`, true)
-            .addField('🔰 Point', `${data.point || 0}`, true)
-            .addField("Tanggal Bergabung", `${joindate} \nSejak **${joined}** hari lalu`)
-			.addField('💰 Money', `Rp. ${data.money || 0}`, inline)
-			.addField('🛡️ Level', `${data.level || 1}`, inline)
-			.addField('🏃‍♂️ XP', `${data.xp || 0}/${exprequired}`, inline)
-			.addField('📧 Messages', `${data.messages || 0}`, inline)
-			.addField('👮 Warn', `${data.warn || 0}/${process.env.WARN}`, inline)
-			.addField('💤 AFK', `${data.afk || false}`, inline)
-            .setImage(`${data.banner}`)
-            .setFooter(
-                generateTip(),
-                message.author.displayAvatarURL({ dynamic: true })
-              )
-			.addField(
-				'📃 Custom Status',
-				`${data.status || guildData.prefix + `setstatus [text]`}`,
-			);
-		message.channel.send({ embed: e });
-	},
+    const patreonSupporter = determineSupporterTitle(data.account.patreon);
+
+    let premium = data.point;
+
+    const level = data.level;
+    const exp = process.env.UPXP;
+    exprequired = Math.round(level * exp);
+
+    let inline = true;
+    let e = new MessageEmbed()
+      .setAuthor(user.tag, avatar)
+      .setTitle(`${user.username} Profile`)
+      .setDescription(`**Title : ** ${data.bio}`)
+      .setThumbnail(user.displayAvatarURL({ dynamic: true }))
+      .setColor(COLOR)
+      .addField("Status", status)
+      .addField("💕 Beloved Waifu", `${data.waifu}`)
+      .addField("🎀 Premium", patreonSupporter)
+      .addField("Guild Member", `#${await position}`, true)
+      .addField("🔰 Point", `${data.point || 0}`, true)
+      .addField(
+        "Tanggal Bergabung",
+        `${joindate} \nSejak **${joined}** hari lalu`
+      )
+      .addField("💰 Money", `Rp. ${data.money || 0}`, inline)
+      .addField("🛡️ Level", `${data.level || 1}`, inline)
+      .addField("🏃‍♂️ XP", `${data.xp || 0}/${exprequired}`, inline)
+      .addField("📧 Messages", `${data.messages || 0}`, inline)
+      .addField("👮 Warn", `${data.warn || 0}/${process.env.WARN}`, inline)
+      .addField("💤 AFK", `${data.afk || false}`, inline)
+      .setImage(`${data.banner}`)
+      .setFooter(
+        generateTip(),
+        message.author.displayAvatarURL({ dynamic: true })
+      )
+      .addField(
+        "📃 Custom Status",
+        `${data.status || guildData.prefix + `setstatus [text]`}`
+      );
+    message.channel.send({ embed: e });
+  },
 };
