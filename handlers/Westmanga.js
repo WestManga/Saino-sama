@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 let axios = require('axios');
+const { MessageButton } = require('discord-buttons');
 
 class Westmanga {
     constructor(client) {
@@ -67,8 +68,15 @@ class Westmanga {
                 : message.guild.me.displayHexColor;
                 let get = await axios.get(`https://westapi.herokuapp.com/api/manga/detail/${query}`);
                 let dataChapter = get.data.list_episode;
-                let linkbaca = get.data.manga_endpoint;
+                const linkbaca = get.data.manga_endpoint;
                 let judulmanga = get.data.title;
+
+                //button
+                let tombol = new MessageButton()
+                    .setStyle('url')
+                    .setLabel(`Lihat ${get.data.type}`)
+                    .setURL(`${linkbaca}`)
+                    .setEmoji("✔️")
 
                 //embed
                 let embed = new Discord.MessageEmbed()
@@ -77,16 +85,18 @@ class Westmanga {
                     .setURL(get.data.manga_endpoint)
                     .setDescription(this.client.util.truncate(get.data.synopsis))
                     .setThumbnail(get.data.thumb)
-                    .addField('Type', get.data.type, true)
-                    .addField('Status', get.data.status, true)
-                    .addField('Author', get.data.author, true)
-                    .addField('Last Update', get.data.last_update, true)
-                    .addField('Last Chapter', get.data.last_chapter, true)
-                    .addField('Rating', get.data.rating, true)
-                    .addField('Baca Manga', `Baca ${judulmanga} dengan [Click Disini](${linkbaca})`)
+                    .addField('📁 Type', `${get.data.type || `Unknown`}`, true)
+                    .addField('⏳ Status', `${get.data.status || `Unknown`}`, true)
+                    .addField('👤 Author', `${get.data.author || `Unknown`}`, true)
+                    .addField('📆 Last Update', `${get.data.last_update || `Unknown`}`, true)
+                    .addField('📖 Last Chapter', `${get.data.last_chapter || `Unknown`}`, true)
+                    .addField('⭐ Rating', `${get.data.rating || `Unknown`}`, true)
                     .setFooter(`Kosuke © 2021, Westmanga`)
-                let embed_detail = await message.channel.send(embed);
-
+                await message.channel.send({
+                    embed: embed,
+                    component: tombol
+                })
+                
                 fullfill();
             } catch (error) {
                 reject(error);
