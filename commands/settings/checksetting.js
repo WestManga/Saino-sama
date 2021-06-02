@@ -28,10 +28,13 @@ module.exports = {
         const moneylog = client.channels.cache.get(data.moneylogChannel);
         const moneyincomelog = client.channels.cache.get(data.moneyincomelogChannel);
 
+        const prefix = data.prefix;
+
         let e = new MessageEmbed()
         .setTitle(`There is channel setting on this server ${guildname}`)
-        .setDescription('If you want setting channel, you can use command `setlevelup`, `setmodlog`, `setmoneylog` and `setwelcome`\nIf you need more help for setting channel, you can use `help setwelcome` or other command.')
+        .setDescription(`> Setting your channel server with ${prefix}sch\n> Setting your chatmoney with ${prefix}scm\n> Setting your fined with ${prefix}sf`)
         .setColor(COLOR)
+        .addField("Guild Prefix", prefix)
         .addField("Fined Min", data.fined.min, true)
         .addField("Fined Max", data.fined.max, true)
         .addField("Money Income Min", data.money.min, true)
