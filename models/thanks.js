@@ -1,13 +1,8 @@
 const mongoose = require('mongoose')
 
-const reqString = {
-    type: String,
-    require: true,
-}
-
 const thanksSchema = mongoose.Schema({
-    userId: reqString,
-    guildId: reqString,
+    userId: String,
+    guildId: String,
     received: {
         type: Number,
         default: 0,
