@@ -1,4 +1,3 @@
-const User = require("../models/User");
 const { getIcon } = require("../config/icons");
 
 const determineSupporterTitle = (subscription) => {

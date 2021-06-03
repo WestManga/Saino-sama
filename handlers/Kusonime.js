@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const axios = require('axios');
-const { link } = require('mangadex-full-api');
 class Kusonime {
     constructor(client) {
         this.client = client;
@@ -16,12 +15,12 @@ class Kusonime {
                 const response = await axios.get(`https://kusonime-scrapper.glitch.me/api/cari/${query}`);
                 const data = response.data;
 
-                if(data.length === 0) return message.reply(`Tidak ditemukan dengan teks ${query}!`)
+                if(data.length === 0) return message.reply(`Tidak ditemukan dengan teks ${query}!`);
                 let chunk = this.client.util.chunk(data, 5);
                 let embed = new Discord.MessageEmbed()
                     .setTitle(`Hasil Pencarian dari ${query}`)
                     .setColor(roleColor)
-                    .setDescription(chunk[0].map((a, i) => `${i + 1}. ${a.title}`).join('\n'))
+                    .setDescription(chunk[0].map((a, i) => `${i + 1}. ${a.title}`).join('\n'));
                 
                 let mEmbed = await message.channel.send(embed);
                 let alertBed = await message.reply('pilih untuk melanjutkan!');

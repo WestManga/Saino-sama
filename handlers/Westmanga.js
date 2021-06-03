@@ -67,9 +67,7 @@ class Westmanga {
                 ? "#ffffff"
                 : message.guild.me.displayHexColor;
                 let get = await axios.get(`https://westapi.herokuapp.com/api/manga/detail/${query}`);
-                let dataChapter = get.data.list_episode;
                 const linkbaca = get.data.manga_endpoint;
-                let judulmanga = get.data.title;
 
                 //button
                 let tombol = new MessageButton()
@@ -81,7 +79,7 @@ class Westmanga {
                 //embed
                 let embed = new Discord.MessageEmbed()
                     .setColor(roleColor)
-                    .setTitle(get.data.title)
+                    .setTitle(this.client.util.truncate(get.data.title))
                     .setURL(get.data.manga_endpoint)
                     .setDescription(this.client.util.truncate(get.data.synopsis))
                     .setThumbnail(get.data.thumb)
