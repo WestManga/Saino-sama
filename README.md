@@ -8,8 +8,11 @@
 <a href="https://www.npmjs.com/package/mongoose"><img src="https://img.shields.io/npm/v/mongoose?color=86A25D&label=mongoose&logo=mongodb" alt="Mongoose version" /></a>
 <a href="https://github.com/mhazm/Saino-sama/"><img src="https://img.shields.io/github/repo-size/mhazm/Saino-sama" alt="Repo Size" /></a>
 <a href="https://github.com/mhazm/Saino-sama/"><img src="https://img.shields.io/tokei/lines/github/mhazm/Saino-sama" alt="Repo Lines" /></a>
+<a href="https://deepscan.io/dashboard#view=project&tid=14312&pid=17425&bid=398718"><img src="https://deepscan.io/api/teams/14312/projects/17425/branches/398718/badge/grade.svg" alt="DeepScan grade"></a>
 </p>
 </br>
+
+
 
 # Saino-sama
 Saino-sama adalah kelanjutan series dari Kosuke..
