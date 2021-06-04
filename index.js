@@ -39,7 +39,7 @@ const activities = [
 	{ type: 'PLAYING', name: `${prefix}help` },
 	{ type: 'WATCHING', name: 'riizuku desain banner'},
 	{ type: 'WATCHING', name: 'rapip lagi nyoli'},
-	{ type: 'WATCHING', name: 'member wm kena NTR')
+	{ type: 'WATCHING', name: 'member wm kena NTR'}
 ];
 
 client.on('ready', () => {
