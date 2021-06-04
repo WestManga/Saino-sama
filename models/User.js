@@ -31,7 +31,7 @@ const schema = mongoose.Schema({
             default: "https://i.ibb.co/12VWkmG/RankCard.png"
         },
 		color: {
-            type: String,
+            type: Array,
             default: "FFFFFF"
         },
 	},
