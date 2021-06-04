@@ -1,6 +1,5 @@
-const { Client, Message, MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const User = require("../../models/User");
-const Guild = require("../../models/Guild");
 
 module.exports = {
   name: "setpremium",
