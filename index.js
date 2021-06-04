@@ -34,10 +34,27 @@ client.categories = fs.readdirSync("./commands/");
     require(`./handlers/${handler}`)(client);
 }); 
 
+const activities = [ 
+	{ type: 'WATCHING', name: 'Branch v1.1 - Saino-sama' },
+	{ type: 'PLAYING', name: `${prefix}help` },
+	{ type: 'WATCHING', name: 'riizuku desain banner'},
+	{ type: 'WATCHING', name: 'rapip lagi nyoli'},
+	{ type: 'WATCHING', name: 'member wm kena NTR')
+];
+
 client.on('ready', () => {
-    client.user.setActivity(`${prefix}help`)
-    console.log(`${client.user.username} ✅`)
-})
+	let currentIndex = 0;
+	console.log(`${client.user.username} ✅`)
+    setInterval(() => {
+        const activity = activities[currentIndex];
+		client.user.setActivity(activity);
+
+		currentIndex = currentIndex >= activities.length -1
+		? 0
+		: currentIndex + 1;
+	}, 10000);
+});
+
 
 client.on('message', async message =>{
 	const { author } = message;
