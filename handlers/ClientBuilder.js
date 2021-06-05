@@ -3,6 +3,7 @@ const Util = require("./util");
 const Samehadaku = require('./Samehadaku.js');
 const Kusonime = require('./Kusonime.js');
 const Westmanga = require('./Westmanga.js');
+const Horoskop = require('./Horoskop');
 
 module.exports = class kosuke extends Client {
 
@@ -14,6 +15,6 @@ module.exports = class kosuke extends Client {
         this.samehadaku = new Samehadaku(this);
         this.kusonime = new Kusonime(this);
         this.westmanga = new Westmanga(this);
-
+        this.horoskop = new Horoskop(this);
     }
 };
