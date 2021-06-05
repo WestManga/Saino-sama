@@ -1,4 +1,4 @@
-const {Collection, Client, Discord, MessageEmbed} = require('discord.js')
+const {Collection, MessageEmbed} = require('discord.js')
 const kosuke = require("./handlers/ClientBuilder.js");
 const fs = require('fs')
 const client = new kosuke({ disableMentions: 'everyone', fetchAllMembers: true, partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
@@ -34,10 +34,23 @@ client.categories = fs.readdirSync("./commands/");
     require(`./handlers/${handler}`)(client);
 }); 
 
+const activities = [ 
+	{ type: 'WATCHING', name: 'Branch v1.1 - Saino-sama' },
+	{ type: 'PLAYING', name: `${prefix}help` }
+];
+
 client.on('ready', () => {
-    client.user.setActivity(`${prefix}help`)
-    console.log(`${client.user.username} ✅`)
-})
+	let currentIndex = 0;
+	console.log(`${client.user.username} ✅`)
+    setInterval(() => {
+        const activity = activities[currentIndex];
+		client.user.setActivity(activity);
+
+		currentIndex = currentIndex >= activities.length -1
+		? 0
+		: currentIndex + 1;
+	}, 10000);
+});
 
 client.on('message', async message =>{
 	const { author } = message;
