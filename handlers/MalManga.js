@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 let axios = require('axios');
 const { MessageButton } = require('discord-buttons');
 
-class MalAnime {
+class MalManga {
     constructor(client) {
         this.client = client;
     }
@@ -14,7 +14,7 @@ class MalAnime {
                 message.guild.me.displayHexColor === "#000000"
                 ? "#ffffff"
                 : message.guild.me.displayHexColor;
-                let get = await axios.get(`https://api.jikan.moe/v3/search/anime?q=${query}&page=1&limit=20`);
+                let get = await axios.get(`https://api.jikan.moe/v3/search/manga?q=${query}&page=1&limit=20`);
                 let data_search = get.data.results;
                 if (data_search < 1) return message.reply(`Pencarian dengan keyword **${query}** tidak ditemukan!`);
 
@@ -66,14 +66,15 @@ class MalAnime {
                 message.guild.me.displayHexColor === "#000000"
                 ? "#ffffff"
                 : message.guild.me.displayHexColor;
-                let get = await axios.get(`https://api.jikan.moe/v3/anime/${query}`);
-                const linkanime = get.data.url;
+                let get = await axios.get(`https://api.jikan.moe/v3/manga/${query}`);
+                const linkmal = get.data.url;
+                const mangatype = get.data.type;
 
                 //button
                 let tombol = new MessageButton()
                     .setStyle('url')
-                    .setLabel(`Lihat Anime`)
-                    .setURL(`${linkanime}`)
+                    .setLabel(`Lihat ${mangatype}`)
+                    .setURL(`${linkmal}`)
                     .setEmoji("✔️")
 
                 let genre_search = get.data.genres;
@@ -87,18 +88,16 @@ class MalAnime {
                 let embed = new Discord.MessageEmbed()
                     .setColor(roleColor)
                     .setTitle(this.client.util.truncate(get.data.title))
-                    .setURL(linkanime)
+                    .setURL(linkmal)
                     .setDescription(this.client.util.truncate(get.data.synopsis ?? `Sinopsis tidak tersedia`))
                     .setThumbnail(get.data.image_url)
                     .addField('📁 Type', `${get.data.type ?? `??`}`, true)
                     .addField('⏳ Status', `${get.data.status ?? `??`}`, true)
-                    .addField('📝 Source', `${get.data.source || `??`}`, true)
-                    .addField('📆 Premiered', `${get.data.premiered ?? `??`}`, true)
-                    .addField('💿 Episodes', `${get.data.episodes || `??`}`, true)
                     .addField('⭐ Score', `${get.data.score || `??`}`, true)
-                    .addField('📺 Aired', `${get.data.aired.string || `??`}`)
-                    .addField('⚠️ Rating', `${get.data.rating ?? `Unknown`}`, true)
-                    .addField('🕜 Duration', `${get.data.duration || `? min`}`, true)
+                    .addField('📆 Published', `${get.data.published.string || `??`}`)
+                    .addField('📔 Volume', `${get.data.volumes ?? `??`}`, true)
+                    .addField('📄 Chapter', `${get.data.chapters ?? `??`}`, true)
+                    .addField('🏆 Ranking', `#${get.data.rank ?? `??`}`, true)
                     .addField('📂 Genre', listgenre.join(', '))
                     .setTimestamp()
                     .setFooter(`Source from MyAnimeList`)
@@ -116,4 +115,4 @@ class MalAnime {
 }
 
 
-module.exports = MalAnime;
+module.exports = MalManga;
