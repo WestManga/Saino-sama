@@ -6,6 +6,7 @@ const Westmanga = require('./Westmanga.js');
 const Horoskop = require('./Horoskop');
 const MalAnime = require('./MalAnime');
 const MalManga = require('./MalManga');
+const readerNH = require('./readerNH');
 
 module.exports = class kosuke extends Client {
 
@@ -20,5 +21,6 @@ module.exports = class kosuke extends Client {
         this.horoskop = new Horoskop(this);
         this.malanime = new MalAnime(this);
         this.malmanga = new MalManga(this);
+        this.readernh = new readerNH(this);
     }
 };
