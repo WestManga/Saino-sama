@@ -9,6 +9,7 @@
 <a href="https://github.com/mhazm/Saino-sama/"><img src="https://img.shields.io/github/repo-size/mhazm/Saino-sama" alt="Repo Size" /></a>
 <a href="https://github.com/mhazm/Saino-sama/"><img src="https://img.shields.io/tokei/lines/github/mhazm/Saino-sama" alt="Repo Lines" /></a>
 <a href="https://deepscan.io/dashboard#view=project&tid=14312&pid=17425&bid=398718"><img src="https://deepscan.io/api/teams/14312/projects/17425/branches/398718/badge/grade.svg" alt="DeepScan grade"></a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fmhazm%2FSaino-sama?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmhazm%2FSaino-sama.svg?type=shield"/></a>
 </p>
 </br>
 
@@ -52,3 +53,6 @@ Saino-sama adalah kelanjutan series dari Kosuke..
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmhazm%2FSaino-sama.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmhazm%2FSaino-sama?ref=badge_large)
