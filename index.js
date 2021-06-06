@@ -172,6 +172,7 @@ client.on("guildMemberRemove", async(member) => {
 
 client.on("message" ,async(message) =>{
 	require("./events/guildaddMoney");
+	require('./events/afk')(client, message);
 })
 
 client.login(process.env.TOKEN)
