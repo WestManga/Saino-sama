@@ -23,8 +23,7 @@ global.User = require('./models/User');
 global.Guild = require('./models/Guild');
 global.Thanks = require('./models/thanks');
 
-const blacklist = require('./models/blacklist')
-const ticketTranscript = require('./models/ticket')
+const ticketTranscript = require('./models/ticket');
 
 const prefix = (process.env.PREFIX);
 client.commands = new Collection();
@@ -35,8 +34,12 @@ client.categories = fs.readdirSync("./commands/");
 }); 
 
 const activities = [ 
-	{ type: 'WATCHING', name: 'Branch v1.1 - Saino-sama' },
-	{ type: 'PLAYING', name: `${prefix}help` }
+	{ type: 'WATCHING', name: 'Running on version 1.1' },
+	{ type: 'PLAYING', name: `${prefix}help` },
+	{ type: 'WATCHING', name: 'Shopie take a bath' },
+	{ type: 'WATCHING', name: `Westmanga` },
+	{ type: 'PLAYING', name: 'VS-Code' },
+	{ type: 'WATCHING', name: `Prince n Advisor working` }
 ];
 
 client.on('ready', () => {
