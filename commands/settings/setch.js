@@ -129,5 +129,16 @@ module.exports = {
             message.channel.send({embed: e}).then(d => d.delete({ timeout : 10000 }));
             data.categorychatMoney = args[1]; data.save();
         }
+        else
+        if (args[0].toLowerCase() === 'ruangbk') {
+            let channel =  message.mentions.channels.first();
+            if(!channel) return message.channel.send("Please Provide a channel").then(d => d.delete({ timeout : 10000 }));
+            let e = new MessageEmbed()
+            .setDescription(`Successfully set ruangbk channel at ${channel}`)
+            .setTimestamp(new Date())
+            .setColor(COLOR)
+            message.channel.send({embed: e}).then(d => d.delete({ timeout : 10000 }));
+            data.ruangbk = channel.id; data.save();
+        }
     },
 };

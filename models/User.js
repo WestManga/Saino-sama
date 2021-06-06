@@ -68,6 +68,10 @@ const schema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    muted: {
+        type: Number,
+        default: 0
+    },
     bio: {
         type: String,
         default: `Jonesmania`

@@ -69,6 +69,14 @@ const schema = mongoose.Schema({
     categorychatMoney: {
         type: String,
         default: ''
+    },
+    mutedRole: {
+        type: String,
+        default: ''
+    },
+    ruangbk: {
+        type: String,
+        default: ''
     }
 });
 
