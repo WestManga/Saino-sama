@@ -13,9 +13,10 @@ function addToCooldown(ID) {
     }, cd /* random seconds */);
 }
 
-client.on('message', async(message) => {
+client.on('message', async (message) => {
+    try {
     let guild = await Guild.findOne({ 
-        guildID: message.guild.id,
+        guildID: message.guild.id
     }).catch(err => console.log(err))
 
     let data = await User.findOne({
@@ -98,4 +99,8 @@ client.on('message', async(message) => {
             data.afk = false;
             data.save();
         }
+    } catch (err) {
+        console.log(err);
+        return;
+    }
 });
