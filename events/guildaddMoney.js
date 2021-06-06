@@ -18,20 +18,20 @@ client.on('message', async(message) => {
         guildID: message.guild.id,
     }).catch(err => console.log(err))
 
+    let data = await User.findOne({
+        guildID: message.guild.id,
+        userID: message.author.id,
+    }).catch(err => console.log(err))
+
         if (message.channel.parentID !== guild.categorychatMoney) return;
         if(!cooldown.has(message.author.id)) {
             addToCooldown(message.author.id);
-
-            let data = await User.findOne({
-                guildID: message.guild.id,
-                userID: message.author.id,
-            }).catch(err => console.log(err))
 
             const moneylog = client.channels.cache.get(guild.moneyincomelogChannel);
             const levelup = client.channels.cache.get(guild.levelUpChannel);
             const moneymin = guild.money.min
             const moneymax = guild.money.max
-            const patreonStatus = data.account.patreon;
+            let patreonStatus = data.account.patreon;
         
             // DUIT + EXP
             let rand = Math.floor(Math.random() * (moneymax - moneymin) + moneymin);
