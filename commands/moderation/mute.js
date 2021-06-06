@@ -81,7 +81,8 @@ module.exports = {
             // HITUNGAN DENDA/FINED
             const fmin = data.fined.min
             const fmax = data.fined.max
-            let denda = Math.floor(Math.random() * (fmax - fmin + 1) + fmin + 1500);
+            const totalmute = data.muted
+            let denda = Math.floor(Math.random() * (fmax - fmin + 1) + fmin + 500 * totalmute);
 
             // Give mutedroles //
             await target.roles.add(muteRole).then(() => {
