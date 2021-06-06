@@ -5,7 +5,7 @@ module.exports = {
   category: "account",
   description: "Setting custom your rankcard",
   usage: "<color/bg> <input>",
-  aliases: ["testrc"],
+  aliases: ["src"],
   cooldown: 1000,
   run: async (client, message, args) => {
     message.delete({ timeout : 10000 });
