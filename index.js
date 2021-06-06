@@ -40,6 +40,7 @@ const activities = [
 	{ type: 'WATCHING', name: `Westmanga` },
 	{ type: 'PLAYING', name: 'VS-Code' },
 	{ type: 'WATCHING', name: `Prince n Advisor working` }
+
 ];
 
 client.on('ready', () => {
