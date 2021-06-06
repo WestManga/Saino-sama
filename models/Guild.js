@@ -77,7 +77,21 @@ const schema = mongoose.Schema({
     ruangbk: {
         type: String,
         default: ''
-    }
+    },
+    active: {
+		welcome: {
+            type: Boolean,
+            default: "false"
+        },
+		bye: {
+            type: Boolean,
+            default: "false"
+        },
+        apply: {
+            type: Boolean,
+            default: "false"
+        },
+	}
 });
 
 module.exports = mongoose.model("Guild", schema);

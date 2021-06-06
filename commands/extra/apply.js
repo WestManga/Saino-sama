@@ -1,10 +1,11 @@
-const { Client, Message, MessageEmbed } = require("discord.js")
+const { Client, Message, MessageEmbed } = require("discord.js");
+const Guild = require("../../models/Guild");
 
 module.exports = {
   name:'apply',
   category:'extra',
   description:'Membuat pendaftaran sebagai ...',
-  aliases:[''],
+  aliases:['daftar', 'daftarmod'],
   cooldown:1000,
   /**
    * @param {Client} client 
@@ -12,6 +13,15 @@ module.exports = {
    * @param {String[]} args 
    */
   run: async(client, message, args) => {
+    let dataguild = await Guild.findOne({
+        guildID: message.guild.id
+    });
+
+    if (dataguild.active.apply === false) {
+        message.delete()
+        return message.channel.send('Pendaftaran staff sedang ditutup. Ditunggu ya~');
+    }
+
       const questions = [
           "Siapa nama asli kamu?",
           "Dimana tempat tinggal kamu saat ini?",
