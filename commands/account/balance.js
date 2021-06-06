@@ -25,27 +25,47 @@ module.exports = {
       userID: member.id,
     });
 
-    const datathanks = await Thanks.findOne({
+    if (!data) return client.nodb(member.user);
+
+    let patreonSupporter = determineSupporterTitle(data.account.patreon);
+
+    const datathanks = await thanksSchema.findOne({
       userId: member.id,
       guildId: message.guild.id,
     });
 
-    if (!data) return client.nodb(member.user);
+    if (!datathanks) {
+      // EMBED IF NOT HAVE THANKS //
+      let embed2 = new MessageEmbed()
+      .setAuthor(user.tag, avatar)
+      .setTitle(`${patreonSupporter}`)
+      .setColor(COLOR)
+      .addField(
+        "<:diamondegg:836507553378730035> Point",
+        `${data.point ?? 0} Points`,
+        true
+      )
+      .addField(
+        "<:wallet:836507553357496321> Money",
+        `Rp. ${data.money}`,
+        true
+      )
+      .setTimestamp();
+      return message.channel.send({ embed: embed2 })
+    };
 
-    const patreonSupporter = determineSupporterTitle(data.account.patreon);
-
-    const mybalance = data.money;
-    const mythanks = datathanks.received;
+    let mybalance = data.money;
 
     const inline = true;
 
-      const embedbalance = new MessageEmbed()
+        // EMBED IF HAVE ALL
+        let embedbalance = new MessageEmbed()
         .setAuthor(user.tag, avatar)
         .setTitle(`${patreonSupporter}`)
         .setColor(COLOR)
         .addField(
           "<:diamondegg:836507553378730035> Point",
-          `${data.point || 0} Points`,
+          `${data.point ?? 0} Points`,
           inline
         )
         .addField(
@@ -59,7 +79,7 @@ module.exports = {
           inline
         )
         .setTimestamp();
-
+    
     if (!mybalance) return message.channel.send("You dont have a balance!");
     else if (mybalance) {
       message.channel.send({ embed: embedbalance });

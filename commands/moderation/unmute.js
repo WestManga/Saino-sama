@@ -1,49 +1,88 @@
-const { Message, MessageEmbed } = require('discord.js');
-const Schema = require('../../models/mute');
+const { Message, MessageEmbed } = require("discord.js");
+const db = require('quick.db');
 
-module.exports=  {
-    name : 'unmute', 
-    /**
-     * @param {Message} message
-     */
-    run : async(client, message, args) => {
-        if (!message.member.hasPermission("MANAGE_MESSAGES"))
-            return message.channel.send("You do not have permission to use this command");
-        const Member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+module.exports = {
+  name:'unmute',
+  category:'moderation',
+  description:'Membuka mute member',
+  usage:'<member>',
+  aliases:['lepas'],
+  /**
+   * 
+   * @param {Message} message 
+   */
+  run: async(client, message, args) => {
+        try {
+            let author = message.guild.members.cache.get(message.author.id);
+            if (!author.hasPermission('MANAGES_ROLES')) return message.channel.send("You dont have permission for used this command!");
+       
+            const target = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+        
+            // Get data from Guild.modules //
+            let data = await Guild.findOne({
+                guildID: message.guild.id
+            });
 
-        if(!Member) return message.channel.send('Member not found')
+            // Check Muted Roles //
+            const muteRole = message.guild.roles.cache.get(data.mutedRole)
+            if (!muteRole) {
+                return message.channel.send(
+                    `You not set muted role. Please use command ${data.prefix}setmutedroles for setting muted roles!`
+                );
+            }
 
-        const role = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
+            // Check modlog-channel //
+            const modlog = client.channels.cache.get(data.modlogChannel);
+            if (!modlog) {
+                return message.channel.send(
+                    `Modlog not found. Set first use ${data.prefix}setch modlog`
+                );
+            }
+            
+            // Check target //
+            if (!target) 
+                return message.channel.send("Member is not found.");
+            if (target.hasPermission("ADMINISTRATOR")) 
+                return message.channel.send("I do not have permission to muted Administrator");
+            if (target.user.id == author) 
+                return message.reply("You idiot? why you unmute your self? Ba-baka!");
+            if (!target.roles.cache.has(muteRole.id))
+                return message.channel.send('This user is not muted!');
+        
+            // Find data //
+            let dataquick = new db.table('Mutes')
+            let korban = await dataquick.fetch(target.user.id)
+            console.log('Data found at quick.db');
+            if (!korban) return;
+            let korban_role = dataquick.get(target.user.id)
 
-        let data = await Guild.findOne({
-            guildID: message.guild.id
-        });
-    
-        const modlog = client.channels.cache.get(data.modlogChannel);
+            // Giveback member roles //
+            for (let i = 0; i < korban_role.length; i++) {
+                target.roles.add(korban_role[i])
+            }
 
-        Schema.findOne(
-            {
-                Guild: message.guild.id,
-            },
-            async (err, data) => {
-                if (!data) return message.reply("Member was not muted");
-                const user = data.Users.findIndex((prop) => prop === Member.id);
-                // user -> true => 0, 1, 2, 3
-                // user -> false => -1
-                if (user == -1) return message.reply("Member is not muted!");
-                data.Users.splice(user, 1);
-                await Member.roles.remove(role);
-                message.channel.send(`${Member.displayName} is now unmuted`);
-                let embed = new MessageEmbed()
-                .setAuthor(`UNMUTED | ${member.user.tag}`)
+            // Give mutedroles //
+            await target.roles.remove(muteRole).then(() => {
+                message.delete()
+                message.channel.send(`**${target.user.tag}** telah bebas dari mute`)
+            })
+
+            // Delete data from quick.db //
+            await dataquick.delete(target.user.id)
+            
+            // Send embed to modlog //
+            let embedmodlog = new MessageEmbed()
+                .setAuthor(`NEW UNMUTED`)
                 .setColor("GREEN")
-                .addField("User", member, true)
+                .addField("User", target, true)
                 .addField("Moderator", message.author, true)
                 .setTimestamp()
                 .setFooter(`${message.member.id}`, message.guild.iconURL())
+            modlog.send({ embed: embedmodlog});
 
-                modlog.send(embed);
-            }
-        );
-    },
-};
+        } catch (error) {
+            console.log(error);
+            return message.channel.send(`Wah kayanya error nih bos..`);
+        }
+    }
+}

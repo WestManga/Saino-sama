@@ -1,6 +1,5 @@
-const { Client, Message, MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const User = require("../../models/User");
-const Guild = require("../../models/Guild");
 
 module.exports = {
   name: "setpremium",
@@ -12,7 +11,7 @@ module.exports = {
   run: async (client, message, args) => {
     let member = message.guild.member(message.mentions.users.first());
     let author = message.guild.members.cache.get(message.author.id);
-    if (message.author.id !== "338418945620967434")
+    if (message.author.id !== process.env.OWNER)
       return message.channel.send("This is owner only command.");
     if (!member) return message.channel.send("Please Mention A User");
     let premium = args[1];

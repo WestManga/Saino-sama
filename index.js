@@ -1,4 +1,4 @@
-const {Collection, Client, Discord, MessageEmbed} = require('discord.js')
+const {Collection, MessageEmbed} = require('discord.js')
 const kosuke = require("./handlers/ClientBuilder.js");
 const fs = require('fs')
 const client = new kosuke({ disableMentions: 'everyone', fetchAllMembers: true, partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
@@ -23,8 +23,7 @@ global.User = require('./models/User');
 global.Guild = require('./models/Guild');
 global.Thanks = require('./models/thanks');
 
-const blacklist = require('./models/blacklist')
-const ticketTranscript = require('./models/ticket')
+const ticketTranscript = require('./models/ticket');
 
 const prefix = (process.env.PREFIX);
 client.commands = new Collection();
@@ -35,11 +34,13 @@ client.categories = fs.readdirSync("./commands/");
 }); 
 
 const activities = [ 
-	{ type: 'WATCHING', name: 'Branch v1.1 - Saino-sama' },
+	{ type: 'WATCHING', name: 'Running on version 1.1' },
 	{ type: 'PLAYING', name: `${prefix}help` },
-	{ type: 'WATCHING', name: 'riizuku desain banner'},
-	{ type: 'WATCHING', name: 'rapip lagi nyoli'},
-	{ type: 'WATCHING', name: 'member wm kena NTR'}
+	{ type: 'WATCHING', name: 'Shopie take a bath' },
+	{ type: 'WATCHING', name: `Westmanga` },
+	{ type: 'PLAYING', name: 'VS-Code' },
+	{ type: 'WATCHING', name: `Prince n Advisor working` }
+
 ];
 
 client.on('ready', () => {
@@ -54,7 +55,6 @@ client.on('ready', () => {
 		: currentIndex + 1;
 	}, 10000);
 });
-
 
 client.on('message', async message =>{
 	const { author } = message;
@@ -173,6 +173,7 @@ client.on("guildMemberRemove", async(member) => {
 
 client.on("message" ,async(message) =>{
 	require("./events/guildaddMoney");
+	require('./events/afk')(client, message);
 })
 
 client.login(process.env.TOKEN)

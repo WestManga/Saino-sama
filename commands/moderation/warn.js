@@ -1,13 +1,12 @@
 const db = require('../../models/warns');
 const db2 = require('../../models/Guild');
 const User = require('../../models/User');
-const { Client, Message, MessageEmbed, Guild } = require('discord.js');
-const mongoose = require('mongoose');
+const { Message, MessageEmbed } = require('discord.js');
 
 module.exports = {
     name :'warn',
     description:'Memberikan warning kepada member',
-    cooldown:5,
+    cooldown:1000,
     /**
      * @param {Message} message
      */
@@ -54,7 +53,8 @@ module.exports = {
         // HITUNGAN DENDA/FINED
         const fmin = data2.fined.min
         const fmax = data2.fined.max
-        let rand = Math.floor(Math.random() * (fmax - fmin + 1) + fmin);
+        const totalwarn = target.warn
+        let rand = Math.floor(Math.random() * (fmax - fmin + 1) + fmin * totalwarn);
         target.money -= rand;
         target.warn++;
 		target.save();

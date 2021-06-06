@@ -69,7 +69,29 @@ const schema = mongoose.Schema({
     categorychatMoney: {
         type: String,
         default: ''
-    }
+    },
+    mutedRole: {
+        type: String,
+        default: ''
+    },
+    ruangbk: {
+        type: String,
+        default: ''
+    },
+    active: {
+		welcome: {
+            type: Boolean,
+            default: "false"
+        },
+		bye: {
+            type: Boolean,
+            default: "false"
+        },
+        apply: {
+            type: Boolean,
+            default: "false"
+        },
+	}
 });
 
 module.exports = mongoose.model("Guild", schema);

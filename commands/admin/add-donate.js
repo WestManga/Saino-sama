@@ -1,4 +1,4 @@
-const {Client, Message, MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const Guild = require("../../models/Guild");
 
 module.exports = {
@@ -67,7 +67,7 @@ module.exports = {
 			.addField("Saksi", `User: ${message.author}\nUserID: ${message.author.id}\nUsername: ${message.author.username}`)
 			.addField("Pemberi Donasi", `User: ${member.user}\nUserID: ${member.user.id}\nUsername: ${member.user.username}`)
 			.addField("Nominal Donasi", `\`\`\`Rp. ${args[2]}\`\`\``)
-		moneylog.send({embed : notifembed});
+		moneylog.send({ embed : notifembed });
     } else
     if (args[1].toLowerCase() === 'owocash') {
 		const onepoint = 50000;

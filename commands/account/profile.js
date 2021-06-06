@@ -3,9 +3,7 @@ const {
   generateTip,
   determineSupporterTitle,
 } = require("../../handlers/profilehelper");
-const { getIcon } = require("../../config/icons");
 const moment = require("moment");
-const mongoose = require("mongoose");
 const { COLOR } = process.env;
 
 module.exports = {
@@ -25,24 +23,10 @@ module.exports = {
     if (user.presence.status === "offline") user.presence.status = "Offline";
     if (user.presence.status === "online") user.presence.status = "Online";
 
-    function game() {
-      let game;
-      if (user.presence.activities.length >= 1)
-        game = `${user.presence.activities[0].type} ${user.presence.activities[0].name}`;
-      else if (user.presence.activities.length < 1) game = "None";
-      return game;
-    }
-
-    let x = Date.now() - user.createdAt;
     let y = Date.now() - message.guild.members.cache.get(user.id).joinedAt;
-    let created = Math.floor(x / 86400000);
     let joined = Math.floor(y / 86400000);
 
     const member = message.guild.member(user);
-    let nickname =
-      member.nickname !== undefined && member.nickname !== null
-        ? member.nickname
-        : "None";
     let joindate = moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY");
     let status = user.presence.status;
     let avatar = user.avatarURL({ size: 4096 });
@@ -67,8 +51,6 @@ module.exports = {
     if (!data) return client.nodb(member.user);
 
     const patreonSupporter = determineSupporterTitle(data.account.patreon);
-
-    let premium = data.point;
 
     const level = data.level;
     const exp = process.env.UPXP;
@@ -95,7 +77,7 @@ module.exports = {
       .addField("🏃‍♂️ XP", `${data.xp || 0}/${exprequired}`, inline)
       .addField("📧 Messages", `${data.messages || 0}`, inline)
       .addField("👮 Warn", `${data.warn || 0}/${process.env.WARN}`, inline)
-      .addField("💤 AFK", `${data.afk || false}`, inline)
+      .addField("💤 Mute", `${data.muted ?? 0}/${process.env.WARN}`, inline)
       .setImage(`${data.banner}`)
       .setFooter(
         generateTip(),
