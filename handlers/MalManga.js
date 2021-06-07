@@ -50,7 +50,9 @@ class MalManga {
                 let result_search = endpoint_search[search_index - 1];
                 await embed_search.delete();
                 await alert_search.delete();
-                await this.getDetail(result_search, message);
+                await this.getDetail(result_search, message).then(t => {
+                    response.first().delete();
+                });
 
                 fullfill();
             } catch (error) {
