@@ -12,7 +12,6 @@ module.exports = {
         if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permissions to use this command.')
         const user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         if(!user) return message.channel.send('User not found.').then(m => m.delete({ timeout : 5000 }))
-        const reason = args.slice(1).join(" ")
         db.findOne({ guildid: message.guild.id, user: user.user.id}, async(err, data) => {
             if(err) throw err;
             if(data) {
