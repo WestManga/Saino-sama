@@ -11,13 +11,14 @@ module.exports = {
      * @param {Message} message
      */
     run : async(client, message, args) => {
-        if(!message.member.hasPermission('KICK_MEMBERS')) return message.channel.send('You do not have permissions to use this command.').then(m => m.delete({ timeout : 5000 }))
+        let author = message.guild.members.cache.get(message.author.id);
+        if (!author.hasPermission('KICK_MEMBERS')) return message.channel.send("You dont have permission for used this command!");
         
-        const user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-        if(!user) return message.channel.send('User not found.').then(m => m.delete({ timeout : 5000 }))
+        let user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+        if(!user) return message.channel.send('User not found.').then(m => m.delete({ timeout : 5000 }));
         
-        if(user == message.author.id) return ('Are you stupid?').then(m => m.delete({ timeout : 5000 }))
-        if(user.hasPermission('ADMINISTRATOR')) return message.channel.send('Ba-baka!').then(m => m.delete({ timeout : 5000 }))
+        if(user == author) return message.channel.send("Are you stupid?").then(m => m.delete({ timeout : 5000 }));
+        if(user.hasPermission('ADMINISTRATOR')) return message.channel.send('Ba-baka!').then(m => m.delete({ timeout : 5000 }));
                 
         const reason = args.slice(1).join(" ")
         
