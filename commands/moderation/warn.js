@@ -12,9 +12,15 @@ module.exports = {
      */
     run : async(client, message, args) => {
         if(!message.member.hasPermission('KICK_MEMBERS')) return message.channel.send('You do not have permissions to use this command.').then(m => m.delete({ timeout : 5000 }))
+        
         const user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         if(!user) return message.channel.send('User not found.').then(m => m.delete({ timeout : 5000 }))
+        
+        if(user == message.author.id) return ('Are you stupid?').then(m => m.delete({ timeout : 5000 }))
+        if(user.hasPermission('ADMINISTRATOR')) return message.channel.send('Ba-baka!').then(m => m.delete({ timeout : 5000 }))
+                
         const reason = args.slice(1).join(" ")
+        
         db.findOne({ guildid: message.guild.id, user: user.user.id}, async(err, data) => {
             if(err) throw err;
             if(!data) {
