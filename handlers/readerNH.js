@@ -22,17 +22,17 @@ class readerNH {
                     .setImage(`${array_image}`)
                     .setFooter(`Page ${pagination} of ${lastpage}`)
                     let r = await message.channel.send(embed)
-                    r.react('👈');
-                    r.react('♻');
-                    r.react('👉');
+                    r.react('⬅️');
+                    r.react('❌');
+                    r.react('➡️');
 
                     //emoji collector
                     const backwardsFilter = (reaction, user) =>
-                        reaction.emoji.name === `👈` && user.id === message.author.id;
+                        reaction.emoji.name === `⬅️` && user.id === message.author.id;
                     const deleteEmbed = (reaction, user) =>
-                        reaction.emoji.name === `♻` && user.id === message.author.id;
+                        reaction.emoji.name === `❌` && user.id === message.author.id;
                     const forwardsFilter = (reaction, user) =>
-                        reaction.emoji.name === `👉` && user.id === message.author.id;
+                        reaction.emoji.name === `➡️` && user.id === message.author.id;
                     const backwards = r.createReactionCollector(backwardsFilter);
                     const DeleteEmbed = r.createReactionCollector(deleteEmbed);
                     const forwards = r.createReactionCollector(forwardsFilter);
