@@ -80,12 +80,14 @@ client.on('message', async (message) => {
             const exprequired = Math.round(level * exp)
             
             if (data.xp >= exprequired) {
+                let uavatar = message.author.avatarURL({ size: 4096 });
                 let e = new MessageEmbed()
                     .setColor(process.env.COLOR)
+                    .setThumbnail(uavatar)
                     .setDescription(
                         `:tada: Congrats ${message.author.username} You Level Up\nYou are now level ${data.level}`,
                     );
-                levelup.send(e);
+                levelup.send({message: `<@${message.author.id}>`, embed: e});
                 data.xp -= exprequired;
                 data.level += 1;
             }
