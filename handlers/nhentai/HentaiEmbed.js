@@ -29,28 +29,28 @@ class HentaiEmbed {
     json.id = res.id;
     json.tag = res.tags
       .filter(x => x.type == "tag")
-      .map(x => this.client.util.toPlural(x.name));
+      .map(x => this.client.hentaiutil.toPlural(x.name));
     json.category = res.tags
       .filter(x => x.type == "category")
-      .map(x => this.client.util.toPlural(x.name));
+      .map(x => this.client.hentaiutil.toPlural(x.name));
     json.artist = res.tags
       .filter(x => x.type == "artist")
-      .map(x => this.client.util.toPlural(x.name));
+      .map(x => this.client.hentaiutil.toPlural(x.name));
     json.parody = res.tags
       .filter(x => x.type == "parody")
-      .map(x => this.client.util.toPlural(x.name));
+      .map(x => this.client.hentaiutil.toPlural(x.name));
     json.character = res.tags
       .filter(x => x.type == "character")
-      .map(x => this.client.util.toPlural(x.name));
+      .map(x => this.client.hentaiutil.toPlural(x.name));
     json.cover = `https://i.nhentai.net/galleries/${res.media_id}/1.${
       TYPE[res.images.cover.t]
     }`;
 
     let lang = res.tags.filter(x => x.type == "language").map(x => x.name);
     if (lang[0] == "translated") {
-      json.lang = this.client.util.toPlural(lang[1]);
+      json.lang = this.client.hentaiutil.toPlural(lang[1]);
     } else {
-      json.lang = this.client.util.toPlural(lang[0]);
+      json.lang = this.client.hentaiutil.toPlural(lang[0]);
     }
 
     return json;
@@ -60,26 +60,11 @@ class HentaiEmbed {
     const embed = new MessageEmbed();
     let res = await this.getById(id);
     
-    // filter the banned tag before serve to user
-    let banned = false;
-    for (let ban of this.client.config.BANNED) {
-      let filters = res.tags.filter(x => x.type == "tag" && x.name == ban);
-      if (filters.length !== 0)
-        banned = true;
-    }
-
-    if (banned)
-      return msg.channel
-        .send(
-          `:warning: Sorry, I cannot display the doujin because contain **BANNED** tag\nCode: ${id}`
-        )
-        .then(m => m.delete({ timeout: 10000 }));
-    
     let info = this.getInfo(res);
 
     // console.log(info);
-    embed.setAuthor("nHentai random generator", this.client.nHlogo);
-    embed.setColor(this.client.config.COLOR);
+    embed.setAuthor("nHentai Information", this.client.nHlogo);
+    embed.setColor(process.env.COLOR);
     // embed.setThumbnail(thumb);
     embed.setTitle(`${res.title.pretty}`);
     embed.setDescription(
@@ -87,7 +72,7 @@ class HentaiEmbed {
     );
     embed.setURL(`https://nhentai.net/g/${res.id}`);
     embed.setImage(info.cover);
-    embed.setFooter(`React with 📖 to continue reading / ${res.id}`);
+    embed.setFooter(`React with 📖 to continue reading / ID: ${res.id}`);
     embed.addField("Language", info.lang, true);
     if (info.parody[0])
       embed.addField(
@@ -150,15 +135,15 @@ class HentaiEmbed {
 
       // read embed
       const read = new MessageEmbed();
-      read.setAuthor("nHentai read", this.client.nHlogo);
-      read.setColor(this.client.config.COLOR);
+      read.setAuthor("nHentai Reader", this.client.nHlogo);
+      read.setColor(process.env.COLOR);
       read.setTitle(`${res.title.pretty}`);
       read.setDescription(
         `Made by: **${info.artist[0] ? info.artist.join(", ") : info.artist}**`
       );
       read.setURL(`https://nhentai.net/g/${res.id}`);
       read.setImage(doujin[pagination - 1]);
-      read.setFooter(`Page ${pagination} of ${doujin.length} / ${res.id}`);
+      read.setFooter(`Page ${pagination} of ${doujin.length} / ID: ${res.id}`);
       let r = await msg.channel.send(read);
       return this.getRead(res, read, r, msg, pagination);
     });
@@ -173,7 +158,7 @@ class HentaiEmbed {
     });
 
     favorit.on("collect", async f => {
-      let favorite = await this.client.favorite.getUserFavoritID(msg.author.id);
+      let favorite = await this.client.hentaifavorite.getUserFavoritID(msg.author.id);
       favorite = favorite.map(x => x.bookID);
       if (favorite.includes(res.id)) {
         this.client.favorite.deleteUserFavoritID(msg.author.id, res.id);
@@ -183,7 +168,7 @@ class HentaiEmbed {
           )
           .then(msg => msg.delete({ timeout: 5000 }));
       } else {
-        this.client.favorite.setUserFavoritID(msg.author.id, res.id);
+        this.client.hentaifavorite.setUserFavoritID(msg.author.id, res.id);
         return msg.channel
           .send(
             `${nick} you have added **${res.title.pretty}** to **Favorite**`
@@ -229,7 +214,7 @@ class HentaiEmbed {
       if (pagination <= 5) return;
       pagination -= 5;
       read.setImage(images[pagination - 1]);
-      read.setFooter(`Page ${pagination} of ${images.length} / ${res.id}`);
+      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}`);
       r.edit(read);
     });
 
@@ -237,7 +222,7 @@ class HentaiEmbed {
       if (pagination == 1) return;
       pagination--;
       read.setImage(images[pagination - 1]);
-      read.setFooter(`Page ${pagination} of ${images.length} / ${res.id}`);
+      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}`);
       r.edit(read);
     });
 
@@ -245,7 +230,7 @@ class HentaiEmbed {
       if (pagination == images.length) return;
       pagination++;
       read.setImage(images[pagination - 1]);
-      read.setFooter(`Page ${pagination} of ${images.length} / ${res.id}`);
+      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}`);
       r.edit(read);
     });
 
@@ -253,7 +238,7 @@ class HentaiEmbed {
       if (pagination + 5 >= images.length) return;
       pagination += 5;
       read.setImage(images[pagination - 1]);
-      read.setFooter(`Page ${pagination} of ${images.length} / ${res.id}`);
+      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}`);
       r.edit(read);
     });
 
@@ -266,15 +251,18 @@ class HentaiEmbed {
     let nhentURL = `${this.client.hentaidl}/${res.id}/${
       type == "cbz" ? "cbz" : "zip"
     }`;
+    let nhcdzURL = `${this.client.hentaidl}/${res.id}/cbz`;
     const embed = new MessageEmbed()
+      .setAuthor("nHentai Downloader", this.client.nHlogo)
       .setTitle(res.title.pretty)
-      .setURL(encodeURI(nhentURL.trim()))
       .setThumbnail(this.getInfo(res).cover)
-      .setColor(this.client.config.COLOR)
+      .setColor(process.env.COLOR)
       .setTimestamp()
       .setDescription(
-        `To start download, click the doujin title above`
-      );
+        `Pilih dah nih mau download yang mana..`
+      )
+      .addField('<a:kanan:819853363179945994> Format Zip', `[Download](${encodeURI(nhentURL.trim())})`,true)
+      .addField('<a:kanan:819853363179945994> Format Cbz', `[Download](${encodeURI(nhcdzURL.trim())})`,true);
     return embed;
   }
 }
