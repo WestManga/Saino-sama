@@ -33,6 +33,7 @@
     "mathjs": "^9.3.0",
     "moment": "^2.29.1",
     "mongoose": "^5.12.2",
+    "nana-api": "^1.1.4",
     "nekos.life": "^2.0.7",
     "nhentai-api": "^3.0.2",
     "node-superfetch": "^0.1.11",
