@@ -32,7 +32,7 @@ client.categories = fs.readdirSync("./commands/");
 }); 
 
 const activities = [ 
-	{ type: 'WATCHING', name: 'Running on version 1.1' },
+	{ type: 'WATCHING', name: `on version ${client.version}` },
 	{ type: 'PLAYING', name: `${prefix}help` },
 	{ type: 'WATCHING', name: 'Shopie take a bath' },
 	{ type: 'WATCHING', name: `Westmanga` },
