@@ -23,8 +23,6 @@ global.User = require('./models/User');
 global.Guild = require('./models/Guild');
 global.Thanks = require('./models/thanks');
 
-const ticketTranscript = require('./models/ticket');
-
 const prefix = (process.env.PREFIX);
 client.commands = new Collection();
 client.aliases = new Collection();
@@ -141,23 +139,6 @@ client.on('message', async message =>{
 		);
 });
 
-client.on('message', async(message) => {
-    if(message.channel.parentID !== '829582353872977940') return;
-    ticketTranscript.findOne({ Channel : message.channel.id }, async(err, data) => {
-        if(err) throw err;
-        if(data) {
-           console.log('there is data')
-           data.Content.push(`${message.author.tag} : ${message.content}`) 
-        } else {
-            console.log('there is no data')
-            data = new ticketTranscript({ Channel : message.channel.id, Content: `${message.author.tag} : ${message.content}`})
-        }
-        await data.save()
-            .catch(err =>  console.log(err))
-        console.log('data is saved ')
-    })
-
-})
 
 client.on('guildCreate', (guild) => {
 	require("./events/guildCreate")(guild);
@@ -174,7 +155,8 @@ client.on("guildMemberRemove", async(member) => {
 client.on("message" ,async(message) =>{
 	require("./events/guildaddMoney");
 	require('./events/afk')(client, message);
-})
+	require('./events/ticketSystem')(message);
+});
 
 client.login(process.env.TOKEN)
 
