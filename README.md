@@ -10,7 +10,7 @@
 <a href="https://github.com/mhazm/Saino-sama/"><img src="https://img.shields.io/tokei/lines/github/mhazm/Saino-sama" alt="Repo Lines" /></a>
 <a href="https://deepscan.io/dashboard#view=project&tid=14312&pid=17425&bid=398718"><img src="https://deepscan.io/api/teams/14312/projects/17425/branches/398718/badge/grade.svg" alt="DeepScan grade"></a>
 <img alt="GitHub issues" src="https://img.shields.io/github/issues/mhazm/Saino-sama?color=ebc934">
-  <a href="https://discord.gg/vpEv3HJ"><img src="https://img.shields.io/discord/781212267236163594.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge"><alt="Discord"></a>
+  <a href="https://discord.gg/7NZEZ7ycmf"><img src="https://img.shields.io/discord/781212267236163594.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge"><alt="Discord"></a>
 </p>
 </br>
 
