@@ -1,9 +1,9 @@
 const Discord = require("discord.js")
 
 module.exports = {
-  name:'manga',
+  name:'manhwa',
   category:'animanga',
-  description:'Mencari Manga di myanimelist',
+  description:'Mencari Manhwa di myanimelist',
   usage:'<judul>',
   cooldown:1000,
   run: async(client, message, args) => {
@@ -11,7 +11,7 @@ module.exports = {
         let query = args.join(' ');
         if (!query) return message.reply('masukin keyword yang mau dicari dulu, baka!');
 
-        await client.malmanga.getSearch(query, message);
+        await client.malmanga.getSearchManhwa(query, message);
     } catch (error) {
         return console.log(error);
         // Restart the bot as usual. 

@@ -1,6 +1,7 @@
 const { Message, Client, MessageAttachment} = require('discord.js')
 const db = require('../../models/ticket')
 const fs = require('fs')
+const Guild = require('../../models/Guild')
 
 module.exports = {
     name : 'close',
@@ -9,8 +10,15 @@ module.exports = {
      * @param {Message} message
      */
     run : async(client, message) => {
-        if(message.channel.parentID !== '829582353872977940') return message.channel.send('You can only use this command in a ticket!');
-        const transcriptChannel = message.guild.channels.cache.get('829571224475664384')
+        let guild = await Guild.findOne({
+            guildID: message.guild.id
+        })
+
+        let category = guild.ticketCategory;
+        let ticketlog = guild.transcriptTicket;
+
+        if(message.channel.parentID !== category) return message.channel.send('You can only use this command in a ticket!');
+        const transcriptChannel = message.guild.channels.cache.get(ticketlog)
         message.channel.send('Deleting ticket in 5 seconds.....')
         setTimeout(() => {
             message.channel.delete().then(async ch=> {
