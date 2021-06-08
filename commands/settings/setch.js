@@ -140,5 +140,29 @@ module.exports = {
             message.channel.send({embed: e}).then(d => d.delete({ timeout : 10000 }));
             data.ruangbk = channel.id; data.save();
         }
+        else
+        if (args[0].toLowerCase() === 'ticket') {
+            if (!args[1]) return message.channel.send('Please Enter Valid Number');
+		    if (args[1] < 1)
+			return message.channel.send('Copy ID Kategori yang ingin kamu jadikan tempat chatmoney\nLalu masukan disini');
+		    if (isNaN(args[1])) return message.channel.send('Thats Not A Number -_-');
+            let e = new MessageEmbed()
+            .setDescription(`Berhasil mengubah kategori ticket di <#${args[1]}>`)
+            .setTimestamp(new Date())
+            .setColor(COLOR)
+            message.channel.send({embed: e}).then(d => d.delete({ timeout : 10000 }));
+            data.ticketCategory = args[1]; data.save();
+        }
+        else
+        if (args[0].toLowerCase() === 'ticketlog') {
+            let channel =  message.mentions.channels.first();
+            if(!channel) return message.channel.send("Please Provide a channel").then(d => d.delete({ timeout : 10000 }));
+            let e = new MessageEmbed()
+            .setDescription(`Successfully set ticket log channel at ${channel}`)
+            .setTimestamp(new Date())
+            .setColor(COLOR)
+            message.channel.send({embed: e}).then(d => d.delete({ timeout : 10000 }));
+            data.transcriptTicket = channel.id; data.save();
+        }
     },
 };

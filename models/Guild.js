@@ -78,6 +78,14 @@ const schema = mongoose.Schema({
         type: String,
         default: ''
     },
+    ticketCategory: {
+        type: String,
+        default: ''
+    },
+    transcriptTicket:{
+        type: String,
+        default: ''
+    },
     active: {
 		welcome: {
             type: Boolean,
