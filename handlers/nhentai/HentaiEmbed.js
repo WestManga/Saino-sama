@@ -59,6 +59,11 @@ class HentaiEmbed {
   async getInfoEmbed(id, msg) {
     const embed = new MessageEmbed();
     let res = await this.getById(id);
+
+    let nickname =
+    msg.member.nickname !== null
+      ? `${msg.member.nickname}`
+      : msg.author.username;
     
     let info = this.getInfo(res);
 
@@ -72,7 +77,7 @@ class HentaiEmbed {
     );
     embed.setURL(`https://nhentai.net/g/${res.id}`);
     embed.setImage(info.cover);
-    embed.setFooter(`React with 📖 to continue reading / ID: ${res.id}`);
+    embed.setFooter(`React with 📖 to continue reading / ID: ${res.id}\nRequest by ${nickname}`);
     embed.addField("Language", info.lang, true);
     if (info.parody[0])
       embed.addField(
@@ -143,7 +148,7 @@ class HentaiEmbed {
       );
       read.setURL(`https://nhentai.net/g/${res.id}`);
       read.setImage(doujin[pagination - 1]);
-      read.setFooter(`Page ${pagination} of ${doujin.length} / ID: ${res.id}`);
+      read.setFooter(`Page ${pagination} of ${doujin.length} / ID: ${res.id}\nRequest by ${nick}`);
       let r = await msg.channel.send(read);
       return this.getRead(res, read, r, msg, pagination);
     });
@@ -179,6 +184,10 @@ class HentaiEmbed {
   }
 
   async getRead(res, read, r, msg, pagination) {
+    let nick =
+      msg.member.nickname !== null
+        ? `${msg.member.nickname}`
+        : msg.author.username;
     let images = [];
     res.images.pages.forEach((page, i) => {
       images.push(
@@ -214,7 +223,7 @@ class HentaiEmbed {
       if (pagination <= 5) return;
       pagination -= 5;
       read.setImage(images[pagination - 1]);
-      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}`);
+      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}\nRequest by ${nick}`);
       r.edit(read);
     });
 
@@ -222,7 +231,7 @@ class HentaiEmbed {
       if (pagination == 1) return;
       pagination--;
       read.setImage(images[pagination - 1]);
-      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}`);
+      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}\nRequest by ${nick}`);
       r.edit(read);
     });
 
@@ -230,7 +239,7 @@ class HentaiEmbed {
       if (pagination == images.length) return;
       pagination++;
       read.setImage(images[pagination - 1]);
-      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}`);
+      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}\nRequest by ${nick}`);
       r.edit(read);
     });
 
@@ -238,7 +247,7 @@ class HentaiEmbed {
       if (pagination + 5 >= images.length) return;
       pagination += 5;
       read.setImage(images[pagination - 1]);
-      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}`);
+      read.setFooter(`Page ${pagination} of ${images.length} / ID: ${res.id}\nRequest by ${nick}`);
       r.edit(read);
     });
 

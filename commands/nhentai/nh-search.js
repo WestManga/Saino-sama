@@ -75,6 +75,7 @@ module.exports = {
         await client.hentaiembed.getInfoEmbed(query, msg);
       } catch(err) {
           console.log(err.msg);
+          msg.channel.send('Ngga ketemu gan!');
           return;
       }
     }
