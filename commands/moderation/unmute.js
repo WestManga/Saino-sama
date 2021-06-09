@@ -64,7 +64,7 @@ module.exports = {
             // Give mutedroles //
             await target.roles.remove(muteRole).then(() => {
                 message.delete()
-                message.channel.send(`**${target.user.tag}** telah bebas dari mute`)
+                message.channel.send(`**${target.user.tag}** telah bebas dari mute`).then(m => m.delete({ timeout : 5000 }));
             })
 
             // Delete data from quick.db //
