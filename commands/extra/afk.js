@@ -10,7 +10,7 @@ module.exports = {
   run: async(client, message, args) => {
     try {
         const status = new db.table('AFKs');
-        let afk = await status.fetch(message.author.id);
+        let afk = await status.fetch(`userid_${message.author.id}_guild_${message.guild.id}`);
 
         //ignore AFK
         let reason = args.join(' ').toString();
@@ -19,12 +19,12 @@ module.exports = {
             message.delete()
             message.channel.send(`**${message.author.tag}** telah AFK! \n**Alasan:** ${reason ? reason : "AFK"}`, { disableMentions: 'all' }).then(d => d.delete({ timeout: 10000 }));
             setTimeout(() => {
-                status.set(message.author.id, { alasan: reason || 'AFK' });
-                status.add(`${message.author.id}.time`, Date.now());
+                status.set(`userid_${message.author.id}_guild_${message.guild.id}`, { alasan: reason || 'AFK' });
+                status.add(`userid_${message.author.id}_guild_${message.guild.id}.time`, Date.now());
             }, 7000);
 
         } else {
-            status.delete(message.author.id);
+            status.delete(`userid_${message.author.id}_guild_${message.guild.id}`);
         };
 
     } catch (error) {

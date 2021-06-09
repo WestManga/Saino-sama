@@ -77,7 +77,7 @@ module.exports = {
       .addField("🏃‍♂️ XP", `${data.xp || 0}/${exprequired}`, inline)
       .addField("📧 Messages", `${data.messages || 0}`, inline)
       .addField("👮 Warn", `${data.warn || 0}/${process.env.WARN}`, inline)
-      .addField("💤 Mute", `${data.muted ?? 0}/${process.env.WARN}`, inline)
+      .addField("💤 Mute", `${data.muted || 0}/${process.env.WARN}`, inline)
       .setImage(`${data.banner}`)
       .setFooter(
         generateTip(),
