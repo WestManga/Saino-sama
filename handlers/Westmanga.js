@@ -76,7 +76,6 @@ class Westmanga {
                     .setStyle('url')
                     .setLabel(`Lihat ${get.data.type}`)
                     .setURL(`${linkbaca}`)
-                    .setEmoji("✔️")
 
                 //embed
                 let embed = new Discord.MessageEmbed()

@@ -76,7 +76,6 @@ class MalAnime {
                     .setStyle('url')
                     .setLabel(`Lihat Anime`)
                     .setURL(`${linkanime}`)
-                    .setEmoji("✔️")
 
                 let genre_search = get.data.genres;
                 let listgenre = [];
