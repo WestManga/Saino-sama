@@ -68,6 +68,18 @@ module.exports = {
                     message.delete()
                     message.channel.send('Pendaftaran moderator telah dibuka!')
                 })
+            } else
+            if (cmd === 'convert') {
+                if (dataguild.active.convert === true) {
+                    message.delete();
+                    return message.channel.send('Saat ini penukaran sedang dibuka!');
+                }
+        
+                dataguild.active.convert = value;
+                dataguild.save().then(() => {
+                    message.delete()
+                    message.channel.send('Penukaran saat ini telah dibuka kembali, silahkan melakukan penukaran!')
+                })
             }
         } catch (err) {
         console.log(err)

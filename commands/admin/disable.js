@@ -56,6 +56,18 @@ module.exports = {
                     message.delete()
                     message.channel.send('Pendaftaran moderator telah ditutup!')
                 })
+            } else
+            if (cmd === 'convert') {
+                if (dataguild.active.convert === false) {
+                    message.delete();
+                    return message.channel.send('Penukaran saldo memang belum dibuka!');
+                }
+        
+                dataguild.active.convert = value;
+                dataguild.save().then(() => {
+                    message.delete()
+                    message.channel.send('Penukaran saldo saat ini ditutup karena slot penuh!')
+                })
             }
         } catch (err) {
         console.log(err)

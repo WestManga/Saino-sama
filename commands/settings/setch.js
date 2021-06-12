@@ -163,6 +163,16 @@ module.exports = {
             .setColor(COLOR)
             message.channel.send({embed: e}).then(d => d.delete({ timeout : 10000 }));
             data.transcriptTicket = channel.id; data.save();
+        } else
+        if (args[0].toLowerCase() === 'convertch') {
+            let channel =  message.mentions.channels.first();
+            if(!channel) return message.channel.send("Please Provide a channel").then(d => d.delete({ timeout : 10000 }));
+            let e = new MessageEmbed()
+            .setDescription(`Successfully set convert channel at ${channel}`)
+            .setTimestamp(new Date())
+            .setColor(COLOR)
+            message.channel.send({embed: e}).then(d => d.delete({ timeout : 10000 }));
+            data.convertChannel = channel.id; data.save();
         }
     },
 };

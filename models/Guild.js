@@ -86,6 +86,10 @@ const schema = mongoose.Schema({
         type: String,
         default: ''
     },
+    convertChannel: {
+        type: String,
+        default: ''
+    },
     active: {
 		welcome: {
             type: Boolean,
@@ -96,6 +100,10 @@ const schema = mongoose.Schema({
             default: "false"
         },
         apply: {
+            type: Boolean,
+            default: "false"
+        },
+        convert: {
             type: Boolean,
             default: "false"
         },
