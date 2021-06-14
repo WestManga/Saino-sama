@@ -6,4 +6,4 @@ json.sqlite
 .vscode
 .env
 data
-\commands\test
+commands/test/*
