@@ -10,6 +10,7 @@ const MalManga = require('./MalManga');
 const HentaiEmbed = require('./nhentai/HentaiEmbed');
 const HentaiFavorite = require('./nhentai/HentaiFavorite');
 const HentaiDB = require('./nhentai/HentaiDB');
+const GuildHandler = require('./GuildHandler');
 
 module.exports = class kosuke extends Client {
 
@@ -29,6 +30,7 @@ module.exports = class kosuke extends Client {
         this.hentaiembed = new HentaiEmbed(this);
         this.hentaifavorite = new HentaiFavorite(this);
         this.hdb = new HentaiDB(this);
+        this.guildhandler = new GuildHandler(this);
         this.hentaidl = "https://mangadl.herokuapp.com/download/nhentai";
         this.nHlogo = "https://cdn.discordapp.com/attachments/466964106692395008/580378765419347968/icon_nhentai.png";
     }
