@@ -10,12 +10,14 @@ module.exports = {
   usage: "<tujuan> <nomer tujuan> <nominal>",
   cooldown: 1000,
   run: async (client, message, args) => {
+    let owner = message.guild.members.cache.get(process.env.OWNER);
     let member = message.guild.member();
     let user = message.author;
     let author = message.guild.members.cache.get(message.author.id);
     let avatar = user.displayAvatarURL({ size: 4096, dynamic: true });
     let guildname = message.member.guild.name;
     let guildavatar = message.guild.iconURL({ size: 4096, dynamic: true });
+    let now = new Date();
 
     let tujuan = args[0];
     if (!tujuan) {
@@ -42,9 +44,9 @@ module.exports = {
         .then((m) => m.delete({ timeout: 10000 }));
     }
     if (nomorlength > 13) {
-        return message.channel
-          .send("Kamu yakin? Nomermu lebih dari 13 digit lho!")
-          .then((m) => m.delete({ timeout: 10000 }));
+      return message.channel
+        .send("Kamu yakin? Nomermu lebih dari 13 digit lho!")
+        .then((m) => m.delete({ timeout: 10000 }));
     }
 
     let nominal = args[2];
@@ -177,6 +179,18 @@ module.exports = {
           )
           .then((m) => m.delete({ timeout: 10000 }));
       }
+
+      owner.send(new Discord.MessageEmbed()
+        .setAuthor(guildname, guildavatar)
+        .setColor(process.env.COLOR)
+        .setDescription("Request convert baru!!")
+        .addField("Username", user.username)
+        .addField("Tujuan", tujuan, true)
+        .addField("Nomor Tujuan", nomortujuan, true)
+        .addField("Nominal", `Rp.${nominal}`, true)
+        .addField("Tanggal", now)
+        .addField("Status", "On Waiting List")
+      )
 
       db.findOne(
         { guildID: message.guild.id, userID: message.author.id },
