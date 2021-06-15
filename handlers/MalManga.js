@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 let axios = require('axios');
 const { MessageButton } = require('discord-buttons');
+const genrelist = require('../config/genre');
 
 class MalManga {
     constructor(client) {
@@ -334,17 +335,95 @@ class MalManga {
         })
     }
 
-    // SEARCH MANGA BY GENRE //
-    getSearchMangaGenre(search, message) {
+    // SEARCH MANGA GENRE LIST //
+    getSearchMangaGenreList(message) {
         return new Promise(async (fullfill, reject) => {
             try {
                 const roleColor =
                 message.guild.me.displayHexColor === "#000000"
                 ? "#ffffff"
                 : message.guild.me.displayHexColor;
-                let get = await axios.get(`https://api.jikan.moe/v3/search/manga?q=&page=1&genre=${search}&order_by=score`);
+
+                let genre_list = genrelist;
+                let listGenre = [];
+                genre_list.forEach((a, i) => {
+                    listGenre.push({ genre: `${i + 1}. ${a.name}`, endpoint: a.number})
+                });
+
+                //get endpoint
+                let endpoint_search = [];
+                genre_list.forEach(a => {
+                    endpoint_search.push(a.number);
+                });
+                console.log(endpoint_search)
+
+                let page = 1;
+                let genreChunk = this.client.util.chunk(listGenre, 10);
+                console.log(genreChunk[0])
+                //send title results
+                let embedcari = new Discord.MessageEmbed()
+                    .setColor(roleColor)
+                    .setTitle(`Berikut adalah List Genre yang tersedia`)
+                    .setDescription(genreChunk[page - 1].map(a => a.genre))
+                let embed_search = await message.channel.send(embedcari);
+                let embed_reply = await message.reply('Silahkan gunakan nomer diatas sebagai pencarian genre\nContoh : `!search manga 10,11,23,1`');
+
+                await embed_search.react('👈')
+                await embed_search.react('♻')
+                await embed_search.react('👉')
+
+                const backwardsFilter = (reaction, user) =>
+                    reaction.emoji.name === `👈` && user.id === message.author.id;
+                const deleteFilter = (reaction, user) =>
+                    reaction.emoji.name === `♻` && user.id === message.author.id;
+                const forwardsFilter = (reaction, user) =>
+                    reaction.emoji.name === `👉` && user.id === message.author.id;
+
+                const backwards = embed_search.createReactionCollector(backwardsFilter);
+                const deletes = embed_search.createReactionCollector(deleteFilter);
+                const forwards = embed_search.createReactionCollector(forwardsFilter);
+
+                backwards.on("collect", (f) => {
+                    if (page === 1) return;
+                    page--;
+                    embedcari.setDescription(genreChunk[page - 1].map(a => a.genre));
+                    embedcari.setFooter(`Page ${page} of ${genreChunk.length}`)
+                    embed_search.edit(embedcari);
+                })
+                deletes.on("collect", (f) => {
+                    embed_search.delete();
+                    embed_reply.delete();
+                })
+                forwards.on("collect", (f) => {
+                    if (page == genreChunk.length) return;
+                    page++;
+                    embedcari.setDescription(genreChunk[page - 1].map(a => a.genre));
+                    embedcari.setFooter(`Page ${page} of ${genreChunk.length}`)
+                    embed_search.edit(embedcari);
+                });
+
+                embed_search.delete({ timeout: 60000 });
+                embed_reply.delete({ timeout: 60000 });
+
+                fullfill();
+            } catch (error) {
+                reject(error);
+                return;
+            }
+        })
+    }
+    
+    // SEARCH MANGA BY GENRE //
+    getSearchMangaGenre(query, message) {
+        return new Promise(async (fullfill, reject) => {
+            try {
+                const roleColor =
+                message.guild.me.displayHexColor === "#000000"
+                ? "#ffffff"
+                : message.guild.me.displayHexColor;
+                let get = await axios.get(`https://api.jikan.moe/v3/search/manga?q=&page=1&genre=${query}&order_by=score`);
                 let data_search = get.data.results;
-                if (data_search < 1) return message.reply(`Pencarian dengan keyword **${search}** tidak ditemukan!`);
+                if (data_search < 1) return message.reply(`Pencarian dengan keyword **${query}** tidak ditemukan!`);
 
                 let listJudul = [];
                 data_search.forEach((a, i) => {
@@ -364,7 +443,7 @@ class MalManga {
                 //send title results
                 let embed = new Discord.MessageEmbed()
                     .setColor(roleColor)
-                    .setTitle(`Hasil Pencarian Manga\nKeyword: ${search}`)
+                    .setTitle(`Hasil Pencarian Manga\nKeyword: ${query}`)
                     .setDescription(judulChunk[page - 1].map(a => a.title))
                 let embed_search = await message.channel.send(embed);
                 let alert_search = await message.reply('pilih untuk melanjutkan!');
