@@ -77,7 +77,6 @@ class MalManga {
                     .setStyle('url')
                     .setLabel(`Lihat ${mangatype}`)
                     .setURL(`${linkmal}`)
-                    .setEmoji("✔️")
 
                 let genre_search = get.data.genres;
                 let listgenre = [];
