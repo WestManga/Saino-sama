@@ -1,0 +1,182 @@
+[
+    {
+        "name" : "Action",
+        "number" : "1"
+    },
+    {
+        "name" : "Adventure",
+        "number" : "2"
+    },
+    {
+        "name" : "Cars",
+        "number" : "3"
+    },
+    {
+        "name" : "Comedy",
+        "number" : "4"
+    },
+    {
+        "name" : "Dementia",
+        "number" : "5"
+    },
+    {
+        "name" : "Demons",
+        "number" : "6"
+    },
+    {
+        "name" : "Mystery",
+        "number" : "7"
+    },
+    {
+        "name" : "Drama",
+        "number" : "8"
+    },
+    {
+        "name" : "Ecchi",
+        "number" : "9"
+    },
+    {
+        "name" : "Fantasy",
+        "number" : "10"
+    },
+    {
+        "name" : "Game",
+        "number" : "11"
+    },
+    {
+        "name" : "Hentai",
+        "number" : "12"
+    },
+    {
+        "name" : "Historical",
+        "number" : "13"
+    },
+    {
+        "name" : "Horor",
+        "number" : "14"
+    },
+    {
+        "name" : "Kids",
+        "number" : "15"
+    },
+    {
+        "name" : "Magic",
+        "number" : "16"
+    },
+    {
+        "name" : "Matrial Arts",
+        "number" : "17"
+    },
+    {
+        "name" : "Mecha",
+        "number" : "18"
+    },
+    {
+        "name" : "Music",
+        "number" : "19"
+    },
+    {
+        "name" : "Parody",
+        "number" : "20"
+    },
+    {
+        "name" : "Samurai",
+        "number" : "21"
+    },
+    {
+        "name" : "Romance",
+        "number" : "22"
+    },
+    {
+        "name" : "School",
+        "number" : "23"
+    },
+    {
+        "name" : "Sci-Fi",
+        "number" : "24"
+    },
+    {
+        "name" : "Shoujo",
+        "number" : "25"
+    },
+    {
+        "name" : "Shoujo Ai",
+        "number" : "26"
+    },
+    {
+        "name" : "Shounen",
+        "number" : "27"
+    },
+    {
+        "name" : "Shounen Ai",
+        "number" : "28"
+    },
+    {
+        "name" : "Space",
+        "number" : "29"
+    },
+    {
+        "name" : "Sports",
+        "number" : "30"
+    },
+    {
+        "name" : "Super Power",
+        "number" : "31"
+    },
+    {
+        "name" : "Vampire",
+        "number" : "32"
+    },
+    {
+        "name" : "Yaoi",
+        "number" : "33"
+    },
+    {
+        "name" : "Yuri",
+        "number" : "34"
+    },
+    {
+        "name" : "Harem",
+        "number" : "35"
+    },
+    {
+        "name" : "Slice of Life",
+        "number" : "36"
+    },
+    {
+        "name" : "Supernatural",
+        "number" : "37"
+    },
+    {
+        "name" : "Military",
+        "number" : "38"
+    },
+    {
+        "name" : "Police",
+        "number" : "39"
+    },
+    {
+        "name" : "Psycological",
+        "number" : "40"
+    },
+    {
+        "name" : "Seinen",
+        "number" : "41"
+    },
+    {
+        "name" : "Josei",
+        "number" : "42"
+    },
+    {
+        "name" : "Doujinshi",
+        "number" : "43"
+    },
+    {
+        "name" : "Gender Bender",
+        "number" : "44"
+    },
+    {
+        "name" : "Thriller",
+        "number" : "45"
+    }
+]
