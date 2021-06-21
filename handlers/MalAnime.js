@@ -291,7 +291,7 @@ class MalAnime {
                 message.guild.me.displayHexColor === "#000000"
                 ? "#ffffff"
                 : message.guild.me.displayHexColor;
-                let get = await axios.get(`https://api.jikan.moe/v3/manga/${query}`);
+                let get = await axios.get(`https://api.jikan.moe/v3/anime/${query}`);
                 const linkmal = get.data.url;
 
                 //button
