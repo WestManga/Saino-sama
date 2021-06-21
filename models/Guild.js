@@ -107,6 +107,10 @@ const schema = mongoose.Schema({
             type: Boolean,
             default: "false"
         },
+        give: {
+            type: Boolean,
+            default: "false"
+        },
 	}
 });
 

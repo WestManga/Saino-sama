@@ -68,6 +68,18 @@ module.exports = {
                     message.delete()
                     message.channel.send('Penukaran saldo saat ini ditutup karena slot penuh!')
                 })
+            } else
+            if (cmd === 'give') {
+                if (dataguild.active.give === false) {
+                    message.delete();
+                    return message.channel.send('Transfer saldo ke sesama member sedang di disable');
+                }
+
+                dataguild.active.give = value;
+                dataguild.save().then(() => {
+                    message.delete()
+                    message.channel.send('Transfer saldo ke sesama member ditutup')
+                })
             }
         } catch (err) {
         console.log(err)

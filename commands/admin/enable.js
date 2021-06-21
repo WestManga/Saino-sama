@@ -80,6 +80,18 @@ module.exports = {
                     message.delete()
                     message.channel.send('Penukaran saat ini telah dibuka kembali, silahkan melakukan penukaran!')
                 })
+            } else
+            if (cmd === 'give') {
+                if (dataguild.active.give === true) {
+                    message.delete();
+                    return message.channel.send('Transfer saldo ke sesama member sedang di buka');
+                }
+
+                dataguild.active.give = value;
+                dataguild.save().then(() => {
+                    message.delete()
+                    message.channel.send('Transfer saldo ke sesama member saat ini dibuka')
+                })
             }
         } catch (err) {
         console.log(err)
