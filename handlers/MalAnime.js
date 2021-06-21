@@ -311,7 +311,7 @@ class MalAnime {
                 let embed = new Discord.MessageEmbed()
                     .setColor(roleColor)
                     .setTitle(this.client.util.truncate(get.data.title))
-                    .setURL(linkanime)
+                    .setURL(linkmal)
                     .setDescription(this.client.util.truncate(get.data.synopsis ?? `Sinopsis tidak tersedia`))
                     .setThumbnail(get.data.image_url)
                     .addField('📁 Type', `${get.data.type ?? `??`}`, true)
