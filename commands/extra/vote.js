@@ -25,8 +25,8 @@ module.exports = {
       await vote_send.react("👍");
       await vote_send.react("👎");
 
-      const yes = (reaction, user) => reaction.emoji.name == "👍" && user.id === message.author.id;
-      const no = (reaction, user) => reaction.emoji.name == "👎" && user.id === message.author.id;
+      const yes = (reaction) => reaction.emoji.name == "👍";
+      const no = (reaction) => reaction.emoji.name == "👎";
 
       vote_send
         .awaitReactions(yes, { time: 60000 })
