@@ -23,12 +23,11 @@ module.exports = {
         }
         catch (err) {
             console.error("error: ", err);
-            return;
         }
     }
     if (!dbUser) {
         dbUser = user;
-        return message.reply('Kamu belum bergabung dengan clan!');
+        message.reply('Kamu belum bergabung dengan clan!');
     }
     const prettifiedUser = await prettifyUser(message, dbUser, avatar);
     message.channel.send(prettifiedUser);
