@@ -9,10 +9,8 @@ module.exports = {
   aliases:['tlb'],
   cooldown:1000,
   run: async(message) => {
-    let author = message.author.id;
-    if (!author.hasPermission("ADMINISTRATOR")) {
-        return message.reply('Siapa anda?');
-    }
+    let author = message.guild.members.cache.get(message.author.id);
+    if (!author.hasPermission('ADMINISTRATOR')) return message.channel.send("You dont have permission for used this command!");
 
     const { guild, channel } = message;
     const guildId = guild.id;
