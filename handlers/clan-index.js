@@ -26,7 +26,7 @@ const prettifyUser = async (message, user, avatar) => {
 		);
 
 	if (avatar) {
-		embedUser.setThumbnail(avatar);
+		embedUser.setThumbnail(clanlogo);
 	}
 
 	return embedUser;
