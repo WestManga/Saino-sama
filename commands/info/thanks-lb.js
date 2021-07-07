@@ -9,7 +9,7 @@ module.exports = {
   aliases:['tlb'],
   cooldown:1000,
   run: async(message) => {
-    let author = message.guild.members.cache.get(message.author.id);
+    let author = message.author.id;
     if (!author.hasPermission("ADMINISTRATOR")) {
         return message.reply('Siapa anda?');
     }
