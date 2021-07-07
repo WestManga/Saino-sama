@@ -8,7 +8,7 @@ module.exports = {
   usage:'',
   aliases:['tlb'],
   cooldown:1000,
-  run: async(message) => {
+  run: async(client, message, args) => {
     let author = message.guild.members.cache.get(message.author.id);
     if (!author.hasPermission('ADMINISTRATOR')) return message.channel.send("You dont have permission for used this command!");
 
