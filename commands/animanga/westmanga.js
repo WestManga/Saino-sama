@@ -13,18 +13,24 @@ module.exports = {
         if (!type) {
           let embed = new Discord.MessageEmbed()
           .setColor(process.env.COLOR)
-          .setDescription('Gunakan tambahan s untuk mencari..')
+          .setDescription('Pilihan untuk type adalah\n1. popular\n2. lastpj\n3. search\nGunakan dengan command, contoh `k.wm search <yg mau dicari>` atau `k.wm lastpj`')
           let warning = await message.channel.send({embed: embed});
-          warning.delete({ timeout: 5000 });
+          warning.delete({ timeout: 15000 });
         }
         
         if (type.toLowerCase() === 'popular') {
           await client.westmanga.getPopular(message);
         } else
-        if (type.toLowerCase() === 'lastpjupdate', 'lastpj') {
+        if (type.toLowerCase() === 'lastpj') {
           await client.westmanga.getPJUpdate(message);
         } else
-        if (type.toLowerCase() === 'search', 's') {
+        if (type.toLowerCase() === 's') {
+          let query = args.slice(1).join(' ');
+          if (!query) return message.reply('masukin keyword yang mau dicari dulu, baka!');
+
+          await client.westmanga.getSearch(query, message);
+        } else
+        if (type.toLowerCase() === 'search') {
           let query = args.slice(1).join(' ');
           if (!query) return message.reply('masukin keyword yang mau dicari dulu, baka!');
 
