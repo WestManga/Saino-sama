@@ -24,6 +24,16 @@ const simpleSupporterTitle = (subscription) => {
 	return pangkat;
 }
 
+const statusPTC = (status) => {
+
+	const titles = {
+		true: `Aktif`,
+		false: `Tidak Aktif`,
+	};
+	const title = titles[status] ? titles[status] : "Unknowed";
+	return title;
+}
+
 const generateTip = ()=> {
 	let string = "Tip: ";
 	const strings = [
@@ -38,4 +48,4 @@ const generateTip = ()=> {
 	return string;
 };
 
-module.exports = { determineSupporterTitle, generateTip, simpleSupporterTitle };
+module.exports = { determineSupporterTitle, generateTip, simpleSupporterTitle, statusPTC };
