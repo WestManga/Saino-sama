@@ -90,6 +90,16 @@ const schema = mongoose.Schema({
         type: String,
         default: ''
     },
+    budget: {
+        type: Number,
+        default: '1'
+    },
+    role: {
+        kosuke: {
+            type: String,
+            default: ''
+        },
+    },
     active: {
 		welcome: {
             type: Boolean,
