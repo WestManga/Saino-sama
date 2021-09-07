@@ -67,6 +67,7 @@ module.exports = {
     let dataguild = await Guild.findOne({
       guildID: message.guild.id,
     });
+    let budget = dataguild.budget;
     let convertch = client.channels.cache.get(dataguild.convertChannel);
     if (!convertch) {
       return message.channel
@@ -79,7 +80,7 @@ module.exports = {
     if (dataguild.active.convert === false) {
       message.delete();
       return message.channel
-        .send("Saat ini list convert sudah penuh, tunggu slot kosong ya!")
+        .send("Saat ini convert saldo sedang ditutup!!")
         .then((m) => m.delete({ timeout: 10000 }));
     }
 
@@ -95,6 +96,11 @@ module.exports = {
           return message.channel
             .send(`Saldo kamu kurang men!\nSaldo kamu hanya Rp.${saldoku}`)
             .then((m) => m.delete({ timeout: 10000 }));
+        if (budget < nominal)
+          return message.channel
+          .send(`Saldo server saat ini kurang untuk memproses permintaan kamu!\nSaat ini server hanya mempunyai Rp.${budget}`)
+          .then((m) => m.delete({ timeout: 10000 }));
+
         let tanggal = new Date();
 
         let embednotif = new Discord.MessageEmbed()
@@ -124,7 +130,9 @@ module.exports = {
             .addField("Status", "On Waiting List")
         );
         datauser.money -= nominal;
+        dataguild.budget -= nominal;
         datauser.save();
+        dataguild.save();
         message.delete();
         message
           .reply(
@@ -142,6 +150,11 @@ module.exports = {
           return message.channel
             .send(`Saldo kamu kurang men!\nSaldo kamu hanya Rp.${saldoku}`)
             .then((m) => m.delete({ timeout: 10000 }));
+        if (budget < nominal)
+          return message.channel
+          .send(`Saldo server saat ini kurang untuk memproses permintaan kamu!\nSaat ini server hanya mempunyai Rp.${budget}`)
+          .then((m) => m.delete({ timeout: 10000 }));
+
         let tanggal = new Date();
 
         let embednotif = new Discord.MessageEmbed()
@@ -171,7 +184,9 @@ module.exports = {
             .addField("Status", "On Waiting List")
         );
         datauser.money -= nominal;
+        dataguild.budget -= nominal;
         datauser.save();
+        dataguild.save();
         message.delete();
         message
           .reply(
