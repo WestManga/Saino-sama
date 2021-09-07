@@ -66,7 +66,7 @@ module.exports = {
                 dataguild.active.convert = value;
                 dataguild.save().then(() => {
                     message.delete()
-                    message.channel.send('Penukaran saldo saat ini ditutup karena slot penuh!')
+                    message.channel.send('Penukaran saldo saat ini ditutup!')
                 })
             } else
             if (cmd === 'give') {
