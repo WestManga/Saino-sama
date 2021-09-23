@@ -8,6 +8,7 @@ module.exports = {
   aliases:[''],
   cooldown:1000,
   run: async(client, message, args) => {
+    message.delete();
     let member = message.mentions.users.first() || messsage.guild.members.cache.get(args[0]);
     let author = message.guild.members.cache.get(message.author.id);
     if (!author.hasPermission('ADMINISTRATOR')) return message.channel.send("You dont have permission for used this command!");
@@ -50,8 +51,12 @@ module.exports = {
       .setTitle('Penambahan Point Quest')
       .addField('Admin', message.author.username, true)
       .addField('Penerima', member.username, true)
-      .addField('Jumlah Point', number)
       moneylog.send({ embed: notifadmin })
+
+      let notifmember = new Discord.MessageEmbed()
+      .setColor(process.env.COLOR)
+      .setDescription(`Selamat kamu telah berhasil menyelesaikan sebuah quest!!!`)
+      member.send({ embed: notifmember })
     } else
     if (args[1].toLowerCase() === 'take') {
       const number = args[2];
@@ -63,7 +68,7 @@ module.exports = {
         return message.channel
           .send("Kamu harus memasukan nominal dalam angka!")
           .then((m) => m.delete({ timeout: 5000 }));
-          
+
       data.questdone -= number;
       data.save();
 
