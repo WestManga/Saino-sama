@@ -95,6 +95,10 @@ const schema = mongoose.Schema({
     banner: {
         type: String,
         default: ''
+    },
+    questdone: {
+        type: Number,
+        default: '0'
     }
 });
 
