@@ -78,6 +78,7 @@ module.exports = {
       .addField("📧 Messages", `${data.messages || 0}`, inline)
       .addField("👮 Warn", `${data.warn || 0}/${process.env.WARN}`, inline)
       .addField("💤 Mute", `${data.muted || 0}/${process.env.WARN}`, inline)
+      .addField("📖 Quest Done", `${data.questdone || 0} Quest`, inline)
       .setImage(`${data.banner}`)
       .setFooter(
         generateTip(),
