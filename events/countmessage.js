@@ -6,7 +6,7 @@ const Guild = require("../models/Guild");
 const cooldown = new Set();
 
 function addToCooldown(ID) {
-  let cd = Math.floor(Math.random() * (10 - 10) + 10);
+  let cd = Math.floor(Math.random() * (60000 - 30000) + 60000);
   cooldown.add(ID);
   setTimeout(() => {
     cooldown.delete(ID);
